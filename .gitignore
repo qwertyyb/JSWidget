@@ -5,3 +5,8 @@ macOS/ScriptWidgetMac.xcodeproj/xcuserdata/
 macOS/ScriptWidgetMac.xcodeproj/project.xcworkspace/xcuserdata/
 web-xnuapp/
 aa/
+node_modules/
+.vitepress/dist/
+.vitepress/cache/
+docs-site/.vitepress/dist/
+docs-site/.vitepress/cache/

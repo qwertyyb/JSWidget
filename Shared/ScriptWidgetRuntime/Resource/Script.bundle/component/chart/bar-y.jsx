@@ -17,7 +17,7 @@ $render(
       type="bar-y" // required
       data={$json(data)} // required
       category={true}
-      padding="20" // optional , general
+      padding={20} // optional , general
       >
     </chart>
   </vstack>

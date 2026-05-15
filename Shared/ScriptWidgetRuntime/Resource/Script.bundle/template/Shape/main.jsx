@@ -9,8 +9,8 @@
 
 
 $render(
-  <vstack frame="max" animation="clockCustom,20">
-    <rect frame="20,60" color="blue" corner="5"></rect>
-    <rect frame="20,60" color="red" corner="5"></rect>
+  <vstack frame="max" animation={{type: "clock", interval: 20}}>
+    <rect frame={{width: 20, height: 60}} color="blue" corner="5"></rect>
+    <rect frame={{width: 20, height: 60}} color="red" corner="5"></rect>
   </vstack>
 );

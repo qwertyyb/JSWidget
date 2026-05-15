@@ -9,155 +9,93 @@ import Foundation
 import SwiftUI
 
 /*
- 
  frame="max"
- frame="max,topLeading"
- frame="10,20"
- frame="10,20,topLeading"
- 
- frame="max,20"
- frame="10,max"
- frame="max,20,topLeading"
- frame="10,max,topLeading"
+ frame={{width: 100, height: 50}}
+ frame={{width: 100, height: 50, alignment: "topLeading"}}
+ frame={{maxWidth: "infinity", height: 50}}
+ frame={{maxWidth: "infinity", maxHeight: "infinity", alignment: "center"}}
  */
 struct ScriptWidgetAttributeFrameModifier: ViewModifier {
     
-    
-    enum AttributeFrameMode {
-        /*
-         nothing, no effect
-         */
+    enum FrameMode {
         case none
-        /*
-         max,topLeading
-         */
-        case max_alignment
-        
-        /*
-         10,20
-         10,20,topLeading
-         */
-        case width_height_alignment
-        
-        /*
-         frame="10,max"
-         frame="10,max,topLeading"
-         */
-        case width_alignment
-        
-        /*
-         frame="max,20"
-         frame="max,20,topLeading"
-         */
-        case height_alignment
+        case max(alignment: Alignment)
+        case fixed(width: CGFloat?, height: CGFloat?, alignment: Alignment)
+        case flexible(minWidth: CGFloat?, maxWidth: CGFloat?, minHeight: CGFloat?, maxHeight: CGFloat?, alignment: Alignment)
     }
     
-    let frameMode: AttributeFrameMode
-    let alignment: Alignment
-    let width: CGFloat
-    let height: CGFloat
+    let frameMode: FrameMode
     
     init(_ element: ScriptWidgetRuntimeElement) {
-        var frameMode: AttributeFrameMode = .none
-        var alignment: Alignment = .center
-        var width: CGFloat = 0
-        var height: CGFloat = 0
-        
-        if let frameValue = element.getPropString("frame") {
-            let parts = frameValue.split(separator: ",")
-            if parts.count == 1 {
-//                frame="max"
-                if frameValue == "max" {
-                    frameMode = .max_alignment
-                }
-            } else if parts.count == 2 {
-                let part1 = String(parts[0])
-                let part2 = String(parts[1])
-                
-                if let widthValue = Double(part1), let heightValue = Double(part2) {
-//                    frame="10,20"
-                    width = CGFloat(widthValue)
-                    height = CGFloat(heightValue)
-                    frameMode = .width_height_alignment
-                } else {
-                    if part1 == "max" {
-//                        frame="max,20"
-                        if let heightValue = Double(part2) {
-                            height = CGFloat(heightValue)
-                            frameMode = .height_alignment
-                        } else {
-//                        frame="max,topLeading"
-                            alignment = ScriptWidgetAttributeFrameModifier.getAligmentFromName(part2)
-                            frameMode = .max_alignment
-                        }
-                    }
-                    
-                    if part2 == "max" {
-//                        frame="10,max"
-                        if let widthValue = Double(part1) {
-                            width = CGFloat(widthValue)
-                            frameMode = .width_alignment
-                        }
-                    }
-                }
-            } else if parts.count == 3 {
-                let part1 = String(parts[0])
-                let part2 = String(parts[1])
-                let part3 = String(parts[2])
-                
-                if let widthValue = Double(part1), let heightValue = Double(part2) {
-//                frame="10,20,topLeading"
-                    width = CGFloat(widthValue)
-                    height = CGFloat(heightValue)
-                    alignment = ScriptWidgetAttributeFrameModifier.getAligmentFromName(part3)
-                    frameMode = .width_height_alignment
-                }
-                
-                if part1 == "max" {
-//                    frame="max,20,topLeading"
-                    if let heightValue = Double(part2) {
-                        height = CGFloat(heightValue)
-                        alignment = ScriptWidgetAttributeFrameModifier.getAligmentFromName(part3)
-                        frameMode = .height_alignment
-                    }
-                }
-                
-                if part2 == "max" {
-//                    frame="10,max,topLeading"
-                    if let widthValue = Double(part1) {
-                        width = CGFloat(widthValue)
-                        frameMode = .width_alignment
-                        alignment = ScriptWidgetAttributeFrameModifier.getAligmentFromName(part3)
-                    }
-                }
+        switch element.getPropValue("frame") {
+        case .string(let value):
+            if value == "max" {
+                self.frameMode = .max(alignment: .center)
+            } else {
+                self.frameMode = .none
             }
+        case .dict(let dict):
+            self.frameMode = ScriptWidgetAttributeFrameModifier.parseDictFrame(dict)
+        case .number, nil:
+            self.frameMode = .none
         }
-        self.frameMode = frameMode
-        self.alignment = alignment
-        self.width = width
-        self.height = height
+    }
+    
+    private static func parseDictFrame(_ dict: [String: Any]) -> FrameMode {
+        let alignment = getAlignmentFromName(dict["alignment"] as? String ?? "center")
+        
+        let hasMax = dict["maxWidth"] != nil || dict["maxHeight"] != nil
+        let hasMin = dict["minWidth"] != nil || dict["minHeight"] != nil
+        
+        if hasMax || hasMin {
+            let minWidth = dimensionValue(dict["minWidth"])
+            let maxWidth = dimensionValue(dict["maxWidth"])
+            let minHeight = dimensionValue(dict["minHeight"])
+            let maxHeight = dimensionValue(dict["maxHeight"])
+            return .flexible(minWidth: minWidth, maxWidth: maxWidth, minHeight: minHeight, maxHeight: maxHeight, alignment: alignment)
+        }
+        
+        let width = numberValue(dict["width"])
+        let height = numberValue(dict["height"])
+        
+        if width != nil || height != nil {
+            return .fixed(width: width, height: height, alignment: alignment)
+        }
+        
+        return .none
+    }
+    
+    private static func dimensionValue(_ value: Any?) -> CGFloat? {
+        guard let value = value else { return nil }
+        if let str = value as? String, str == "infinity" {
+            return .infinity
+        }
+        if let num = value as? NSNumber {
+            return CGFloat(num.doubleValue)
+        }
+        return nil
+    }
+    
+    private static func numberValue(_ value: Any?) -> CGFloat? {
+        guard let num = value as? NSNumber else { return nil }
+        return CGFloat(num.doubleValue)
     }
     
     @ViewBuilder
     func body(content: Content) -> some View {
-        if frameMode == .some(.max_alignment){
+        switch frameMode {
+        case .none:
             content
-                .frame(minWidth: 0, maxWidth: .infinity, minHeight: 0, maxHeight: .infinity, alignment: alignment)
-        } else if frameMode == .some(.width_height_alignment) {
-            content
-                .frame(width: width, height: height, alignment: alignment)
-        } else if frameMode == .some(.width_alignment) {
-            content
-                .frame(width: width, alignment: alignment)
-        } else if frameMode == .some(.height_alignment) {
-            content
-                .frame(height: height, alignment: alignment)
-        } else {
-            content
+        case .max(let alignment):
+            content.frame(minWidth: 0, maxWidth: .infinity, minHeight: 0, maxHeight: .infinity, alignment: alignment)
+        case .fixed(let width, let height, let alignment):
+            content.frame(width: width, height: height, alignment: alignment)
+        case .flexible(let minWidth, let maxWidth, let minHeight, let maxHeight, let alignment):
+            content.frame(minWidth: minWidth, maxWidth: maxWidth, minHeight: minHeight, maxHeight: maxHeight, alignment: alignment)
         }
     }
     
-    static func getAligmentFromName(_ name: String) -> Alignment {
+    static func getAlignmentFromName(_ name: String) -> Alignment {
         switch name {
         case "center": return .center
         case "leading": return .leading

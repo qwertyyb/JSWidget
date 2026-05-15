@@ -8,14 +8,14 @@
 /*
 
  frame="max"
- frame="max,topLeading"
- frame="10,20"
- frame="10,20,topLeading"
+ frame={{maxWidth: "infinity", maxHeight: "infinity", alignment: "topLeading"}}
+ frame={{width: 10, height: 20}}
+ frame={{width: 10, height: 20, alignment: "topLeading"}}
  
- frame="max,20"
- frame="10,max"
- frame="max,20,topLeading"
- frame="10,max,topLeading"
+ frame={{maxWidth: "infinity", height: 20}}
+ frame={{width: 10, maxHeight: "infinity"}}
+ frame={{maxWidth: "infinity", height: 20, alignment: "topLeading"}}
+ frame={{width: 10, maxHeight: "infinity", alignment: "topLeading"}}
 
 
  the "topLeading" represent alignment, could be one of the values below:
@@ -31,7 +31,7 @@
 */
 $render(
   <vstack frame="max">
-    <rect frame="50,30" color="green"></rect>
-    <rect frame="50,30" color="blue" corner="5"></rect>
+    <rect frame={{width: 50, height: 30}} color="green"></rect>
+    <rect frame={{width: 50, height: 30}} color="blue" corner="5"></rect>
   </vstack>
 );

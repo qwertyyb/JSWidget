@@ -11,21 +11,25 @@ import SwiftUI
 
 struct ScriptWidgetAttributeBackgroundModifier: ViewModifier {
     
-    let color: ScriptWidgetAttributeColor
+    let backgroundColor: Color?
+    let backgroundGradient: AnyView?
     
     init(_ element: ScriptWidgetRuntimeElement) {
-        if let backgroundValue = element.getPropString("background")  {
-            color = ScriptWidgetAttributeColor(backgroundValue)
+        let colorRawValue = element.props?["backgroundColor"]
+        self.backgroundColor = ScriptWidgetAttributeColor(colorRawValue).color
+        
+        if let gradientDict = element.getPropDict("backgroundGradient") {
+            self.backgroundGradient = ScriptWidgetElementGradient.getGradientFromDict(gradientDict)
         } else {
-            color = ScriptWidgetAttributeColor()
+            self.backgroundGradient = nil
         }
     }
     
     @ViewBuilder
     func body(content: Content) -> some View {
-        if let backgroundColor = self.color.color {
-            content.background(backgroundColor)
-        } else if let gradient = self.color.gradient {
+        if let color = self.backgroundColor {
+            content.background(color)
+        } else if let gradient = self.backgroundGradient {
             content.background(gradient)
         } else {
             content

@@ -44,22 +44,22 @@ let linearGradient = {
   endPoint: "bottom",
 };
 $render(
-  <vstack background={$gradient(linearGradient)} frame="max" alignment="top">
+  <vstack backgroundGradient={linearGradient} frame="max" alignment="top">
     <hstack alignment="leading">
       <text font="body">  🛟</text>
       <spacer />
     </hstack>
     <hstack alignment="leading">
       <text font="body">  🪼        🐟    🐠         🫧</text>
-      <text font="body" animation={$animation(fishVertical)}>🐠</text>
+      <text font="body" animation={fishVertical}>🐠</text>
       <text font="body">         🫧</text>
       <spacer />
     </hstack>
     <hstack alignment="leading">
       <text font="body">  🫧</text>
       <text font="body">       </text>
-      <text font="body" animation={$animation(bubbleVertical)}>🫧</text>
-      <text font="body" animation={$animation(fishHorizontal)}>🐡🐡</text>
+      <text font="body" animation={bubbleVertical}>🫧</text>
+      <text font="body" animation={fishHorizontal}>🐡🐡</text>
       <spacer />
     </hstack>
     <hstack alignment="leading">

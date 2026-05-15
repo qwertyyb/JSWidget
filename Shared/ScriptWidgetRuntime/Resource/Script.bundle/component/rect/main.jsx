@@ -7,7 +7,7 @@
 
 $render(
   <vstack frame="max">
-    <rect frame="50,30" color="blue"></rect>
-    <rect frame="50,30" color="blue" corner="5"></rect>
+    <rect frame={{width: 50, height: 30}} color="blue"></rect>
+    <rect frame={{width: 50, height: 30}} color="blue" corner="5"></rect>
   </vstack>
 );

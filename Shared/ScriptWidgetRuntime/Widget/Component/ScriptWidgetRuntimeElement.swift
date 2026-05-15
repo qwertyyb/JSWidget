@@ -17,6 +17,12 @@ import JavaScriptCore
 
 }
 
+public enum AttributeValue {
+    case string(String)
+    case number(Double)
+    case dict([String: Any])
+}
+
 @objc public class ScriptWidgetRuntimeElement: NSObject, ScriptWidgetRuntimeElementExports, Identifiable {
     dynamic var tag: JSValue
     dynamic var props: [AnyHashable:Any]?
@@ -132,11 +138,30 @@ import JavaScriptCore
     public func getPropDouble(_ key: String) -> Double? {
         guard let props = self.props else { return nil }
         if let value = props[key] as? Double { return value }
+        if let value = props[key] as? NSNumber { return value.doubleValue }
         if let value = props[key] as? String {
             if let doubleValue = Double(value) {
                 return doubleValue
             }
         }
+        return nil
+    }
+    
+    public func getPropDict(_ key: String) -> [String: Any]? {
+        guard let props = self.props else { return nil }
+        return props[key] as? [String: Any]
+    }
+    
+    public func getPropValue(_ key: String) -> AttributeValue? {
+        guard let props = self.props else { return nil }
+        if let dict = props[key] as? [String: Any] { return .dict(dict) }
+        if let num = props[key] as? NSNumber {
+            if CFBooleanGetTypeID() == CFGetTypeID(num) {
+                return nil
+            }
+            return .number(num.doubleValue)
+        }
+        if let str = props[key] as? String { return .string(str) }
         return nil
     }
     

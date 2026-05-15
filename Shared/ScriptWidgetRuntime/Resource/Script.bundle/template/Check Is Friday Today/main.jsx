@@ -17,11 +17,11 @@ let linearGradient = {
 
 $render(
   <vstack
-    background={$gradient(linearGradient)}
-    frame="max,leading"
+    backgroundGradient={linearGradient}
+    frame={{maxWidth: "infinity", maxHeight: "infinity", alignment: "leading"}}
     alignment="leading"
   >
-    <hstack padding="10">
+    <hstack padding={10}>
       <vstack alignment="leading">
         <text font="body" color="black">
           {d.getFullYear()}-{d.getMonth() + 1}-{d.getDate()}
@@ -33,7 +33,7 @@ $render(
       <spacer />
     </hstack>
     <spacer />
-    <text font="largeTitle" color="black" padding="10">
+    <text font="largeTitle" color="black" padding={10}>
       {n == 5 ? "Yes😊" : "No🤔"}
     </text>
   </vstack>

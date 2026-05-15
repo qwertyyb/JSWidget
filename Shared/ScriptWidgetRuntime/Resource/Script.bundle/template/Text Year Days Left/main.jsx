@@ -13,7 +13,7 @@ var perDay = 1000 * 60 * 60 * 24;
 var leftDays = Math.ceil((lastDay.getTime() - today.getTime()) / perDay);
 
 $render(
-  <vstack background="red" frame="max">
+  <vstack backgroundColor="red" frame="max">
     <text font="title3" color="white">
       今年还剩
     </text>

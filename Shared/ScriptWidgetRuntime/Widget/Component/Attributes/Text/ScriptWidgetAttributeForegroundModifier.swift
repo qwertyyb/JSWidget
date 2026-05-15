@@ -27,14 +27,11 @@ extension View {
 
 struct ScriptWidgetAttributeForegroundModifier: ViewModifier {
     
-    let color: ScriptWidgetAttributeColor
+    let color: Color?
     
     init(_ element: ScriptWidgetRuntimeElement, colorField: String) {
-        if let foregroundValue = element.getPropString(colorField) {
-            color = ScriptWidgetAttributeColor(foregroundValue)
-        } else {
-            color = ScriptWidgetAttributeColor()
-        }
+        let rawValue = element.props?[colorField]
+        self.color = ScriptWidgetAttributeColor(rawValue).color
     }
     
     init(_ element: ScriptWidgetRuntimeElement) {
@@ -43,14 +40,11 @@ struct ScriptWidgetAttributeForegroundModifier: ViewModifier {
     
     @ViewBuilder
     func body(content: Content) -> some View {
-        if let foregroundColor = self.color.color {
+        if let foregroundColor = self.color {
             content.foregroundColor(foregroundColor)
-        } else if let gradient = self.color.gradient {
-            content.gradientForeground(gradient)
         } else {
             content
         }
     }
     
 }
-

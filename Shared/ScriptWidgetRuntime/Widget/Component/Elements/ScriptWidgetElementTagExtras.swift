@@ -196,11 +196,10 @@ class ScriptWidgetElementTagBadge {
     static func buildView(_ element: ScriptWidgetRuntimeElement, _ context: ScriptWidgetElementContext) -> AnyView {
         let text = element.getPropString("text") ?? textFromElement(element)
         let radius = CGFloat(element.getPropDouble("radius") ?? 6)
-        let hasBackground = element.getPropString("background") != nil
+        let hasBackground = element.props?["backgroundColor"] != nil
         let defaultBackground = ScriptWidgetAttributeColor("#0f172a").color ?? Color.black
         let defaultColor = ScriptWidgetAttributeColor("#e2e8f0").color ?? Color.white
-        let colorValue = element.getPropString("color")
-        let color = colorValue != nil ? ScriptWidgetAttributeColor(colorValue!).color : defaultColor
+        let color = ScriptWidgetAttributeColor(element.props?["color"]).color ?? defaultColor
 
         let base = Text(text)
             .font(.caption2)
@@ -226,13 +225,12 @@ class ScriptWidgetElementTagChip {
     static func buildView(_ element: ScriptWidgetRuntimeElement, _ context: ScriptWidgetElementContext) -> AnyView {
         let text = element.getPropString("text") ?? textFromElement(element)
         let radius = CGFloat(element.getPropDouble("radius") ?? 14)
-        let hasBackground = element.getPropString("background") != nil
+        let hasBackground = element.props?["backgroundColor"] != nil
         let defaultBackground = ScriptWidgetAttributeColor("#f1f5f9").color ?? Color.gray.opacity(0.2)
         let defaultColor = ScriptWidgetAttributeColor("#0f172a").color ?? Color.black
         let borderValue = element.getPropString("borderColor") ?? "#cbd5f5"
         let borderColor = ScriptWidgetAttributeColor(borderValue).color ?? Color.gray
-        let colorValue = element.getPropString("color")
-        let color = colorValue != nil ? ScriptWidgetAttributeColor(colorValue!).color : defaultColor
+        let color = ScriptWidgetAttributeColor(element.props?["color"]).color ?? defaultColor
 
         let base = Text(text)
             .font(.caption)

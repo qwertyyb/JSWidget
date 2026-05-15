@@ -567,8 +567,8 @@ let linearGradient = {
 
 $render(
     <vstack
-        background={$gradient(linearGradient)}
-        frame="max,center"
+        backgroundGradient={linearGradient}
+        frame={{maxWidth: "infinity", maxHeight: "infinity", alignment: "center"}}
     >
         <hstack>
             <text font="title2">{today.Animal} 年</text>

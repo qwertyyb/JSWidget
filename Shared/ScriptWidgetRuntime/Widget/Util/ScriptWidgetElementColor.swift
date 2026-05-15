@@ -21,28 +21,27 @@ extension Color {
 struct ScriptWidgetAttributeColor {
     
     let color: Color?
-    let gradient: AnyView?
-    
     
     init() {
         self.color = nil
-        self.gradient = nil
     }
     
     init(_ colorValue: String) {
-        
-        var color: Color? = nil
-        var gradient: AnyView? = nil
-        
-        // gradient
-        if colorValue.hasPrefix("gradient:") {
-            gradient = (ScriptWidgetElementGradient.getGradient(colorValue) as! AnyView)
-        } else {
-            color = ScriptWidgetAttributeColor.getColorFromColorValue(colorValue)
+        self.color = ScriptWidgetAttributeColor.getColorFromColorValue(colorValue)
+    }
+    
+    init(_ colorValue: Any?) {
+        guard let colorValue = colorValue else {
+            self.color = nil
+            return
         }
-        
-        self.color = color
-        self.gradient = gradient
+        if let str = colorValue as? String {
+            self.color = ScriptWidgetAttributeColor.getColorFromColorValue(str)
+        } else if let dict = colorValue as? [String: Any] {
+            self.color = ScriptWidgetAttributeColor.getColorFromDict(dict)
+        } else {
+            self.color = nil
+        }
     }
     
     static func getThemeDynamicColor(light: Color, dark: Color) -> Color {
@@ -53,86 +52,84 @@ struct ScriptWidgetAttributeColor {
         }
     }
     
-    static func getColorFromColorValue(_ colorValue: String) -> Color? {
-        var color: Color? = nil
-
-        // color string
-        let parts = colorValue.split(separator: ",")
-        if parts.count == 1 {
-            // #ff0000
-            // red
-            if colorValue.hasPrefix("#") {
-                color = Color(hex: colorValue)
-            } else {
-                color = ScriptWidgetAttributeColor.getBuiltinColorFromName(colorValue)
-            }
-        } else if (parts.count == 2) {
-            // #ff00ff,0.5
-            // red,0.5
-            let colorPart = String(parts[0])
-            let opacityPart = String(parts[1])
-            
-            var tmpColor: Color?
-            if colorPart.hasPrefix("#") {
-                tmpColor = Color(hex: colorPart)
-            } else {
-                tmpColor = ScriptWidgetAttributeColor.getBuiltinColorFromName(colorValue)
-            }
-            
-            if let opacity = Double(opacityPart) {
-                color = tmpColor?.opacity(opacity)
-            } else {
-                color = tmpColor
-            }
+    // { value: "red", opacity: 0.5 }
+    static func getColorFromDict(_ dict: [String: Any]) -> Color? {
+        guard let value = dict["value"] as? String else { return nil }
+        guard var color = getColorFromColorValue(value) else { return nil }
+        if let opacity = dict["opacity"] as? Double {
+            color = color.opacity(opacity)
+        } else if let opacity = dict["opacity"] as? NSNumber {
+            color = color.opacity(opacity.doubleValue)
         }
         return color
     }
     
-    static func getBuiltinColorFromName(_ name: String) -> Color? {
-        var color: Color?
-        switch name {
-        case "clear": color = .clear
-        case "black": color = .black
-        case "white": color = .white
-        case "gray": color = .gray
-        case "red": color = .red
-        case "green": color = .green
-        case "blue": color = .blue
-        case "orange": color = .orange
-        case "yellow": color = .yellow
-        case "pink": color = .pink
-        case "purple": color = .purple
-        case "primary": color = .primary
-        case "secondary": color = .secondary
-        default: color = nil
+    static func getColorFromColorValue(_ colorValue: String) -> Color? {
+        let trimmed = colorValue.trimmingCharacters(in: .whitespaces)
+        
+        if trimmed.hasPrefix("#") {
+            return Color(hex: trimmed)
         }
-        return color
+        
+        if trimmed.hasPrefix("rgb(") || trimmed.hasPrefix("rgba(") {
+            return Color.fromCSSFunction(trimmed)
+        }
+        
+        return getBuiltinColorFromName(trimmed)
+    }
+    
+    static func getBuiltinColorFromName(_ name: String) -> Color? {
+        switch name {
+        case "clear": return .clear
+        case "black": return .black
+        case "white": return .white
+        case "gray": return .gray
+        case "red": return .red
+        case "green": return .green
+        case "blue": return .blue
+        case "orange": return .orange
+        case "yellow": return .yellow
+        case "pink": return .pink
+        case "purple": return .purple
+        case "primary": return .primary
+        case "secondary": return .secondary
+        default: return nil
+        }
     }
 }
 
 extension Color {
     
-    
     /*
-     
-     #ffffff
-     #ffffffff
-     
-     RGB: RRGGBB
-     ARGB: AARRGGBB
+     Supported hex formats:
+     #RGB        -> 3-digit shorthand
+     #RGBA       -> 4-digit shorthand with alpha
+     #RRGGBB     -> 6-digit standard
+     #RRGGBBAA   -> 8-digit with alpha (CSS standard RGBA order)
      */
     init(hex: String) {
         let hex = hex.trimmingCharacters(in: CharacterSet.alphanumerics.inverted)
         var int: UInt64 = 0
         Scanner(string: hex).scanHexInt64(&int)
-        let a, r, g, b: UInt64
+        let r, g, b, a: UInt64
         switch hex.count {
-        case 6: // RGB (24-bit)
-            (a, r, g, b) = (255, int >> 16, int >> 8 & 0xFF, int & 0xFF)
-        case 8: // ARGB (32-bit)
-            (a, r, g, b) = (int >> 24, int >> 16 & 0xFF, int >> 8 & 0xFF, int & 0xFF)
+        case 3: // RGB (12-bit) -> expand to 24-bit
+            let rr = (int >> 8) & 0xF
+            let gg = (int >> 4) & 0xF
+            let bb = int & 0xF
+            (r, g, b, a) = (rr * 17, gg * 17, bb * 17, 255)
+        case 4: // RGBA (16-bit) -> expand to 32-bit
+            let rr = (int >> 12) & 0xF
+            let gg = (int >> 8) & 0xF
+            let bb = (int >> 4) & 0xF
+            let aa = int & 0xF
+            (r, g, b, a) = (rr * 17, gg * 17, bb * 17, aa * 17)
+        case 6: // RRGGBB (24-bit)
+            (r, g, b, a) = (int >> 16, int >> 8 & 0xFF, int & 0xFF, 255)
+        case 8: // RRGGBBAA (32-bit, CSS standard RGBA order)
+            (r, g, b, a) = (int >> 24, int >> 16 & 0xFF, int >> 8 & 0xFF, int & 0xFF)
         default:
-            (a, r, g, b) = (1, 1, 1, 1)
+            (r, g, b, a) = (0, 0, 0, 255)
         }
         
         self.init(
@@ -141,6 +138,42 @@ extension Color {
             green: Double(g) / 255,
             blue:  Double(b) / 255,
             opacity: Double(a) / 255
+        )
+    }
+    
+    // rgb(255, 0, 0) or rgba(255, 0, 0, 0.5)
+    static func fromCSSFunction(_ css: String) -> Color? {
+        let inner: String
+        if css.hasPrefix("rgba(") && css.hasSuffix(")") {
+            inner = String(css.dropFirst(5).dropLast(1))
+        } else if css.hasPrefix("rgb(") && css.hasSuffix(")") {
+            inner = String(css.dropFirst(4).dropLast(1))
+        } else {
+            return nil
+        }
+        
+        let parts = inner.split(separator: ",").map { $0.trimmingCharacters(in: .whitespaces) }
+        
+        guard parts.count >= 3,
+              let r = Double(parts[0]),
+              let g = Double(parts[1]),
+              let b = Double(parts[2]) else {
+            return nil
+        }
+        
+        let opacity: Double
+        if parts.count >= 4, let a = Double(parts[3]) {
+            opacity = a
+        } else {
+            opacity = 1.0
+        }
+        
+        return Color(
+            .sRGB,
+            red: r / 255,
+            green: g / 255,
+            blue: b / 255,
+            opacity: opacity
         )
     }
 }

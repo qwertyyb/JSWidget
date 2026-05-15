@@ -20,7 +20,7 @@ $render(
       type="bar-gantt" // required
       data={$json(data)} // required
       color="blue" // optional , default black
-      padding="20" // optional , general
+      padding={20} // optional , general
       >
     </chart>
   </vstack>

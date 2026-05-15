@@ -8,107 +8,65 @@
 import Foundation
 import SwiftUI
 
+/*
+ padding={10}
+ padding={{horizontal: 10, vertical: 20}}
+ padding={{top: 10, bottom: 20}}
+ padding={{top: 10, trailing: 20, bottom: 30, leading: 40}}
+ padding={{left: 10, right: 20}}
+ padding={{horizontal: 10, top: 5}}
+ */
 struct ScriptWidgetAttributePaddingModifier: ViewModifier {
     
-    let mode: Int
+    enum PaddingMode {
+        case none
+        case uniform(CGFloat)
+        case edges(top: CGFloat, leading: CGFloat, bottom: CGFloat, trailing: CGFloat)
+    }
     
-    // mode value = 1
-    let paddingAll: CGFloat
-    
-    // mode value = 2
-    let paddingEdgeType: Edge.Set
-    let paddingEdge: CGFloat
-    
-    // mode value = 4
-    let paddingTop: CGFloat
-    let paddingTrailing: CGFloat
-    let paddingBottom: CGFloat
-    let paddingLeading: CGFloat
+    let mode: PaddingMode
     
     init(_ element: ScriptWidgetRuntimeElement) {
-        var tmpMode: Int = 0
-        
-        // 1 mode
-        var tmpPaddingAll: CGFloat = 10
-        
-        // 2 mode
-        var tmpPaddingEdgeType: Edge.Set = .all
-        var tmpPaddingEdge: CGFloat = 10
-        
-        // 4 mode
-        var tmpPaddingTop: CGFloat = 10
-        var tmpPaddingTrailing: CGFloat = 10
-        var tmpPaddingBottom: CGFloat = 10
-        var tmpPaddingLeading: CGFloat = 10
-        
-        if let paddingValue = element.getPropString("padding")  {
-            
-            let parts = paddingValue.split(separator: ",")
-            if parts.count == 1 {
-                // 10
-                tmpMode = 1
-                tmpPaddingAll = CGFloat(Double(paddingValue) ?? 0)
-            } else if parts.count == 2 {
-                // top,10
-                tmpMode = 2
-                
-                let edgeValue = parts[0]
-                let numberValue = parts[1]
-                tmpPaddingEdge = CGFloat(Double(numberValue) ?? 0)
-
-                switch edgeValue {
-                case "top": tmpPaddingEdgeType = .top
-                case "leading": tmpPaddingEdgeType = .leading
-                case "bottom": tmpPaddingEdgeType = .bottom
-                case "trailing": tmpPaddingEdgeType = .trailing
-                case "all": tmpPaddingEdgeType = .all
-                case "horizontal": tmpPaddingEdgeType = .horizontal
-                case "vertical": tmpPaddingEdgeType = .vertical
-                default: tmpPaddingEdgeType = .all
-                }
-                
-            } else if parts.count == 4 {
-                // 10,20,30,40
-                tmpMode = 4
-                tmpPaddingTop = CGFloat(Double(parts[0]) ?? 0)
-                tmpPaddingTrailing = CGFloat(Double(parts[1]) ?? 0)
-                tmpPaddingBottom = CGFloat(Double(parts[2]) ?? 0)
-                tmpPaddingLeading = CGFloat(Double(parts[3]) ?? 0)
-            } else {
-                // error
-            }
+        switch element.getPropValue("padding") {
+        case .number(let value):
+            self.mode = .uniform(CGFloat(value))
+        case .dict(let dict):
+            self.mode = ScriptWidgetAttributePaddingModifier.parseDictPadding(dict)
+        case .string, nil:
+            self.mode = .none
         }
+    }
+    
+    private static func parseDictPadding(_ dict: [String: Any]) -> PaddingMode {
+        let h = numberValue(dict["horizontal"])
+        let v = numberValue(dict["vertical"])
         
-        mode = tmpMode
+        let top = numberValue(dict["top"]) ?? v ?? 0
+        let bottom = numberValue(dict["bottom"]) ?? v ?? 0
+        let leading = numberValue(dict["leading"]) ?? numberValue(dict["left"]) ?? h ?? 0
+        let trailing = numberValue(dict["trailing"]) ?? numberValue(dict["right"]) ?? h ?? 0
         
-        paddingAll = tmpPaddingAll
-        
-        paddingEdgeType = tmpPaddingEdgeType
-        paddingEdge = tmpPaddingEdge
-        
-        paddingTop = tmpPaddingTop
-        paddingTrailing = tmpPaddingTrailing
-        paddingBottom = tmpPaddingBottom
-        paddingLeading = tmpPaddingLeading
-        
+        return .edges(top: top, leading: leading, bottom: bottom, trailing: trailing)
+    }
+    
+    private static func numberValue(_ value: Any?) -> CGFloat? {
+        guard let num = value as? NSNumber else { return nil }
+        return CGFloat(num.doubleValue)
     }
     
     @ViewBuilder
     func body(content: Content) -> some View {
-        if mode == 1 {
+        switch mode {
+        case .none:
             content
-                .padding(paddingAll)
-        } else if mode == 2 {
+        case .uniform(let value):
+            content.padding(value)
+        case .edges(let top, let leading, let bottom, let trailing):
             content
-                .padding(paddingEdgeType, paddingEdge)
-        } else if mode == 4 {
-            content
-                .padding(.top, paddingTop)
-                .padding(.trailing, paddingTrailing)
-                .padding(.bottom, paddingBottom)
-                .padding(.leading, paddingLeading)
-        } else {
-            content
+                .padding(.top, top)
+                .padding(.leading, leading)
+                .padding(.bottom, bottom)
+                .padding(.trailing, trailing)
         }
     }
     

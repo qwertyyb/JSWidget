@@ -24,27 +24,21 @@ extension Shape {
         var from: CGFloat?
         var to: CGFloat = 1.0
         
-        if let trimValue = element.getPropDouble("trim") {
-            from = CGFloat(trimValue)
-        } else if let trimValue = element.getPropString("trim") {
-            let parts = trimValue.components(separatedBy: ",")
-            if parts.count == 1 {
-                if let dvalue = Double(trimValue) {
-                    if dvalue <= 1.0 && dvalue >= 0.0 {
-                        from = CGFloat(dvalue)
-                    }
-                }
-            } else if parts.count == 2 {
-                if let one = Double(parts[0]), let two = Double(parts[1]) {
-                    from = CGFloat(one)
-                    to = CGFloat(two)
-                }
-            } else {
-                // nothing
+        switch element.getPropValue("trim") {
+        case .number(let value):
+            if value >= 0.0 && value <= 1.0 {
+                from = CGFloat(value)
             }
+        case .dict(let dict):
+            if let f = dict["from"] as? NSNumber {
+                from = CGFloat(f.doubleValue)
+            }
+            if let t = dict["to"] as? NSNumber {
+                to = CGFloat(t.doubleValue)
+            }
+        case .string, nil:
+            break
         }
-        
-        
         
         if let from = from {
             return AnyShape(self.trim(from: from, to: to))

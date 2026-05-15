@@ -20,14 +20,14 @@ var days = a.diff(b, 'days');
 
 $render(
   <vstack
-    background={$gradient(linearGradient)}
-    frame="max,center"
+    backgroundGradient={linearGradient}
+    frame={{maxWidth: "infinity", maxHeight: "infinity", alignment: "center"}}
   >
-    <text font="largeTitle" color="black" padding="10">
+    <text font="largeTitle" color="black" padding={10}>
         { days + " Days"}
     </text>
 
-    <text font="caption" color="black" padding="0">
+    <text font="caption" color="black" padding={0}>
         Until end of year
     </text>
   </vstack>

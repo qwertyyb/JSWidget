@@ -58,7 +58,7 @@
 
 ```jsx
 <ZStack>
-    <Rectangle background="#f00" />
+    <Rectangle backgroundColor="#f00" />
     <Text>覆盖在上面</Text>
 </ZStack>
 ```
@@ -112,15 +112,15 @@
 | `gradientForeground` | String | 渐变前景色 |
 
 **`font` 格式**：
-- 预设名称：`largeTitle` | `title` | `title2` | `title3` | `headline` | `subheadline` | `body` | `callout` | `footnote` | `caption` | `caption2`
-- 自定义尺寸：`"24"`（数字）
-- 带权重：`"body,bold"`
-- 带字重和设计：`"body,medium,rounded"`
-- 自定义字体：`"custom,MyFont,24"`
+- 预设名称（字符串）：`"largeTitle"` | `"title"` | `"title2"` | `"title3"` | `"headline"` | `"subheadline"` | `"body"` | `"callout"` | `"footnote"` | `"caption"` | `"caption2"`
+- 自定义尺寸（数字）：`font={24}`
+- 对象格式：`font={{name: "body", weight: "bold"}}`
+- 带设计：`font={{name: "body", weight: "medium", design: "rounded"}}`
+- 自定义字体：`font={{custom: "MyFont", size: 24}}`
 
 ```jsx
 <Text font="title" color="#333">Hello World</Text>
-<Text font="24,bold">Large Bold Text</Text>
+<Text font={{name: "body", weight: "bold"}}>Large Bold Text</Text>
 ```
 
 ---
@@ -458,7 +458,7 @@
 |------|------|------|
 | `text` | String | 徽章文本 |
 | `radius` | number | 圆角半径（默认 6） |
-| `background` | String | 背景色（默认 `#0f172a`） |
+| `backgroundColor` | String | 背景色（默认 `#0f172a`） |
 | `color` | String | 文字颜色（默认 `#e2e8f0`） |
 
 ---
@@ -469,7 +469,7 @@
 |------|------|------|
 | `text` | String | 标签文本 |
 | `radius` | number | 圆角半径（默认 14） |
-| `background` | String | 背景色（无则使用默认） |
+| `backgroundColor` | String | 背景色（无则使用默认） |
 | `borderColor` | String | 边框颜色（默认 `#cbd5f5`） |
 | `color` | String | 文字颜色（默认 `#0f172a`） |
 
@@ -504,10 +504,10 @@
 ### frame (尺寸)
 
 ```jsx
-<Text frame="max" />                        // 最大尺寸
-<Text frame="10,20" />                     // 宽10 高20
-<Text frame="max,topLeading" />            // 最大尺寸 左上对齐
-<Text frame="10,max,center" />             // 宽10 最大高度 居中
+<Text frame="max" />
+<Text frame={{width: 10, height: 20}} />
+<Text frame={{maxWidth: "infinity", maxHeight: "infinity", alignment: "topLeading"}} />
+<Text frame={{width: 10, maxHeight: "infinity", alignment: "center"}} />
 ```
 
 ---
@@ -520,19 +520,32 @@
 
 ---
 
-### clipped (裁剪)
+### clip (裁剪)
 
 ```jsx
-<Image url="..." clipped={true} />
+<Image url="..." clip="circle" />
+<Image url="..." clip={{shape: "rect"}} />
+```
+
+**可选形状**：`circle` | `rect` | `capsule` | `ellipse`
+
+---
+
+### backgroundColor (背景色)
+
+```jsx
+<Text backgroundColor="#f00" />
+<Text backgroundColor={{value: "red", opacity: 0.5}} />
 ```
 
 ---
 
-### background (背景)
+### backgroundGradient (渐变背景)
 
 ```jsx
-<Text background="#f00" />
-<Text background="linear-gradient(colors:#f00,#00f)" />
+<Text backgroundGradient={{type: "linear", colors: ["#f00", "#00f"], startPoint: "leading", endPoint: "trailing"}} />
+<Text backgroundGradient={{type: "radial", colors: ["orange", "red"], center: "center", startRadius: 10, endRadius: 100}} />
+<Text backgroundGradient={{type: "angular", colors: ["green", "blue", "black"], center: "center"}} />
 ```
 
 ---
@@ -540,9 +553,11 @@
 ### padding (内边距)
 
 ```jsx
-<Text padding={10} />                       // 四边 10
-<Text padding="top,10" />                  // 仅顶部 10
-<Text padding="10,20,30,40" />             // 上右下左
+<Text padding={10} />
+<Text padding={{top: 10}} />
+<Text padding={{horizontal: 10, vertical: 20}} />
+<Text padding={{top: 10, trailing: 20, bottom: 30, leading: 40}} />
+<Text padding={{left: 10, right: 20}} />
 ```
 
 ---
@@ -558,13 +573,11 @@
 ### animation (动画)
 
 ```jsx
-<Text animation="clockSecond" />            // 时钟秒针动画
+<Text animation="clockSecond" />
 
-// JSON 格式
-<Text animation={'animation:{"type":"clock","timezone":"current","anchor":"center","interval":30}'} />
+<Text animation={{type: "clock", timezone: "current", anchor: "center", interval: 30}} />
 
-// swing 摆动动画
-<Text animation={'animation:{"type":"swing","duration":2,"direction":"horizontal","distance":100}'} />
+<Text animation={{type: "swing", duration: 2, direction: "horizontal", distance: 100}} />
 ```
 
 **动画类型**：
@@ -572,10 +585,10 @@
 | 类型 | 说明 |
 |------|------|
 | `clockSecond` | 时钟秒针 |
-| `clockMiniute` | 时钟分针 |
+| `clockMinute` | 时钟分针 |
 | `clockHour` | 时钟时针 |
-| `clock` | 自定义间隔时钟 |
-| `swing` | 摆动动画 |
+| `clock` | 自定义间隔时钟（对象格式） |
+| `swing` | 摆动动画（对象格式） |
 
 ---
 
@@ -587,10 +600,10 @@
 
 ---
 
-### rotation3D (3D 旋转)
+### rotation3d (3D 旋转)
 
 ```jsx
-<Circle rotation3D='{"angle":180,"x":1,"y":0,"z":0}' />
+<Circle rotation3d={{degrees: 180, x: 1, y: 0, z: 0}} />
 ```
 
 ---
@@ -598,8 +611,7 @@
 ### shadow (阴影)
 
 ```jsx
-<Text shadow="#000,3,0,3" />                 // 颜色,半径,X,Y
-<Text shadow="#666" />                       // 仅颜色
+<Text shadow={{color: "#000", radius: 3, x: 0, y: 3}} />
 ```
 
 ---
@@ -608,10 +620,11 @@
 
 支持的颜色格式：
 
-- **颜色名称**：`red`, `blue`, `green`, `secondary`, `white`, `black`
-- **十六进制**：`"#ff0000"`, `"#f00"`
-- **RGB**：`"rgb(255,0,0)"`
-- **渐变**：`"linear-gradient(colors:#f00,#00f)"`
+- **颜色名称**：`"red"`, `"blue"`, `"green"`, `"secondary"`, `"white"`, `"black"` 等
+- **十六进制**：`"#ff0000"`, `"#f00"`, `"#ff000080"`（RGBA 顺序）
+- **RGB 函数**：`"rgb(255, 0, 0)"`
+- **RGBA 函数**：`"rgba(255, 0, 0, 0.5)"`
+- **对象格式**：`{{value: "red", opacity: 0.5}}`
 
 ---
 

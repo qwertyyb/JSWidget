@@ -2,7 +2,7 @@
 // ScriptWidget 
 // https://xnu.app/scriptwidget
 // 
-// Usage for api $gradient
+// Usage for backgroundGradient attribute
 // 
 
 let angularGradient = {
@@ -12,7 +12,7 @@ let angularGradient = {
 };
 
 $render(
-  <vstack background={$gradient(angularGradient)} frame="max">
+  <vstack backgroundGradient={angularGradient} frame="max">
     <text font="title">AngularGradient</text>
   </vstack>
 );

@@ -11,7 +11,7 @@ $render(
     <text font="caption" color="red">
       Hello ScriptWidget
     </text>
-    <text font="caption" background="blue" color="white">
+    <text font="caption" backgroundColor="blue" color="white">
       Hello ScriptWidget
     </text>
   </vstack>

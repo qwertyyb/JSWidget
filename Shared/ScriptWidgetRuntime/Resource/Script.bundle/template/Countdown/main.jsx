@@ -270,11 +270,11 @@ if (countdown_to === "T") {
 
 $render(
   <vstack
-    background={$gradient(linearGradient)}
-    frame="max,leading"
+    backgroundGradient={linearGradient}
+    frame={{maxWidth: "infinity", maxHeight: "infinity", alignment: "leading"}}
     alignment="leading"
   >
-    <hstack padding="10">
+    <hstack padding={10}>
       <vstack alignment="leading">
         <text font="body" color="white">
           {event}
@@ -286,7 +286,7 @@ $render(
       <spacer />
     </hstack>
     <spacer />
-    <text font="title" color="white" padding="10">
+    <text font="title" color="white" padding={10}>
       {text}
     </text>
   </vstack>

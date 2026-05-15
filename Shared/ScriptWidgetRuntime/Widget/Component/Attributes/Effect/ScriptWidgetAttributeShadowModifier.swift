@@ -9,12 +9,9 @@ import Foundation
 import SwiftUI
 
 /*
- 
- .shadow(color: Color(#colorLiteral(red: 0.5568627715, green: 0.3529411852, blue: 0.9686274529, alpha: 1)).opacity(0.3), radius: 3, x: 0, y: 3)
-
+ shadow={{color: "#000000", radius: 2, x: 0, y: 4}}
  */
 struct ScriptWidgetAttributeShadowModifier: ViewModifier {
-    
     
     var color: Color?
     var radius: CGFloat = 3
@@ -22,29 +19,20 @@ struct ScriptWidgetAttributeShadowModifier: ViewModifier {
     var y: CGFloat = 3
 
     init(_ element: ScriptWidgetRuntimeElement) {
-
-        if let shadowValue = element.getPropString("shadow") {
-            let parts = shadowValue.components(separatedBy: ",")
-            if parts.count == 1 {
-                if let color = ScriptWidgetAttributeColor(shadowValue).color {
-                    self.color = color
-                }
-            } else if parts.count == 4 {
-                if let color = ScriptWidgetAttributeColor(parts[0]).color {
-                    self.color = color
-                }
-                if let radiusValue = Double(parts[1]) { self.radius = CGFloat(radiusValue) }
-                if let xValue = Double(parts[2]) { self.x = CGFloat(xValue) }
-                if let yValue = Double(parts[3]) { self.y = CGFloat(yValue) }
+        if let dict = element.getPropDict("shadow") {
+            if let colorValue = dict["color"] {
+                self.color = ScriptWidgetAttributeColor(colorValue).color
             }
+            if let r = dict["radius"] as? NSNumber { self.radius = CGFloat(r.doubleValue) }
+            if let xVal = dict["x"] as? NSNumber { self.x = CGFloat(xVal.doubleValue) }
+            if let yVal = dict["y"] as? NSNumber { self.y = CGFloat(yVal.doubleValue) }
         }
     }
     
     @ViewBuilder
     func body(content: Content) -> some View {
         if let color = self.color {
-            content
-                .shadow(color: color, radius: self.radius, x: self.x, y: self.y)
+            content.shadow(color: color, radius: self.radius, x: self.x, y: self.y)
         } else {
             content
         }

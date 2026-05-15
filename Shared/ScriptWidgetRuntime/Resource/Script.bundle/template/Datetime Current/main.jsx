@@ -8,7 +8,7 @@
 // 
 
 $render(
-  <vstack background="yellow" frame="max,center">
+  <vstack backgroundColor="yellow" frame={{maxWidth: "infinity", maxHeight: "infinity", alignment: "center"}}>
     <date font="title" date="start of today" style="timer" alignment="center" />
   </vstack>
 );

@@ -493,7 +493,7 @@ $render(
 
 ```jsx
 $render(
-  <vstack frame="max" background="#0f172a">
+  <vstack frame="max" backgroundColor="#0f172a">
     <text font="title" color="#e2e8f0">Hello ScriptWidget</text>
     <spacer />
     <text font="caption" color="#94a3b8">Welcome!</text>
@@ -574,7 +574,7 @@ $dynamic_island({
 ```jsx
 $component("MyCard", (title, content) => {
   return (
-    <vstack background="#f1f5f9" cornerRadius={12}>
+    <vstack backgroundColor="#f1f5f9" cornerRadius={12}>
       <text font="headline">{title}</text>
       <text font="body">{content}</text>
     </vstack>

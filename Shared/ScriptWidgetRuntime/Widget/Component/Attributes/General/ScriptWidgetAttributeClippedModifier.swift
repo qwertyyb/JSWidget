@@ -7,39 +7,33 @@
 
 import SwiftUI
 
+/*
+ clip="circle"
+ clip={{shape: "circle"}}
+ */
 struct ScriptWidgetAttributeClippedModifier: ViewModifier {
     
-    let clipped: Bool
-    let shape: String
+    let shape: String?
     
     init(_ element: ScriptWidgetRuntimeElement) {
-        
-        var clipped = false
-        var shape = ""
-        
-        // clipped only
-        if let value = element.getPropInt("clip") {
-            // clipped
-            clipped = (value == 1)
+        switch element.getPropValue("clip") {
+        case .string(let value):
+            self.shape = value
+        case .dict(let dict):
+            self.shape = dict["shape"] as? String
+        case .number, nil:
+            self.shape = nil
         }
-        
-        if let value = element.getPropString("clip") {
-            clipped = true
-            shape = value
-        }
-        
-        self.clipped = clipped
-        self.shape = shape
     }
     
     @ViewBuilder
     func body(content: Content) -> some View {
-        if clipped {
+        if let shape = self.shape {
             switch shape {
-            case "circle" : content.clipShape(Circle())
-            case "rect" : content.clipShape(Rectangle())
-            case "capsule" : content.clipShape(Capsule())
-            case "ellipse" : content.clipShape(Ellipse())
+            case "circle": content.clipShape(Circle())
+            case "rect": content.clipShape(Rectangle())
+            case "capsule": content.clipShape(Capsule())
+            case "ellipse": content.clipShape(Ellipse())
             default: content.clipped()
             }
         } else {

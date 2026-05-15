@@ -64,12 +64,12 @@ const Logo = ({logoPath}) => {
     <zstack>
        <image
          url={logoPath}
-         frame="40,40,trailing"
+         frame={{width: 40, height: 40, alignment: "trailing"}}
        />
        <rect
          color={colors.secondary}
          stroke="1"
-         frame="40,40"
+         frame={{width: 40, height: 40}}
        />
     </zstack>
   )
@@ -101,8 +101,8 @@ const Entry = ({info}) => {
           alignment="top"
         >
           <text 
-            font="14"
-            frame="200,15,leading"
+            font={14}
+            frame={{width: 200, height: 15, alignment: "leading"}}
             color={colors.text.primary}
           >
             {info.name}
@@ -110,7 +110,7 @@ const Entry = ({info}) => {
           <hstack>
             <text
               font="caption2"
-              frame="50,15,leading"
+              frame={{width: 50, height: 15, alignment: "leading"}}
               color={colors.text.secondary}
             >
               {
@@ -119,7 +119,7 @@ const Entry = ({info}) => {
               }
             </text>
             <text
-              frame="120,15,trailing"
+              frame={{width: 120, height: 15, alignment: "trailing"}}
               font="caption2"
               color={colors.text.secondary}
             >
@@ -140,11 +140,11 @@ const seriesJson = await fetchSeries(series)
 
 $render(
   <zstack
-    background={colors.primary} 
+    backgroundColor={colors.primary} 
   > 
     <vstack 
-      padding="10,10,10,20" 
-      frame="max,top"
+      padding={{top: 10, trailing: 10, bottom: 10, leading: 20}} 
+      frame={{maxWidth: "infinity", maxHeight: "infinity", alignment: "top"}}
     >
       {
         seriesJson?.map(series =>

@@ -7,6 +7,6 @@
 
 $render(
   <vstack frame="max">
-    <capsule frame="50,30" color="blue"></capsule>
+    <capsule frame={{width: 50, height: 30}} color="blue"></capsule>
   </vstack>
 );

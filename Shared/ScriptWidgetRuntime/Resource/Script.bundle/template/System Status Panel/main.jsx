@@ -19,7 +19,7 @@ const gaugeSections = [
 ];
 
 $render(
-  <vstack frame="max" background="#111827">
+  <vstack frame="max" backgroundColor="#111827">
     <text font="caption" color="#9ca3af">System Status</text>
     <hstack spacing="12">
       <vstack>

@@ -7,13 +7,13 @@
 
 $render(
   <vstack frame="max">
-    <link url="https://www.baidu.com" background="blue">
+    <link url="https://www.baidu.com" backgroundColor="blue">
       <text>Baidu</text>
     </link>
-    <link url="https://www.qq.com" background="green">
+    <link url="https://www.qq.com" backgroundColor="green">
       <text>QQ</text>
     </link>
-    <link url="https://www.163.com" background="yellow">
+    <link url="https://www.163.com" backgroundColor="yellow">
       <text>163</text>
     </link>
   </vstack>

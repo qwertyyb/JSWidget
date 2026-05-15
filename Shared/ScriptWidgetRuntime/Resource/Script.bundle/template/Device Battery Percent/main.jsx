@@ -32,7 +32,7 @@ let angularGradient = {
 };
 
 $render(
-  <vstack background={$gradient(linearGradient)} frame="max">
-    <text font="50">🔋{percent} % </text>
+  <vstack backgroundGradient={linearGradient} frame="max">
+    <text font={50}>🔋{percent} % </text>
   </vstack>
 );

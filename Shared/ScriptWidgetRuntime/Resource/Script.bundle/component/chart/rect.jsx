@@ -21,7 +21,7 @@ $render(
       type="rect" // required
       data={$json(data)} // required
       color="red" // optional , default black
-      padding="20" // optional , general
+      padding={20} // optional , general
       >
     </chart>
   </vstack>

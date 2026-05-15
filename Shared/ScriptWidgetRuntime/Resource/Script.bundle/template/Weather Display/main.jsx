@@ -18,7 +18,7 @@ console.log(result);
 const data = JSON.parse(result);
 
 $render(
-  <vstack frame="max" background="#3a86ff">
+  <vstack frame="max" backgroundColor="#3a86ff">
     <text font="title3" color="white">
       Weather
     </text>

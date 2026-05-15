@@ -2,7 +2,7 @@
 // ScriptWidget 
 // https://xnu.app/scriptwidget
 // 
-// Usage for api $gradient
+// Usage for backgroundGradient attribute
 // 
 
 let linearGradient = {
@@ -13,7 +13,7 @@ let linearGradient = {
 };
 
 $render(
-  <vstack background={$gradient(linearGradient)} frame="max">
+  <vstack backgroundGradient={linearGradient} frame="max">
     <text font="title">LinearGradient</text>
   </vstack>
 );

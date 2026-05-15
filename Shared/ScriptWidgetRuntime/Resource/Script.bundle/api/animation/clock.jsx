@@ -15,10 +15,10 @@ let animationDefinition = {
 
 
 $render(
-  <vstack frame="max" animation={$animation(animationDefinition)}>
-    <circle frame="30,30" color="green"></circle>
-    <circle frame="30,30" color="pink"></circle>
-    <circle frame="30,30" color="gray"></circle>
-    <circle frame="90,90" color="orange"></circle>
+  <vstack frame="max" animation={animationDefinition}>
+    <circle frame={{width: 30, height: 30}} color="green"></circle>
+    <circle frame={{width: 30, height: 30}} color="pink"></circle>
+    <circle frame={{width: 30, height: 30}} color="gray"></circle>
+    <circle frame={{width: 90, height: 90}} color="orange"></circle>
   </vstack>
 );

@@ -11,9 +11,9 @@
 
 $render(
   <vstack>
-    <image systemName="battery.100.bolt" font="10" />
-    <image systemName="battery.100.bolt" font="20" />
-    <image systemName="battery.100.bolt" font="30" />
-    <image systemName="battery.100.bolt" font="40" />
+    <image systemName="battery.100.bolt" font={10} />
+    <image systemName="battery.100.bolt" font={20} />
+    <image systemName="battery.100.bolt" font={30} />
+    <image systemName="battery.100.bolt" font={40} />
   </vstack>
 );

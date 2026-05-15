@@ -12,10 +12,10 @@ let day = weekday[d.getDay()];
 
 $render(
     <vstack
-        background="red"
-        frame="max,center"
+        backgroundColor="red"
+        frame={{maxWidth: "infinity", maxHeight: "infinity", alignment: "center"}}
     >
-        <text font="largeTitle" color="black" padding="10">
+        <text font="largeTitle" color="black" padding={10}>
             {day}
         </text>
     </vstack>

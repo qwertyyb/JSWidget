@@ -8,17 +8,28 @@
 import Foundation
 import SwiftUI
 
-
+/*
+ font="title"
+ font={17}
+ font={{name: "body", weight: "bold"}}
+ font={{name: "body", weight: "bold", design: "rounded"}}
+ font={{custom: "Helvetica-Bold", size: 14}}
+ */
 struct ScriptWidgetAttributeFontModifier: ViewModifier {
     
     let font: Font?
     
     init(_ element: ScriptWidgetRuntimeElement, fontField: String) {
-        var font: Font? = nil
-        if let fontValue = element.getPropString(fontField) {
-            font = ScriptWidgetAttributeFontModifier.getFontFromCustomString(fontValue);
+        switch element.getPropValue(fontField) {
+        case .string(let name):
+            self.font = ScriptWidgetAttributeFontModifier.getFontFromStringName(name, nil)
+        case .number(let size):
+            self.font = .system(size: CGFloat(size))
+        case .dict(let dict):
+            self.font = ScriptWidgetAttributeFontModifier.getFontFromDict(dict)
+        case nil:
+            self.font = nil
         }
-        self.font = font
     }
     
     init(_ element: ScriptWidgetRuntimeElement) {
@@ -28,47 +39,31 @@ struct ScriptWidgetAttributeFontModifier: ViewModifier {
     @ViewBuilder
     func body(content: Content) -> some View {
         if let font = self.font {
-            content
-                .font(font)
+            content.font(font)
         } else {
             content
         }
     }
     
-    static func getFontFromCustomString(_ fontString: String) -> Font? {
-        var font: Font? = nil
-        var weight: Font.Weight? = nil
-        let parts = fontString.split(separator: ",")
-        if parts.count == 1 {
-            font = ScriptWidgetAttributeFontModifier.getFontFromStringName(fontString,nil)
-        } else if parts.count == 2 {
-            let fontName = String(parts[0])
-            let weightName = String(parts[1])
-            font = ScriptWidgetAttributeFontModifier.getFontFromStringName(fontName,nil)
-            weight = ScriptWidgetAttributeFontModifier.getFontWeightFromStringName(weightName)
-        } else if parts.count == 3 {
-            let fontName = String(parts[0])
-            if fontName == "custom" {
-                let customFontName = String(parts[1])
-                let customFontSize = String(parts[2])
-                let fontSize : CGFloat = Double(customFontSize) ?? 10
-                font = .custom(customFontName, size: fontSize)
-            } else {
-                let weightName = String(parts[1])
-                let designName = String(parts[2])
-                font = ScriptWidgetAttributeFontModifier.getFontFromStringName(fontName, designName)
-                weight = ScriptWidgetAttributeFontModifier.getFontWeightFromStringName(weightName)
-            }
-        } else {
-            // error
+    // { name: "body", weight: "bold", design: "rounded" }
+    // { custom: "Helvetica-Bold", size: 14 }
+    static func getFontFromDict(_ dict: [String: Any]) -> Font? {
+        if let customName = dict["custom"] as? String {
+            let size = (dict["size"] as? NSNumber)?.doubleValue ?? 10
+            return .custom(customName, size: CGFloat(size))
         }
-        if let weight = weight {
+        
+        guard let name = dict["name"] as? String else { return nil }
+        let designName = dict["design"] as? String
+        var font = getFontFromStringName(name, designName)
+        
+        if let weightName = dict["weight"] as? String,
+           let weight = getFontWeightFromStringName(weightName) {
             font = font?.weight(weight)
         }
         
         return font
     }
-    
     
     static func getFontFromStringName(_ name: String, _ designName: String?) -> Font? {
         var font: Font? = nil
@@ -89,7 +84,7 @@ struct ScriptWidgetAttributeFontModifier: ViewModifier {
         
         if font == nil {
             if let fontSize = Double(name) {
-                if let designName = designName, let design = Self.getFontDesignFromStringName(designName)  {
+                if let designName = designName, let design = getFontDesignFromStringName(designName)  {
                     font = .system(size: CGFloat(fontSize), weight: .regular, design: design)
                 } else {
                     font = .system(size: CGFloat(fontSize))
@@ -99,32 +94,29 @@ struct ScriptWidgetAttributeFontModifier: ViewModifier {
         
         return font
     }
+    
     static func getFontWeightFromStringName(_ name: String) -> Font.Weight? {
-        var weight: Font.Weight? = nil
         switch name {
-        case "ultraLight": weight = .ultraLight
-        case "thin": weight = .thin
-        case "light": weight = .light
-        case "regular": weight = .regular
-        case "medium": weight = .medium
-        case "semibold": weight = .semibold
-        case "bold": weight = .bold
-        case "heavy": weight = .heavy
-        case "black": weight = .black
-        default: weight = nil
+        case "ultraLight": return .ultraLight
+        case "thin": return .thin
+        case "light": return .light
+        case "regular": return .regular
+        case "medium": return .medium
+        case "semibold": return .semibold
+        case "bold": return .bold
+        case "heavy": return .heavy
+        case "black": return .black
+        default: return nil
         }
-        return weight
     }
     
     static func getFontDesignFromStringName(_ name: String) -> Font.Design? {
-        var design: Font.Design? = nil
         switch name {
-        case "monospaced": design = .monospaced
-        case "rounded": design = .rounded
-        case "serif": design = .serif
-        case "default": design = .`default`
-        default: design = nil
+        case "monospaced": return .monospaced
+        case "rounded": return .rounded
+        case "serif": return .serif
+        case "default": return .`default`
+        default: return nil
         }
-        return design
     }
 }

@@ -46,8 +46,8 @@ const RightAlign = ({ message, children }) => {
 }
 $render(
     <vstack
-        background="blue"
-        frame="max,center"
+        backgroundColor="blue"
+        frame={{maxWidth: "infinity", maxHeight: "infinity", alignment: "center"}}
     >
         <LeftAlign message="L">
             <text> this text left aligned</text>

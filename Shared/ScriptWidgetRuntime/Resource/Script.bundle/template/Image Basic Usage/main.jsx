@@ -26,7 +26,7 @@
 
 $render(
   <vstack>
-    <image url="https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png" frame="20,20"/>
-    <image id="image" frame="260,60"/>
+    <image url="https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png" frame={{width: 20, height: 20}}/>
+    <image id="image" frame={{width: 260, height: 60}}/>
   </vstack>
 );

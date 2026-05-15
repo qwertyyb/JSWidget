@@ -222,13 +222,8 @@ extension ScriptWidgetRuntime {
     }
     
     /*
-     load JavaScript and call render()
-
-     const render = () => {
-         return (
-             <text>Hello SwiftWidget</text>
-         )
-     }
+     Widget pipeline: JSX is wrapped as `async function $main() { try { <user source> } catch ... }`,
+     compiled to JS, evaluated, then `$main()` is called. User source calls `$render` (home screen widgets).
      */
     private func internalExecuteJavaScriptForWidget(_ JavaScript: String) -> AnyPublisher<ScriptWidgetRuntimeElement, ScriptWidgetError> {
         return Future<ScriptWidgetRuntimeElement, ScriptWidgetError> { promise in
@@ -442,13 +437,8 @@ extension ScriptWidgetRuntime {
     }
     
     /*
-     load JavaScript and call render()
-
-     const render = () => {
-         return (
-             <text>Hello SwiftWidget</text>
-         )
-     }
+     Dynamic Island pipeline: JSX is wrapped as `async function $main() { try { <user source> } catch ... }`,
+     compiled to JS, evaluated, then `$main()` is called. User source calls `$dynamic_island` (not `$render` for output).
      */
     private func internalExecuteJavaScriptForDynamicIsland(_ JavaScript: String) -> AnyPublisher<ScriptWidgetDynamicIslandRuntimeElement, ScriptWidgetError> {
         return Future<ScriptWidgetDynamicIslandRuntimeElement, ScriptWidgetError> { promise in
@@ -680,11 +670,8 @@ extension ScriptWidgetRuntime {
     }
     
     /*
-     load JavaScript and call function()
-
-     const onButtonClick = () => {
-        return "result string";
-     }
+     Function-call pipeline: JSX is wrapped as `async function $main() { try { <user source> await <name>(); } catch ... }`.
+     User source defines the named async function; `$render` / `$dynamic_island` are not used for output here.
      */
     private func internalExecuteJavaScriptForFunction(_ JavaScript: String) -> AnyPublisher<String, ScriptWidgetError> {
         return Future<String, ScriptWidgetError> { promise in

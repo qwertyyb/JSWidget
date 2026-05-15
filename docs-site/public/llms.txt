@@ -1,0 +1,37 @@
+# ScriptWidget
+
+> 使用 JavaScript / JSX 为 iOS 与 macOS 编写小组件；运行时基于 JavaScriptCore，JSX 映射到 SwiftUI。本文件供 AI 与自动化工具快速定位权威文档。
+
+## 生成小组件时必须先遵守的约定
+
+- 入口：在 `main.jsx` 中编写顶层脚本；桌面小组件用 **`$render`** 输出 UI；灵动岛 / Live Activity 用 **`$dynamic_island`**。通过 **`$import`** 引入的从文件为模块管线，与入口脚本不同，见 `docs/api.md` 概述与「文件导入 API」章节。
+- JSX 标签名一律小写（如 `<vstack>`、`<text>`），语义接近 SwiftUI，而非 React DOM。
+- 网络：`$http` / `fetch`；存储：`$storage`；环境：`$getenv`（例如 `widget-size` 为 `small` | `medium` | `large`）。
+- 完整全局 API 列表以仓库内 `docs/api.md` 为准；组件与属性以 `docs/components.md` 为准。
+
+## 仓库内文档路径（克隆后可直接读取）
+
+- 快速入门（单一事实来源）：`docs/getting-started.md`（文档站通过 `docs-site/guide/getting-started.md` include）
+- **用户向 AI 复制的说明与 prompt（文档站页面源）**：`docs-site/guide/ai.md`
+- **语言模型补充约定（仅仓库内 Markdown，不进文档站构建）**：`docs/ai-for-llms.md`
+- 运行时 API（单一事实来源）：`docs/api.md`
+- 组件参考（单一事实来源）：`docs/components.md`
+- 文档站聚合：`docs-site/api/index.md`（include `docs/api.md`）、`docs-site/components/index.md`（include `docs/components.md`）
+
+## 通过 raw.githubusercontent.com 拉取（将 BRANCH 换为 main 或当前默认分支）
+
+将 `OWNER/REPO` 替换为你的远端（上游示例为 `everettjf/ScriptWidget`）。
+
+- `https://raw.githubusercontent.com/OWNER/REPO/BRANCH/docs/api.md`
+- `https://raw.githubusercontent.com/OWNER/REPO/BRANCH/docs/components.md`
+- `https://raw.githubusercontent.com/OWNER/REPO/BRANCH/docs/getting-started.md`
+- `https://raw.githubusercontent.com/OWNER/REPO/BRANCH/docs/ai-for-llms.md`
+- `https://raw.githubusercontent.com/OWNER/REPO/BRANCH/docs-site/guide/ai.md`（用户侧 prompt 页）
+
+## 人类可读的文档站
+
+构建并部署 `docs-site`（VitePress）后，在站点根路径可访问本文件的副本：`/llms.txt`。站内另提供 HTML 导航与搜索。
+
+## 可选：项目仓库
+
+- https://github.com/everettjf/ScriptWidget

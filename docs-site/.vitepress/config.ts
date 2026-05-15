@@ -24,6 +24,7 @@ export default defineConfig({
   themeConfig: {
     nav: [
       { text: '快速入门', link: '/guide/getting-started' },
+      { text: 'AI 指南', link: '/guide/ai' },
       { text: '组件', link: '/components/' },
       { text: 'API', link: '/api/' },
       {
@@ -38,6 +39,7 @@ export default defineConfig({
           text: '指南',
           items: [
             { text: '快速入门', link: '/guide/getting-started' },
+            { text: 'AI 指南', link: '/guide/ai' },
           ],
         },
       ],

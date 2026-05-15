@@ -6,6 +6,7 @@
 - `macOS/ScriptWidgetMac*`: macOS app + widget targets reusing the shared runtime.
 - `Editor/editorfe/`: React 17 + CodeMirror 6 editor frontend (CRA).
 - `Resource/`: marketing assets, screenshots, icons.
+- `docs/`: canonical Markdown for API、组件、快速入门及 AI 模型说明（`docs-site` 通过 include 引用部分文件）。
 - `Scripts/<PackageName>/main.jsx`: runtime widget packages (synced via iCloud/app group); build artifacts land in `__Build/`.
 
 ## Build, Test, and Development Commands

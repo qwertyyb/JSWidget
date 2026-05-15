@@ -15,6 +15,9 @@ hero:
     - theme: alt
       text: API 文档
       link: /api/
+    - theme: alt
+      text: AI 指南
+      link: /guide/ai
 
 features:
   - icon: ⚡

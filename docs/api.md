@@ -8,6 +8,8 @@
 
 ScriptWidget 使用 JavaScriptCore 框架，在 Swift 端通过 `JSExport` 协议将原生 API 暴露给 JavaScript 环境。
 
+**入口脚本**（如 `main.jsx`）：直接编写顶层语句，可使用顶层 **`await`**。**桌面小组件**在脚本中调用 **`$render`** 输出界面；**灵动岛 / Live Activity** 等场景调用 **`$dynamic_island`**（见下文「灵动岛 API」），同一入口脚本只取其一作为输出方式。通过 **`$import`** 加载的其它文件按模块方式编译执行，多用于导出变量、函数或 JSX 片段，与入口脚本的装载方式不同，详见「文件导入 API」章节。
+
 在 JS 上下文中可用的全局对象包括：
 - `$http` - HTTP 请求
 - `$fetch` / `fetch` - 简化的 GET 请求
@@ -502,42 +504,13 @@ $render(
 );
 ```
 
-### `$main` 函数
-
-入口函数，必须定义 `$main` 函数作为脚本入口点。
-
-```jsx
-const $main = () => {
-  $render(
-    <vstack>
-      <text>Hello</text>
-    </vstack>
-  );
-};
-```
-
-或者使用 async 函数：
-
-```jsx
-const $main = async () => {
-  const data = await $http.get("https://api.example.com/data");
-  const json = JSON.parse(data);
-
-  $render(
-    <vstack>
-      <text>{json.title}</text>
-    </vstack>
-  );
-};
-```
-
 ---
 
 ## 12. 灵动岛 API
 
 ### `$dynamic_island`
 
-配置灵动岛（Dynamic Island）的显示内容。
+灵动岛入口脚本的写法与桌面小组件相同：在文件中编写顶层代码即可。使用本 API 声明岛面布局与状态；该模式下 **`$render` 不会作为输出手段**（调用会被忽略）。各参数含义如下表。
 
 | 参数 | 类型 | 说明 |
 |------|------|------|
@@ -626,16 +599,14 @@ try {
 ```jsx
 const delay = (ms) => new Promise(resolve => setTimeout(resolve, ms));
 
-const $main = async () => {
-  await delay(1000);
-  const result = await $http.get("https://api.example.com/data");
+await delay(1000);
+const result = await $http.get("https://api.example.com/data");
 
-  $render(
-    <vstack>
-      <text>{result}</text>
-    </vstack>
-  );
-};
+$render(
+  <vstack>
+    <text>{result}</text>
+  </vstack>
+);
 ```
 
 ---

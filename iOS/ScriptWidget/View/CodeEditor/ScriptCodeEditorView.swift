@@ -6,6 +6,8 @@
 //
 
 import SwiftUI
+import UIKit
+import Combine
 
 enum ScriptCodeEditorViewMode {
     case creator
@@ -56,12 +58,9 @@ struct ScriptCodeEditorView: View {
     @State var showEditAttributesView = false
     @State var showShareActivity = false
     @State var showResourceCodeView = false
-    @State var showDocsOverlay = false
-    @State private var docsOverlayDetent: PresentationDetent = .large
     
     @State private var showingAlert = false
     @State private var alertMessage = ""
-
     
     init(mode: ScriptCodeEditorViewMode, scriptModel: ScriptModel) {
         self.mode = mode
@@ -105,19 +104,10 @@ struct ScriptCodeEditorView: View {
             Alert(title: Text("Notification"), message: Text(alertMessage), dismissButton: .default(Text("OK")))
         }
     }
-    
+
     var leadingButtons: some View {
         HStack {
             if self.mode != .creator {
-                ScriptCodeEditorNavButtonView(image: "doc.text") {
-                    self.showDocsOverlay.toggle()
-                }
-                .sheet(isPresented: $showDocsOverlay) {
-                    DocsOverlayView()
-                        .presentationDetents([.large, .medium], selection: $docsOverlayDetent)
-                        .presentationDragIndicator(.visible)
-                }
-
                 ScriptCodeEditorNavButtonView(image: "book") {
                     self.showResourceCodeView.toggle()
                 }
@@ -134,16 +124,14 @@ struct ScriptCodeEditorView: View {
     
     var trailingButtons: some View {
         HStack {
-            if #available(iOS 16.1, *) {
-                ScriptCodeEditorNavButtonView(image: "lock") {
-                    
-                    // build
-                    let buildResult = sharedScriptManager.buildScriptPackage(package: self.dataObject.scriptModel.package)
-                    print("build result = \(buildResult)")
-                    
-                    // show lock screen widget
-                    sharedLiveActivityManager.create(scriptName: self.dataObject.scriptModel.name, scriptParameter: "")
-                    showAlert("Lock screen live activity created :)")
+            if self.mode != .creator {
+                if #available(iOS 16.1, *) {
+                    ScriptCodeEditorNavButtonView(image: "lock") {
+                        let buildResult = sharedScriptManager.buildScriptPackage(package: self.dataObject.scriptModel.package)
+                        print("build result = \(buildResult)")
+                        sharedLiveActivityManager.create(scriptName: self.dataObject.scriptModel.name, scriptParameter: "")
+                        showAlert("Lock screen live activity created :)")
+                    }
                 }
             }
             

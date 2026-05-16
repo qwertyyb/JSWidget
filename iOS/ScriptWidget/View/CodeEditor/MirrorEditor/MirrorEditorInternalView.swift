@@ -52,6 +52,10 @@ class MirrorEditorInternalView: WKWebView {
         configuration.preferences.setValue(true, forKey: "allowFileAccessFromFileURLs")
         super.init(frame: .zero, configuration: configuration)
         
+        if #available(iOS 16.4, *) {
+            self.isInspectable = true
+        }
+
         self.isOpaque = false
         self.backgroundColor = UIColor.clear
         self.scrollView.backgroundColor = UIColor.clear
@@ -99,6 +103,7 @@ class MirrorEditorInternalView: WKWebView {
                     callback?(["result": "failed"])
                     return
                 }
+                self?.lastSaveContent = value
             }
 
             callback?(["result": "ok"])

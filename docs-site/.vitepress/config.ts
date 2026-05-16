@@ -46,6 +46,7 @@ export default defineConfig({
     nav: [
       { text: '快速入门', link: '/guide/getting-started' },
       { text: 'AI 指南', link: '/guide/ai' },
+      { text: '远程编辑器', link: '/editor/index.html', target: '_self' },
       { text: '组件', link: '/components/' },
       { text: 'API', link: '/api/' },
       {

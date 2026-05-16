@@ -1,0 +1,153 @@
+{
+  "jsxTags": [
+    "hstack",
+    "vstack",
+    "zstack",
+    "hgrid",
+    "vgrid",
+    "text",
+    "date",
+    "image",
+    "gif",
+    "spacer",
+    "rect",
+    "capsule",
+    "ellipse",
+    "circle",
+    "gauge",
+    "chart",
+    "link",
+    "divider",
+    "line",
+    "roundedrect",
+    "icon",
+    "label",
+    "progress",
+    "ring",
+    "badge",
+    "chip",
+    "stat",
+    "button",
+    "toggle"
+  ],
+  "commonAttributes": [
+    { "name": "frame", "detail": "string", "info": "尺寸约束" },
+    { "name": "padding", "detail": "number|string", "info": "内边距" },
+    { "name": "backgroundColor", "detail": "string", "info": "背景色" },
+    { "name": "foregroundColor", "detail": "string", "info": "前景色" },
+    { "name": "cornerRadius", "detail": "number", "info": "圆角" },
+    { "name": "opacity", "detail": "number", "info": "透明度 0-1" },
+    { "name": "rotationEffect", "detail": "number", "info": "旋转角度" },
+    { "name": "scaleEffect", "detail": "number", "info": "缩放" },
+    { "name": "offset", "detail": "string", "info": "偏移" },
+    { "name": "shadow", "detail": "string", "info": "阴影" },
+    { "name": "blur", "detail": "number", "info": "模糊" },
+    { "name": "animation", "detail": "string", "info": "动画名" }
+  ],
+  "tagAttributes": {
+    "vstack": [
+      { "name": "alignment", "values": ["leading", "trailing", "center"], "info": "水平对齐" },
+      { "name": "spacing", "info": "垂直间距" }
+    ],
+    "hstack": [
+      { "name": "alignment", "values": ["top", "bottom", "center", "firstTextBaseline", "lastTextBaseline"], "info": "垂直对齐" },
+      { "name": "spacing", "info": "水平间距" }
+    ],
+    "zstack": [],
+    "hgrid": [
+      { "name": "rows", "info": "行数" },
+      { "name": "columns", "info": "列配置 JSON 字符串" },
+      { "name": "spacing", "info": "间距" }
+    ],
+    "vgrid": [
+      { "name": "rows", "info": "行配置 JSON 字符串" },
+      { "name": "columns", "info": "列数" },
+      { "name": "spacing", "info": "间距" }
+    ],
+    "text": [
+      { "name": "font", "info": "字体大小" },
+      { "name": "bold", "info": "粗体" },
+      { "name": "italic", "info": "斜体" },
+      { "name": "color", "info": "文字颜色" },
+      { "name": "lineLimit", "info": "行数限制" },
+      { "name": "minimumScaleFactor", "info": "最小缩放" }
+    ],
+    "date": [
+      { "name": "format", "info": "日期格式" },
+      { "name": "style", "values": ["date", "time", "relative"], "info": "显示样式" }
+    ],
+    "image": [
+      { "name": "name", "info": "bundle 内图片名" },
+      { "name": "url", "info": "网络 URL" },
+      { "name": "resizable", "info": "可拉伸" },
+      { "name": "scaledToFit", "info": "适应" },
+      { "name": "scaledToFill", "info": "填充" }
+    ],
+    "gif": [{ "name": "name", "info": "GIF 资源名" }],
+    "spacer": [
+      { "name": "minLength", "info": "最小长度" },
+      { "name": "maxLength", "info": "最大长度" }
+    ],
+    "rect": [],
+    "capsule": [],
+    "ellipse": [],
+    "circle": [],
+    "gauge": [
+      { "name": "value", "info": "当前值" },
+      { "name": "min", "info": "最小值" },
+      { "name": "max", "info": "最大值" }
+    ],
+    "chart": [
+      { "name": "data", "info": "图表数据 JSON" },
+      { "name": "type", "values": ["line", "bar", "pie"], "info": "图表类型" }
+    ],
+    "link": [
+      { "name": "url", "info": "链接地址" },
+      { "name": "destination", "info": "目标" }
+    ],
+    "divider": [],
+    "line": [],
+    "roundedrect": [{ "name": "cornerRadius", "info": "圆角半径" }],
+    "icon": [
+      { "name": "name", "info": "SF Symbol 名" },
+      { "name": "size", "info": "尺寸" }
+    ],
+    "label": [],
+    "progress": [{ "name": "value", "info": "0-1 进度" }],
+    "ring": [],
+    "badge": [],
+    "chip": [],
+    "stat": [],
+    "button": [
+      { "name": "action", "info": "点击动作名" },
+      { "name": "style", "info": "按钮样式" }
+    ],
+    "toggle": [
+      { "name": "isOn", "info": "是否开启" },
+      { "name": "action", "info": "切换回调名" }
+    ]
+  },
+  "apis": [
+    {
+      "name": "$http",
+      "methods": ["get", "post", "put", "patch", "delete"]
+    },
+    { "name": "$fetch", "methods": [] },
+    { "name": "fetch", "methods": [] },
+    { "name": "$console", "methods": ["log", "warn", "error"] },
+    { "name": "console", "methods": ["log", "warn", "error"] },
+    { "name": "$device", "methods": ["name", "model", "systemVersion", "batteryLevel", "isCharging"] },
+    { "name": "$file", "methods": ["read", "write", "list"] },
+    { "name": "$system", "methods": ["brightness", "volume"] },
+    { "name": "$health", "methods": ["requestAuthorization", "query"] },
+    { "name": "$location", "methods": ["requestAuthorization", "current"] },
+    { "name": "$storage", "methods": ["get", "set", "remove", "clear"] },
+    { "name": "$getenv", "methods": ["get"] },
+    { "name": "$import", "methods": [] },
+    { "name": "$render", "methods": [] },
+    { "name": "$dynamic_island", "methods": [] },
+    { "name": "$element", "methods": ["createElement"] },
+    { "name": "$component", "methods": [] },
+    { "name": "$error", "methods": [] }
+  ]
+}

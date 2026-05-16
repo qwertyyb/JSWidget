@@ -14,11 +14,75 @@ body {
   width: 100%;
 }
 
-.editor {
+.editor-wrapper {
+  display: flex;
+  flex-direction: column;
   height: 100%;
   width: 100%;
 }
 
+.peer-banner {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 12px;
+  font-size: 13px;
+  color: #fff;
+  background: rgba(0,122,255,0.85);
+  -webkit-backdrop-filter: blur(8px);
+  backdrop-filter: blur(8px);
+}
+.peer-banner.disconnected {
+  background: rgba(120,120,128,0.6);
+}
+.peer-banner .status-text {
+  flex: 1;
+}
+.peer-banner button {
+  border: none;
+  border-radius: 6px;
+  padding: 4px 10px;
+  font-size: 12px;
+  cursor: pointer;
+}
+.peer-banner .btn-action {
+  background: rgba(255,255,255,0.25);
+  color: #fff;
+}
+.peer-banner .btn-disconnect {
+  background: rgba(255,59,48,0.9);
+  color: #fff;
+}
+.peer-banner .btn-connect {
+  background: rgba(52,199,89,0.9);
+  color: #fff;
+}
+
+.editor {
+  flex: 1;
+  width: 100%;
+  min-height: 0;
+}
+
 .cm-editor {
   background-color: transparent;
+}
+
+.fab-remote {
+  position: fixed;
+  bottom: 60px;
+  right: 12px;
+  width: 36px;
+  height: 36px;
+  border-radius: 18px;
+  border: none;
+  background: rgba(120,120,128,0.4);
+  color: #fff;
+  font-size: 18px;
+  line-height: 36px;
+  text-align: center;
+  cursor: pointer;
+  z-index: 100;
+  -webkit-backdrop-filter: blur(6px);
+  backdrop-filter: blur(6px);
 }

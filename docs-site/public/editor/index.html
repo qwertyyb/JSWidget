@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ScriptWidget Remote Editor</title>
+  <link rel="stylesheet" href="./editor.css" />
+</head>
+<body>
+  <div id="app">
+    <!-- Home: two entry cards -->
+    <section id="home-panel" class="page">
+      <h1 class="page-title">ScriptWidget Remote Editor</h1>
+      <p class="page-desc" data-i18n="home_desc">Edit scripts on your phone from the computer</p>
+      <div class="cards">
+        <div class="card">
+          <h2 data-i18n="card_connect_title">Connect to Phone</h2>
+          <p class="card-desc" data-i18n="card_connect_desc">Tap "Wait for PC" in the app, copy the Peer ID, then paste it below</p>
+          <div class="input-row">
+            <input type="text" id="input-peer-id" data-i18n-placeholder="placeholder_peer_id" placeholder="Paste Peer ID" />
+            <button type="button" id="btn-connect" data-i18n="btn_connect">Connect</button>
+          </div>
+        </div>
+        <div class="card">
+          <h2 data-i18n="card_wait_title">Wait for Phone</h2>
+          <p class="card-desc" data-i18n="card_wait_desc">Generate a Peer ID, then tap "Enter PC ID" in the app and paste it</p>
+          <button type="button" id="btn-create" class="btn-primary" data-i18n="btn_create">Create Connection</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- Waiting: show ID + QR -->
+    <section id="wait-panel" class="page hidden">
+      <button type="button" id="btn-back-wait" class="btn-back" data-i18n="btn_back">← Back</button>
+      <div class="status-box status-waiting">
+        <div class="status-icon">⏳</div>
+        <div class="status-label" data-i18n="status_waiting">Waiting for phone to connect…</div>
+      </div>
+      <div class="id-section">
+        <label>Peer ID</label>
+        <div class="id-row">
+          <span id="peer-id-text" class="mono"></span>
+          <button type="button" id="btn-copy-id" class="btn-sm" data-i18n="btn_copy">Copy</button>
+        </div>
+      </div>
+      <div id="qr-wrap" class="qr-wrap"></div>
+    </section>
+
+    <!-- Connecting spinner -->
+    <section id="connecting-panel" class="page hidden">
+      <button type="button" id="btn-back-connecting" class="btn-back" data-i18n="btn_back">← Back</button>
+      <div class="status-box status-waiting">
+        <div class="status-icon">⏳</div>
+        <div class="status-label" data-i18n="status_connecting">Connecting…</div>
+      </div>
+    </section>
+
+    <!-- Editor -->
+    <section id="editor-panel" class="page hidden">
+      <header class="toolbar">
+        <div id="conn-indicator" class="conn-indicator connected">
+          <span class="conn-dot"></span>
+          <span id="conn-label" data-i18n="conn_connected">Connected</span>
+        </div>
+        <div style="flex:1"></div>
+        <span id="sync-status" class="sync-status synced">
+          <span id="sync-dot" class="sync-dot synced"></span>
+          <span id="sync-label" data-i18n="sync_synced">Synced</span>
+        </span>
+        <button type="button" id="btn-save" disabled title="Cmd/Ctrl+S" data-i18n="btn_save">Save to Phone</button>
+        <button type="button" id="btn-disconnect" class="btn-danger" data-i18n="btn_disconnect">Disconnect</button>
+      </header>
+      <div id="editor-root" class="editor-root"></div>
+    </section>
+
+    <!-- Disconnected overlay -->
+    <div id="disconnected-overlay" class="overlay hidden">
+      <div class="overlay-content">
+        <div class="status-icon large">🔌</div>
+        <h2 data-i18n="overlay_title">Connection Lost</h2>
+        <p data-i18n="overlay_desc">The phone has closed the connection</p>
+        <button type="button" id="btn-go-home" class="btn-primary" data-i18n="btn_go_home">Back to Home</button>
+      </div>
+    </div>
+
+    <!-- Language switcher -->
+    <button id="lang-toggle" class="lang-toggle" title="Switch language">EN</button>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/peerjs@1.5.5/dist/peerjs.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/monaco-editor@0.50.0/min/vs/loader.js"></script>
+  <script src="./editor.js"></script>
+</body>
+</html>

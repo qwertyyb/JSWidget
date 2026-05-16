@@ -11,10 +11,13 @@
 
 ## Build, Test, and Development Commands
 - `open iOS/ScriptWidget.xcodeproj` and `open macOS/ScriptWidgetMac.xcodeproj`: build/run in Xcode (schemes: `ScriptWidget`, `ScriptWidgetWidget`, `ScriptWidgetShare`, `ScriptWidgetMac`, `ScriptWidgetMacWidget`).
-- `cd Editor/editorfe && npm install`: install editor dependencies.
-- `npm start`: run the editor dev server at `http://localhost:3000`.
-- `npm test`: run editor tests (react-scripts).
-- `npm run build`: produce static editor assets in `Editor/editorfe/build`.
+- **Package manager**: use **pnpm** (not npm/yarn). Each JS sub-project enforces this via `only-allow pnpm` preinstall hook.
+- `cd Editor/editorfe && pnpm install`: install editor dependencies.
+- `pnpm start`: run the editor dev server at `http://localhost:3000`.
+- `pnpm test`: run editor tests (react-scripts).
+- `pnpm run build`: produce static editor assets in `Editor/editorfe/build`.
+- `cd Tools/jsx-compiler && pnpm install`: install JSX compiler dependencies.
+- `node test.mjs`: run JSX compiler tests; `npx tsdown`: rebuild the bundled `jsx-compiler.js`.
 - When running iOS/macOS targets, enable the `iCloud.ScriptWidget` container and `group.everettjf.scriptwidget` app group so script storage works.
 
 ## Coding Style & Naming Conventions
@@ -23,9 +26,9 @@
 - Runtime scripts: packages live under `Scripts/<PackageName>/` with `main.jsx` entrypoint.
 
 ## Testing Guidelines
-- Editor: `npm test` (Jest via react-scripts + Testing Library). Add tests next to related components when feasible.
+- Editor: `pnpm test` (Jest via react-scripts + Testing Library). Add tests next to related components when feasible.
 - Swift: no dedicated unit-test target yet; validate by running the iOS/macOS app and widget schemes. Smoke-test Live Activity/Dynamic Island rendering and iCloud migration paths when touching runtime or storage.
 
 ## Commit & Pull Request Guidelines
 - History shows short, informal summaries (often lowercase) and merge commits; no strict convention. Use concise, action-oriented summaries and add a short body when context helps.
-- PRs should include: a clear description, linked issue (if applicable), and screenshots for UI changes. Note which schemes/commands you ran (e.g., `ScriptWidgetWidget`, `npm test`).
+- PRs should include: a clear description, linked issue (if applicable), and screenshots for UI changes. Note which schemes/commands you ran (e.g., `ScriptWidgetWidget`, `pnpm test`).

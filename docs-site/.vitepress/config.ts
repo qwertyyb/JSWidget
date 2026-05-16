@@ -1,6 +1,27 @@
 import { defineConfig } from 'vitepress'
 
+function env(name: string): string | undefined {
+  const proc = (globalThis as unknown as { process?: { env?: Record<string, string | undefined> } })
+    .process
+  return proc?.env?.[name]
+}
+
+/** GitHub project pages are served at /<repo>/; user/org root sites use repo named *.github.io (base "/"). */
+function resolveBase(): string {
+  const explicit = env('VITEPRESS_BASE')?.trim()
+  if (explicit) {
+    if (explicit === '' || explicit === '/') return '/'
+    const withTrailing = explicit.endsWith('/') ? explicit : `${explicit}/`
+    return withTrailing.startsWith('/') ? withTrailing : `/${withTrailing}`
+  }
+  const repo = env('GITHUB_REPOSITORY')?.split('/')?.[1]
+  if (!repo) return '/'
+  if (repo.toLowerCase().endsWith('.github.io')) return '/'
+  return `/${repo}/`
+}
+
 export default defineConfig({
+  base: resolveBase(),
   markdown: {
     config: (md) => {
       // Escape {{ and }} in inline code to prevent Vue template processing

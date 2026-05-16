@@ -11,6 +11,7 @@ import WidgetKit
 @main
 struct ScriptWidgetApp: App {
     @UIApplicationDelegateAdaptor(AppDelegate.self) var appDelegate;
+    @State private var pendingImport: ScriptImportData?
     
     var body: some Scene {
         WindowGroup {
@@ -37,6 +38,13 @@ struct ScriptWidgetApp: App {
                     
                     DeepLinkManager.openDeepLink(url: url)
                 })
+                .sheet(item: $pendingImport) { data in
+                    ScriptImportView(
+                        importData: data,
+                        onConfirm: { pendingImport = nil },
+                        onCancel: { pendingImport = nil }
+                    )
+                }
         }
     }
     
@@ -44,6 +52,31 @@ struct ScriptWidgetApp: App {
     func dealWithSelfScheme(host: String, url: URL) {
         if host == "reload-all" {
             WidgetCenter.shared.reloadAllTimelines()
+            return
         }
+        
+        if host == "import" {
+            handleImport(url: url)
+            return
+        }
+    }
+    
+    private func handleImport(url: URL) {
+        guard let components = URLComponents(url: url, resolvingAgainstBaseURL: false) else {
+            print("import: invalid URL")
+            return
+        }
+        
+        let queryItems = components.queryItems ?? []
+        let name = queryItems.first(where: { $0.name == "name" })?.value ?? "Imported Script"
+        
+        guard let codeBase64 = queryItems.first(where: { $0.name == "code" })?.value,
+              let codeData = Data(base64Encoded: codeBase64),
+              let code = String(data: codeData, encoding: .utf8) else {
+            print("import: missing or invalid code parameter")
+            return
+        }
+        
+        pendingImport = ScriptImportData(name: name, code: code)
     }
 }

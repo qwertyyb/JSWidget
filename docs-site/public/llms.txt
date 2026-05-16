@@ -8,6 +8,7 @@
 - JSX 标签名一律小写（如 `<vstack>`、`<text>`），语义接近 SwiftUI，而非 React DOM。
 - 网络：`$http` / `fetch`；存储：`$storage`；环境：`$getenv`（例如 `widget-size` 为 `small` | `medium` | `large`）。
 - 完整全局 API 列表以仓库内 `docs/api.md` 为准；组件与属性以 `docs/components.md` 为准。
+- 一键导入：生成脚本后附上 `scriptwidget://import?name=<名称>&code=<base64编码的脚本>` 链接，用户点击即可导入到 App。
 
 ## 仓库内文档路径（克隆后可直接读取）
 

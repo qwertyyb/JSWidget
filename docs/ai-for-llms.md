@@ -50,7 +50,8 @@ $render(
 
 1. **简短说明**：数据从哪来、如何适配 small/medium/large（若相关）。
 2. **完整可粘贴脚本**：单文件 `main.jsx` 风格，顶层逻辑 + 输出调用（桌面用 `$render`，灵动岛用 `$dynamic_island`）。
-3. **权限与限制**（如适用）：例如 HealthKit、定位、网络域名需在 App 侧配置或用户授权；不要承诺文档未说明的能力。
+3. **一键导入链接**：格式为 `scriptwidget://import?name=<脚本名>&code=<base64>`，其中 `name` 使用英文，`code` 是完整 `main.jsx` 源码经标准 Base64 编码后的字符串。用户在 iOS/macOS 上点击该链接即可直接导入到 ScriptWidget。
+4. **权限与限制**（如适用）：例如 HealthKit、定位、网络域名需在 App 侧配置或用户授权；不要承诺文档未说明的能力。
 
 若用户需求依赖未在文档中出现的 API，应明确标注 **「当前文档未涵盖，需人工核对运行时」**，避免编造。
 

@@ -27,10 +27,12 @@ struct ContentView: View {
         TabView {
             ScriptWidgetHomeView()
                 .tabItem({ TabLabel(imageName: "chevron.left.forwardslash.chevron.right", label: "Scripts")})
+            #if DEBUG
             ComponentsHomeView()
                 .tabItem({ TabLabel(imageName: "chart.xyaxis.line", label: "Components")})
             APIsHomeView()
                 .tabItem({ TabLabel(imageName: "pencil.line", label: "APIs")})
+            #endif
             DocsHomeView()
                 .tabItem({ TabLabel(imageName: "book.fill", label: "Docs")})
         }

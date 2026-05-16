@@ -1,14 +1,14 @@
 # AI 指南
 
-在 ScriptWidget 里，小组件脚本使用 JavaScript / JSX（例如 `main.jsx`）。你也可以借助大语言模型（ChatGPT、Claude、Cursor 等）来生成或改写脚本。
+在 ScriptWidget 里，小组件脚本使用 JavaScript / JSX（例如 `main.jsx`）。你可以借助大语言模型（ChatGPT、Claude、Cursor 等）来生成或改写脚本。
 
 ## 如何使用
 
-1. **复制**下面「发给 AI 的提示词」框中的**全部文字**。
+1. **长按复制**下面「发给 AI 的提示词」代码框中的**全部文字**。
 2. 粘贴到你使用的 AI 对话里。
 3. **用中文或英文描述**你想要的桌面小组件（布局、数据、刷新方式等）。
 4. AI 会依据提示词里的**官方文档链接**生成可在本应用中使用的 **`main.jsx`**。
-5. AI 生成的结果中会包含一个**一键导入链接**（`scriptwidget://import?...`），在 iOS/macOS 上点击即可直接导入到 ScriptWidget。
+5. AI 生成的结果中会包含一个**一键导入链接**，点击即可直接导入到 ScriptWidget。
 
 提示词**不会**附带整份文档，只包含链接；请确保 AI 能访问互联网以便打开这些 Markdown 源文件（若使用离线模型，请自行把链接中的内容提供给模型）。
 
@@ -36,9 +36,3 @@
 （2）一份完整、可直接粘贴到 ScriptWidget 中的 main.jsx 源码；
 （3）一个一键导入链接，格式为 scriptwidget://import?name=<脚本名>&code=<base64编码后的脚本内容>。脚本名使用英文，code 的值是将完整 main.jsx 源码进行标准 Base64 编码后的字符串。
 ```
-
-## 相关链接
-
-- [快速入门](./getting-started)
-- [组件文档](/components/)
-- [API 文档](/api/)

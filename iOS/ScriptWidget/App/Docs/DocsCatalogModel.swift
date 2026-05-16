@@ -31,6 +31,9 @@ enum DocsCatalog {
         DocSection(title: "Getting Started", items: [
             DocItem(title: "Quick Start", icon: "sparkles", file: "getting-started.md"),
         ]),
+        DocSection(title: "AI", items: [
+            DocItem(title: "AI Guide", icon: "wand.and.stars", file: "ai.md"),
+        ]),
         DocSection(title: "Components", items: [
             DocItem(title: "All Components", icon: "square.stack.3d.up", file: "components.md"),
             DocItem(title: "Layout Containers", icon: "rectangle.split.3x1", file: "components.md", anchor: "布局容器"),

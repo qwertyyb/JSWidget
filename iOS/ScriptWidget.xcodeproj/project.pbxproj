@@ -34,8 +34,6 @@
 		D132336728E09630002C26A2 /* ScriptDynamicIslandCreator.swift in Sources */ = {isa = PBXBuildFile; fileRef = D132336628E09630002C26A2 /* ScriptDynamicIslandCreator.swift */; };
 		D13832AE25A1EB6B00DC9C20 /* CreateGuideView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D13832AD25A1EB6B00DC9C20 /* CreateGuideView.swift */; };
 		A1B2C3D4E5F6789000AABB02 /* ScriptImportView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1B2C3D4E5F6789000AABB01 /* ScriptImportView.swift */; };
-		D19CAF5728CB94C900DFF98B /* ComponentsHomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D19CAF5628CB94C900DFF98B /* ComponentsHomeView.swift */; };
-		D19CAF5928CB94D500DFF98B /* APIsHomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D19CAF5828CB94D500DFF98B /* APIsHomeView.swift */; };
 		B7E000012B16000100A00002 /* StoreRemoteConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7E000012B16000100A00001 /* StoreRemoteConfig.swift */; };
 		B7E000012B16000100A00004 /* StoreModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7E000012B16000100A00003 /* StoreModels.swift */; };
 		B7E000012B16000100A00006 /* StoreManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7E000012B16000100A00005 /* StoreManager.swift */; };
@@ -75,6 +73,7 @@
 		7ACCB90CC27D4609BE116748 /* DocsCatalogView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B89E858A784F405BB7868247 /* DocsCatalogView.swift */; };
 		D05C274B4C6C47D39E093B01 /* DocsHomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8696A9E95487441694A46115 /* DocsHomeView.swift */; };
 		373209637CBE4F2B8618D0C5 /* DocsOverlayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C20D47DBAFFB43F899EF963B /* DocsOverlayView.swift */; };
+		E7F001002B16000100000001 /* DebugHomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7F001002B16000100000002 /* DebugHomeView.swift */; };
 		D19CAF5B28CB975D00DFF98B /* SettingComponentsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D19CAF5A28CB975D00DFF98B /* SettingComponentsView.swift */; };
 		D19CAF5D28CB976C00DFF98B /* SettingAPIsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D19CAF5C28CB976C00DFF98B /* SettingAPIsView.swift */; };
 		D19CAF5F28CC3F8E00DFF98B /* ScriptPackageHorizontalFileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D19CAF5E28CC3F8E00DFF98B /* ScriptPackageHorizontalFileView.swift */; };
@@ -374,8 +373,7 @@
 		D132336628E09630002C26A2 /* ScriptDynamicIslandCreator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScriptDynamicIslandCreator.swift; sourceTree = "<group>"; };
 		D13832AD25A1EB6B00DC9C20 /* CreateGuideView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateGuideView.swift; sourceTree = "<group>"; };
 		A1B2C3D4E5F6789000AABB01 /* ScriptImportView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScriptImportView.swift; sourceTree = "<group>"; };
-		D19CAF5628CB94C900DFF98B /* ComponentsHomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ComponentsHomeView.swift; sourceTree = "<group>"; };
-		D19CAF5828CB94D500DFF98B /* APIsHomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIsHomeView.swift; sourceTree = "<group>"; };
+		E7F001002B16000100000002 /* DebugHomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DebugHomeView.swift; sourceTree = "<group>"; };
 		B7E000012B16000100A00001 /* StoreRemoteConfig.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoreRemoteConfig.swift; sourceTree = "<group>"; };
 		B7E000012B16000100A00003 /* StoreModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoreModels.swift; sourceTree = "<group>"; };
 		B7E000012B16000100A00005 /* StoreManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoreManager.swift; sourceTree = "<group>"; };
@@ -861,20 +859,12 @@
 			sourceTree = "<group>";
 		};
 
-		D19CAF5428CB94A600DFF98B /* Components */ = {
+		E7F001002B16000100000003 /* Debug */ = {
 			isa = PBXGroup;
 			children = (
-				D19CAF5628CB94C900DFF98B /* ComponentsHomeView.swift */,
+				E7F001002B16000100000002 /* DebugHomeView.swift */,
 			);
-			path = Components;
-			sourceTree = "<group>";
-		};
-		D19CAF5528CB94AE00DFF98B /* APIs */ = {
-			isa = PBXGroup;
-			children = (
-				D19CAF5828CB94D500DFF98B /* APIsHomeView.swift */,
-			);
-			path = APIs;
+			path = Debug;
 			sourceTree = "<group>";
 		};
 		B7E000012B16000100A0000C /* Store */ = {
@@ -1224,8 +1214,7 @@
 				D14AC8892531419700016FBE /* AppDelegate.swift */,
 				D18AAC31252A12D10065386A /* ContentView.swift */,
 				D1CBAED028D5B0FB00DE4E65 /* LiveActivity */,
-				D19CAF5428CB94A600DFF98B /* Components */,
-				D19CAF5528CB94AE00DFF98B /* APIs */,
+				E7F001002B16000100000003 /* Debug */,
 				F5026958C2724123A6988C31 /* Docs */,
 				B7E000012B16000100A0000C /* Store */,
 				F240AC7E27B2D68B00D249EA /* Scripts */,
@@ -1587,8 +1576,7 @@
 				B7E000012B16000100A00006 /* StoreManager.swift in Sources */,
 				B7E000012B16000100A00008 /* StoreHomeView.swift in Sources */,
 				B7E000012B16000100A0000A /* StoreDetailView.swift in Sources */,
-				D19CAF5728CB94C900DFF98B /* ComponentsHomeView.swift in Sources */,
-				D19CAF5928CB94D500DFF98B /* APIsHomeView.swift in Sources */,
+				E7F001002B16000100000001 /* DebugHomeView.swift in Sources */,
 				77420A764B70467F98151535 /* DocsCatalogModel.swift in Sources */,
 				8834BC81F2B74BCF9D7E9169 /* DocWebView.swift in Sources */,
 				83AC93038437478DB257EC46 /* DocDetailView.swift in Sources */,

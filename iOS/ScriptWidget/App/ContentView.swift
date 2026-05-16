@@ -30,10 +30,8 @@ struct ContentView: View {
             StoreHomeView()
                 .tabItem({ TabLabel(imageName: "square.grid.2x2", label: "Store")})
             #if DEBUG
-            ComponentsHomeView()
-                .tabItem({ TabLabel(imageName: "chart.xyaxis.line", label: "Components")})
-            APIsHomeView()
-                .tabItem({ TabLabel(imageName: "pencil.line", label: "APIs")})
+            DebugHomeView()
+                .tabItem({ TabLabel(imageName: "ladybug", label: "Debug")})
             #endif
             DocsHomeView()
                 .tabItem({ TabLabel(imageName: "book.fill", label: "Docs")})

@@ -36,6 +36,11 @@
 		A1B2C3D4E5F6789000AABB02 /* ScriptImportView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1B2C3D4E5F6789000AABB01 /* ScriptImportView.swift */; };
 		D19CAF5728CB94C900DFF98B /* ComponentsHomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D19CAF5628CB94C900DFF98B /* ComponentsHomeView.swift */; };
 		D19CAF5928CB94D500DFF98B /* APIsHomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D19CAF5828CB94D500DFF98B /* APIsHomeView.swift */; };
+		B7E000012B16000100A00002 /* StoreRemoteConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7E000012B16000100A00001 /* StoreRemoteConfig.swift */; };
+		B7E000012B16000100A00004 /* StoreModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7E000012B16000100A00003 /* StoreModels.swift */; };
+		B7E000012B16000100A00006 /* StoreManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7E000012B16000100A00005 /* StoreManager.swift */; };
+		B7E000012B16000100A00008 /* StoreHomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7E000012B16000100A00007 /* StoreHomeView.swift */; };
+		B7E000012B16000100A0000A /* StoreDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7E000012B16000100A00009 /* StoreDetailView.swift */; };
 		D1403DE82552FEB40076F87C /* TOActivityCroppedImageProvider.m in Sources */ = {isa = PBXBuildFile; fileRef = D1403DD12552FEB40076F87C /* TOActivityCroppedImageProvider.m */; };
 		D1403DE92552FEB40076F87C /* TOCropViewControllerTransitioning.m in Sources */ = {isa = PBXBuildFile; fileRef = D1403DD22552FEB40076F87C /* TOCropViewControllerTransitioning.m */; };
 		D1403DEA2552FEB40076F87C /* TOCroppedImageAttributes.m in Sources */ = {isa = PBXBuildFile; fileRef = D1403DD32552FEB40076F87C /* TOCroppedImageAttributes.m */; };
@@ -371,6 +376,11 @@
 		A1B2C3D4E5F6789000AABB01 /* ScriptImportView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScriptImportView.swift; sourceTree = "<group>"; };
 		D19CAF5628CB94C900DFF98B /* ComponentsHomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ComponentsHomeView.swift; sourceTree = "<group>"; };
 		D19CAF5828CB94D500DFF98B /* APIsHomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIsHomeView.swift; sourceTree = "<group>"; };
+		B7E000012B16000100A00001 /* StoreRemoteConfig.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoreRemoteConfig.swift; sourceTree = "<group>"; };
+		B7E000012B16000100A00003 /* StoreModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoreModels.swift; sourceTree = "<group>"; };
+		B7E000012B16000100A00005 /* StoreManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoreManager.swift; sourceTree = "<group>"; };
+		B7E000012B16000100A00007 /* StoreHomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoreHomeView.swift; sourceTree = "<group>"; };
+		B7E000012B16000100A00009 /* StoreDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoreDetailView.swift; sourceTree = "<group>"; };
 		D1403D962552FE5C0076F87C /* ScriptWidget-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "ScriptWidget-Bridging-Header.h"; sourceTree = "<group>"; };
 		D1403DD12552FEB40076F87C /* TOActivityCroppedImageProvider.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TOActivityCroppedImageProvider.m; sourceTree = "<group>"; };
 		D1403DD22552FEB40076F87C /* TOCropViewControllerTransitioning.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TOCropViewControllerTransitioning.m; sourceTree = "<group>"; };
@@ -867,6 +877,18 @@
 			path = APIs;
 			sourceTree = "<group>";
 		};
+		B7E000012B16000100A0000C /* Store */ = {
+			isa = PBXGroup;
+			children = (
+				B7E000012B16000100A00001 /* StoreRemoteConfig.swift */,
+				B7E000012B16000100A00003 /* StoreModels.swift */,
+				B7E000012B16000100A00005 /* StoreManager.swift */,
+				B7E000012B16000100A00007 /* StoreHomeView.swift */,
+				B7E000012B16000100A00009 /* StoreDetailView.swift */,
+			);
+			path = Store;
+			sourceTree = "<group>";
+		};
 		F5026958C2724123A6988C31 /* Docs */ = {
 			isa = PBXGroup;
 			children = (
@@ -1205,6 +1227,7 @@
 				D19CAF5428CB94A600DFF98B /* Components */,
 				D19CAF5528CB94AE00DFF98B /* APIs */,
 				F5026958C2724123A6988C31 /* Docs */,
+				B7E000012B16000100A0000C /* Store */,
 				F240AC7E27B2D68B00D249EA /* Scripts */,
 				F240AC7F27B2D6AB00D249EA /* Settings */,
 			);
@@ -1559,6 +1582,11 @@
 				F2B20CC425D2EF5E00B62DAC /* NameAutoImageView.swift in Sources */,
 				D13832AE25A1EB6B00DC9C20 /* CreateGuideView.swift in Sources */,
 				A1B2C3D4E5F6789000AABB02 /* ScriptImportView.swift in Sources */,
+				B7E000012B16000100A00002 /* StoreRemoteConfig.swift in Sources */,
+				B7E000012B16000100A00004 /* StoreModels.swift in Sources */,
+				B7E000012B16000100A00006 /* StoreManager.swift in Sources */,
+				B7E000012B16000100A00008 /* StoreHomeView.swift in Sources */,
+				B7E000012B16000100A0000A /* StoreDetailView.swift in Sources */,
 				D19CAF5728CB94C900DFF98B /* ComponentsHomeView.swift in Sources */,
 				D19CAF5928CB94D500DFF98B /* APIsHomeView.swift in Sources */,
 				77420A764B70467F98151535 /* DocsCatalogModel.swift in Sources */,

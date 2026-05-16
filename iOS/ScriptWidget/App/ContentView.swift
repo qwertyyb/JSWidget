@@ -27,6 +27,8 @@ struct ContentView: View {
         TabView {
             ScriptWidgetHomeView()
                 .tabItem({ TabLabel(imageName: "chevron.left.forwardslash.chevron.right", label: "Scripts")})
+            StoreHomeView()
+                .tabItem({ TabLabel(imageName: "square.grid.2x2", label: "Store")})
             #if DEBUG
             ComponentsHomeView()
                 .tabItem({ TabLabel(imageName: "chart.xyaxis.line", label: "Components")})

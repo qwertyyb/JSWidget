@@ -1,4 +1,5 @@
 import { defineConfig } from 'vitepress'
+import { execSync } from 'node:child_process'
 import { fileURLToPath } from 'node:url'
 
 function env(name: string): string | undefined {
@@ -25,6 +26,9 @@ const docsDir = fileURLToPath(new URL('../docs', import.meta.url))
 
 export default defineConfig({
   base: resolveBase(),
+  async buildStart() {
+    execSync('node Tools/gen-skill.mjs', { cwd: fileURLToPath(new URL('..', import.meta.url)), stdio: 'inherit' })
+  },
   markdown: {
     config: (md) => {
       // Escape {{ and }} in inline code to prevent Vue template processing
@@ -40,7 +44,7 @@ export default defineConfig({
     },
   },
   srcDir: docsDir,
-  srcExclude: ['**/plans/**', '**/todo/**', '**/dts/**'],
+  srcExclude: ['**/plans/**', '**/todo/**', '**/dts/**', '**/jswidget-script-gen/**'],
 
   title: 'JSWidget',
   description: 'Create native widgets for iOS & macOS using JavaScript and JSX',

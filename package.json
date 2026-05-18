@@ -9,7 +9,8 @@
     "build:jsx-compiler": "pnpm --filter jsx-compiler build",
     "generate:completion": "pnpm --filter completion-gen generate",
     "sync:bundle-docs": "node Tools/sync-bundle-docs.mjs",
-    "build:tools": "pnpm run build:jsx-compiler && pnpm run generate:completion && pnpm run sync:bundle-docs"
+    "gen:skill": "node Tools/gen-skill.mjs",
+    "build:tools": "pnpm run build:jsx-compiler && pnpm run generate:completion && pnpm run sync:bundle-docs && pnpm run gen:skill"
   },
   "devDependencies": {
     "vitepress": "next"

@@ -1,6 +1,6 @@
 # JSWidget JavaScript 运行时 API 文档
 
-本文档与 [`docs/dts/api.d.ts`](../dts/api.d.ts)（及 [`docs/dts/types.d.ts`](../dts/types.d.ts) 中的共用类型）保持一致，描述 JSWidget JS 运行时暴露给 JavaScript 的所有 API。
+JSWidget JS 运行时暴露给 JavaScript 的所有 API。
 
 ---
 

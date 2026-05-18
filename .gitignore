@@ -8,3 +8,6 @@ aa/
 node_modules/
 .vitepress/dist/
 .vitepress/cache/
+.vitepress/.temp/
+docs/public/jswidget-script-gen.zip
+docs/jswidget-script-gen/references/

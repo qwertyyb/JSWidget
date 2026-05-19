@@ -32,3 +32,15 @@
 （1）简短实现思路；
 （2）一份完整、可直接粘贴到 JSWidget 中的 main.jsx 源码；
 ```
+
+## Skill（推荐）
+
+安装 **JSWidget Script Generator** Skill，让 Agent 生成 JSWidget 脚本。
+
+### 安装方法
+
+将下方整段**复制并发送给 Agent**，即可一键安装：
+
+```
+帮我安装SKILL: https://qwertyyb.github.io/JSWidget/jswidget-script-gen.zip
+```

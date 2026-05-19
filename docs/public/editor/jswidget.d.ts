@@ -328,6 +328,8 @@ declare function $component(
 
 declare function $error(message: string): void;
 
+/// <reference path="./types.d.ts" />
+
 /** 所有组件共享的公共属性 */
 interface JSWidgetCommonAttributes {
   /** 尺寸（"max" 或 {width, height}） */
@@ -339,9 +341,21 @@ interface JSWidgetCommonAttributes {
     minHeight?: number;
     maxHeight?: number | "fill";
   };
-  /** 水平对齐 */
+  /**
+   * 内容/子组件的水平对齐方式，需配合 size 使用。
+   * 对 hstack：控制子元素组在主轴（水平）上的位置。
+   * 对 vstack：控制子元素在交叉轴（水平）上的对齐（通过构造器生效，不依赖 size）。
+   * 对 zstack：控制子元素水平堆叠锚点（通过构造器生效，不依赖 size）。
+   * 对其他组件：在 size 指定的空间内水平定位内容。
+   */
   justify?: "start" | "center" | "end";
-  /** 垂直对齐 */
+  /**
+   * 内容/子组件的垂直对齐方式，需配合 size 使用。
+   * 对 vstack：控制子元素组在主轴（垂直）上的位置。
+   * 对 hstack：控制子元素在交叉轴（垂直）上的对齐（通过构造器生效，不依赖 size）。
+   * 对 zstack：控制子元素垂直堆叠锚点（通过构造器生效，不依赖 size）。
+   * 对其他组件：在 size 指定的空间内垂直定位内容。
+   */
   align?: "start" | "center" | "end";
   /** 内边距（数字或 {horizontal, vertical, top, bottom, leading, trailing, left, right}） */
   padding?: number | {
@@ -463,8 +477,14 @@ declare namespace JSWidget {
                 };
         /** 文字颜色 */
         color?: string;
-        /** 文本对齐 */
-        textAlign?: "start" | "center" | "end";
+        /**
+         * 多行文本内部每一行的水平对齐方式。
+         * 仅影响文本框内各行文字的排列，不改变组件盒子本身的位置。
+         * 与 justify 的区别：justify 移动的是整个组件盒子，textAlign 对齐的是盒子内的文字行。
+         * 两者可组合使用，例如 justify="start" + textAlign="center" 表示组件靠左、内部文字居中。
+         * left 为 start 的别名，right 为 end 的别名。
+         */
+        textAlign?: "start" | "center" | "end" | "left" | "right";
         /** 行数限制 */
         lineLimit?: number;
       };
@@ -481,8 +501,14 @@ declare namespace JSWidget {
               };
         /** 文字颜色 */
         color?: string;
-        /** 文本对齐 */
-        textAlign?: "start" | "center" | "end";
+        /**
+         * 多行文本内部每一行的水平对齐方式。
+         * 仅影响文本框内各行文字的排列，不改变组件盒子本身的位置。
+         * 与 justify 的区别：justify 移动的是整个组件盒子，textAlign 对齐的是盒子内的文字行。
+         * 两者可组合使用，例如 justify="start" + textAlign="center" 表示组件靠左、内部文字居中。
+         * left 为 start 的别名，right 为 end 的别名。
+         */
+        textAlign?: "start" | "center" | "end" | "left" | "right";
         /** 行数限制 */
         lineLimit?: number;
       };

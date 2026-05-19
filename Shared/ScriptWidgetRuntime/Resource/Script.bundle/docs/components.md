@@ -15,7 +15,7 @@
 | 属性 | 类型 | 说明 |
 |------|------|------|
 | `spacing` | `number` | 子元素水平间距 |
-| `justify` | `"start" \| "center" \| "end"` | 主轴分布（需父级有剩余宽度） |
+| `justify` | `"start" \| "center" \| "end"` | 主轴分布（需配合 `size` 使用） |
 | `size` | 见[通用属性](#通用属性jswidgetcommonattributes) | 尺寸 |
 | 其他 | 见[通用属性](#通用属性jswidgetcommonattributes) | 不含 `align` |
 
@@ -36,7 +36,7 @@
 |------|------|------|
 | `spacing` | `number` | 子元素垂直间距 |
 | `align` | `"start" \| "center" \| "end"` | 子元素水平对齐（交叉轴） |
-| `justify` | `"start" \| "center" \| "end"` | 主轴分布（需父级有剩余高度） |
+| `justify` | `"start" \| "center" \| "end"` | 主轴分布（需配合 `size` 使用） |
 
 ```jsx
 <col align="center" spacing={10}>
@@ -595,8 +595,8 @@ SF Symbol 图标。继承 `JSWidgetCommonAttributes`。
 | 属性 | 类型 | 说明 |
 |------|------|------|
 | `size` | `string \| { width?, height?, minWidth?, maxWidth?, minHeight?, maxHeight? }` | `"max"` 或尺寸对象；`width` / `height` 等为 `number \| "fill"` |
-| `justify` | `"start" \| "center" \| "end"` | 水平对齐 / 主轴分布 |
-| `align` | `"start" \| "center" \| "end"` | 垂直对齐（`row` 无此项；`grid-row` 使用专用 `align`） |
+| `justify` | `"start" \| "center" \| "end"` | 水平对齐 / 主轴分布（需配合 `size` 使用；容器的交叉轴对齐不依赖 size） |
+| `align` | `"start" \| "center" \| "end"` | 垂直对齐（需配合 `size` 使用；容器的交叉轴对齐不依赖 size）。`row` 无此项；`grid-row` 使用专用 `align` |
 | `padding` | `JSWidgetPadding` | 内边距 |
 | `backgroundColor` | `string` | 背景色 |
 | `foregroundColor` | `string` | 前景色 |

@@ -30,9 +30,9 @@ struct ScriptWidgetAttributeTextAlignmentModifier: ViewModifier {
     
     private static func parse(_ name: String) -> TextAlignment? {
         switch name {
-        case "start": return .leading
+        case "start", "left": return .leading
         case "center": return .center
-        case "end": return .trailing
+        case "end", "right": return .trailing
         default: return nil
         }
     }

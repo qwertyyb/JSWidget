@@ -31,7 +31,7 @@ struct ScriptWidgetAttributeFrameModifier: ViewModifier {
     init(_ element: ScriptWidgetRuntimeElement) {
         let defaultAlign: Alignment = .topLeading
         let alignment = Self.resolveAlignment(element)
-        
+
         switch element.getPropValue("size") {
         case .string(let value):
             if value == "max" {

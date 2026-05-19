@@ -19,13 +19,12 @@ class ScriptWidgetElementTagStack {
     }
     
     @ViewBuilder private static func buildVStack(element: ScriptWidgetRuntimeElement, context: ScriptWidgetElementContext) -> some View {
-        let stack = VStack(alignment: Self.getHorizontalAlignment(element), spacing: Self.getSpacing(element)) {
+        VStack(alignment: Self.getHorizontalAlignment(element), spacing: Self.getSpacing(element)) {
             ForEach(element.childrenAsElements()) { item -> AnyView in
                 return ScriptWidgetElementView.buildView(element: item, context: context)
             }
         }
-        Self.applyMainAxisJustify(stack, justify: Self.getJustify(element), isHorizontal: false)
-            .modifier(ScriptWidgetAttributeGeneralModifier(element, context))
+        .modifier(ScriptWidgetAttributeGeneralModifier(element, context))
     }
     ///--------------------------------------------------------------------------------------------------------
 
@@ -34,13 +33,12 @@ class ScriptWidgetElementTagStack {
     }
     
     @ViewBuilder private static func buildHStack(element: ScriptWidgetRuntimeElement, context: ScriptWidgetElementContext) -> some View {
-        let stack = HStack(alignment: Self.getVerticalAlignment(element), spacing: Self.getSpacing(element)) {
+        HStack(alignment: Self.getVerticalAlignment(element), spacing: Self.getSpacing(element)) {
             ForEach(element.childrenAsElements()) { item -> AnyView in
                 return ScriptWidgetElementView.buildView(element: item, context: context)
             }
         }
-        Self.applyMainAxisJustify(stack, justify: Self.getJustify(element), isHorizontal: true)
-            .modifier(ScriptWidgetAttributeGeneralModifier(element, context))
+        .modifier(ScriptWidgetAttributeGeneralModifier(element, context))
     }
     ///--------------------------------------------------------------------------------------------------------
 
@@ -73,43 +71,4 @@ class ScriptWidgetElementTagStack {
         return CGFloat(spacing)
     }
     
-    enum StackJustify {
-        case start
-        case center
-        case end
-    }
-    
-    static func getJustify(_ element: ScriptWidgetRuntimeElement) -> StackJustify? {
-        guard let justify = element.getPropString("justify") else { return nil }
-        switch justify {
-        case "center": return .center
-        case "start": return .start
-        case "end": return .end
-        default: return nil
-        }
-    }
-    
-    @ViewBuilder
-    static func applyMainAxisJustify<Content: View>(
-        _ content: Content,
-        justify: StackJustify?,
-        isHorizontal: Bool
-    ) -> some View {
-        switch justify {
-        case nil, .start:
-            content
-        case .center:
-            if isHorizontal {
-                content.frame(maxWidth: .infinity, alignment: .center)
-            } else {
-                content.frame(maxHeight: .infinity, alignment: .center)
-            }
-        case .end:
-            if isHorizontal {
-                content.frame(maxWidth: .infinity, alignment: .trailing)
-            } else {
-                content.frame(maxHeight: .infinity, alignment: .bottom)
-            }
-        }
-    }
 }

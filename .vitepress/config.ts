@@ -26,8 +26,13 @@ const docsDir = fileURLToPath(new URL('../docs', import.meta.url))
 
 export default defineConfig({
   base: resolveBase(),
-  async buildStart() {
-    execSync('node Tools/gen-skill.mjs', { cwd: fileURLToPath(new URL('..', import.meta.url)), stdio: 'inherit' })
+  vite: {
+    plugins: [{
+      name: 'gen-skill',
+      async buildStart() {
+        execSync('node Tools/gen-skill.mjs', { cwd: fileURLToPath(new URL('..', import.meta.url)), stdio: 'inherit' })
+      },
+    }],
   },
   markdown: {
     config: (md) => {

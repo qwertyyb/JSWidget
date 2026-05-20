@@ -102,9 +102,9 @@ struct SettingsView: View {
                         NavigationLink(destination: AppIconsView()) {
                             SettingsTextRowView(name: "App Icons", content: "")
                         }
-                        SettingsLinkRowView(name: "Website", label: "https://qwertyyb.github.io/JSWidget/", urlString: "https://qwertyyb.github.io/JSWidget/")
-                        SettingsLinkRowView(name: "Developer", label: "qwertyyb", urlString: "https://github.com/qwertyyb")
-                        SettingsTextRowView(name: "Version", content: AppHelper.getAppVersion())
+                        NavigationLink(destination: AboutView()) {
+                            SettingsTextRowView(name: "About", content: "")
+                        }
                     }
                     
                 }
@@ -503,17 +503,11 @@ private struct SettingsLocationView: View {
         }
 
         func refresh() {
-            state = makeState()
-            if state == .authorizedAlways || state == .authorizedWhenInUse {
-                requestLocationIfNeeded()
-            }
+            applyAuthorizationStatus(locationManager.authorizationStatus)
+            checkLocationServicesEnabled()
         }
 
         func requestAuthorization() {
-            guard CLLocationManager.locationServicesEnabled() else {
-                state = .disabled
-                return
-            }
             isRequesting = true
             locationManager.requestWhenInUseAuthorization()
         }
@@ -527,6 +521,11 @@ private struct SettingsLocationView: View {
         }
 
         private func handleAuthorizationChange(status: CLAuthorizationStatus) {
+            applyAuthorizationStatus(status)
+            checkLocationServicesEnabled()
+        }
+
+        private func applyAuthorizationStatus(_ status: CLAuthorizationStatus) {
             state = makeState(status: status)
             if status != .notDetermined {
                 isRequesting = false
@@ -536,14 +535,22 @@ private struct SettingsLocationView: View {
             }
         }
 
-        private func makeState() -> LocationAuthorizationState {
-            return makeState(status: locationManager.authorizationStatus)
+        /// `locationServicesEnabled()` can block; never call it on the main thread.
+        private func checkLocationServicesEnabled() {
+            DispatchQueue.global(qos: .utility).async { [weak self] in
+                let enabled = CLLocationManager.locationServicesEnabled()
+                DispatchQueue.main.async {
+                    guard let self = self else { return }
+                    if !enabled {
+                        self.state = .disabled
+                    } else if self.state == .disabled {
+                        self.applyAuthorizationStatus(self.locationManager.authorizationStatus)
+                    }
+                }
+            }
         }
 
         private func makeState(status: CLAuthorizationStatus) -> LocationAuthorizationState {
-            guard CLLocationManager.locationServicesEnabled() else {
-                return .disabled
-            }
             switch status {
             case .notDetermined:
                 return .notDetermined

@@ -39,7 +39,7 @@ export const commonAttributes = [
   },
   {
     "name": "justify",
-    "info": "水平对齐",
+    "info": "水平对齐 / 主轴分布（默认 `center`）",
     "values": [
       "start",
       "center",

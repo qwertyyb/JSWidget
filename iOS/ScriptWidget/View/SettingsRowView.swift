@@ -57,9 +57,6 @@ struct SettingsTextRowView: View {
                 Spacer()
                 
                 Text(content)
-                    
-                Image(systemName: "arrow.up.right.square")
-                    .foregroundColor(.blue)
             }
         }
     }
@@ -68,7 +65,7 @@ struct SettingsTextRowView: View {
 struct SettingsRowView_Previews: PreviewProvider {
     static var previews: some View {
         
-        SettingsLinkRowView(name: "Website", label: "Pale Blue Dot", urlString: "https://everettjf.github.io")
+        SettingsLinkRowView(name: "Website", label: "Pale Blue Dot", urlString: "https://qwertyyb.github.io")
             .preferredColorScheme(.dark)
             .previewLayout(.fixed(width: 375, height: 60))
             .padding()

@@ -15,7 +15,7 @@
 | 属性 | 类型 | 说明 |
 |------|------|------|
 | `spacing` | `number` | 子元素水平间距 |
-| `justify` | `"start" \| "center" \| "end"` | 主轴分布（需父级有剩余宽度） |
+| `justify` | `"start" \| "center" \| "end"` | 主轴分布（默认 `center`，需父级有剩余宽度） |
 | `size` | 见[通用属性](#通用属性jswidgetcommonattributes) | 尺寸 |
 | 其他 | 见[通用属性](#通用属性jswidgetcommonattributes) | 不含 `align` |
 
@@ -36,7 +36,7 @@
 |------|------|------|
 | `spacing` | `number` | 子元素垂直间距 |
 | `align` | `"start" \| "center" \| "end"` | 子元素水平对齐（交叉轴） |
-| `justify` | `"start" \| "center" \| "end"` | 主轴分布（需父级有剩余高度） |
+| `justify` | `"start" \| "center" \| "end"` | 主轴分布（默认 `center`，需父级有剩余高度） |
 
 ```jsx
 <col align="center" spacing={10}>

@@ -39,10 +39,40 @@ class AppHelper {
         return "color4"
     }
     
+    static let aboutAuthorName = "qwertyyb"
+    static let aboutAuthorURL = "https://github.com/qwertyyb"
+    static let aboutWebsiteURL = "https://qwertyyb.github.io/JSWidget/"
+    static let aboutRepositoryURL = "https://github.com/qwertyyb/JSWidget"
+    
+    static func getAppDisplayName() -> String {
+        if let name = Bundle.main.object(forInfoDictionaryKey: "CFBundleDisplayName") as? String, !name.isEmpty {
+            return name
+        }
+        if let name = Bundle.main.object(forInfoDictionaryKey: "CFBundleName") as? String, !name.isEmpty {
+            return name
+        }
+        return "JSWidget"
+    }
+    
+    static func getMarketingVersion() -> String {
+        Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String ?? "1.0"
+    }
+    
+    static func getBuildVersion() -> String {
+        Bundle.main.infoDictionary?["CFBundleVersion"] as? String ?? "0"
+    }
+    
     static func getAppVersion() -> String {
-        let mainVersion = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String
-        let buildVersion = Bundle.main.infoDictionary?["CFBundleVersion"] as? String
-        return "\(mainVersion ?? "1.0").\(buildVersion ?? "0")"
+        "\(getMarketingVersion()).\(getBuildVersion())"
+    }
+    
+    @MainActor
+    static func appIconImage() -> UIImage? {
+        if let name = UIApplication.shared.alternateIconName,
+           let image = UIImage(named: name) {
+            return image
+        }
+        return UIImage(named: "MainAppIcon")
     }
     
     @MainActor static func requestReview() {

@@ -339,7 +339,7 @@ interface JSWidgetCommonAttributes {
     minHeight?: number;
     maxHeight?: number | "fill";
   };
-  /** 水平对齐 */
+  /** 水平对齐 / 主轴分布（默认 `center`） */
   justify?: "start" | "center" | "end";
   /** 垂直对齐 */
   align?: "start" | "center" | "end";

@@ -29,7 +29,7 @@ struct ScriptWidgetAttributeFrameModifier: ViewModifier {
     let frameMode: FrameMode
     
     init(_ element: ScriptWidgetRuntimeElement) {
-        let defaultAlign: Alignment = .topLeading
+        let defaultAlign: Alignment = .center
         let alignment = Self.resolveAlignment(element)
         
         switch element.getPropValue("size") {

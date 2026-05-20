@@ -79,24 +79,24 @@ class ScriptWidgetElementTagStack {
         case end
     }
     
-    static func getJustify(_ element: ScriptWidgetRuntimeElement) -> StackJustify? {
-        guard let justify = element.getPropString("justify") else { return nil }
+    static func getJustify(_ element: ScriptWidgetRuntimeElement) -> StackJustify {
+        guard let justify = element.getPropString("justify") else { return .center }
         switch justify {
-        case "center": return .center
         case "start": return .start
         case "end": return .end
-        default: return nil
+        case "center": return .center
+        default: return .center
         }
     }
     
     @ViewBuilder
     static func applyMainAxisJustify<Content: View>(
         _ content: Content,
-        justify: StackJustify?,
+        justify: StackJustify,
         isHorizontal: Bool
     ) -> some View {
         switch justify {
-        case nil, .start:
+        case .start:
             content
         case .center:
             if isHorizontal {

@@ -49,7 +49,6 @@ struct ScriptWidgetHomeView: View {
 
     @State private var tabBar: UITabBar? = nil
     
-    @State private var isShowingSettings: Bool = false
     @State private var isShowingCreateGuide: Bool = false
     
     @Environment(\.presentationMode) var presentationMode
@@ -86,18 +85,6 @@ struct ScriptWidgetHomeView: View {
                 })
                 .navigationTitle("JSWidget")
                 .toolbar {
-                    ToolbarItem(placement: .navigationBarLeading) {
-                        Button(action: {
-                            isShowingSettings = true
-                        }) {
-                            Label("Settings", systemImage: "slider.horizontal.3")
-                                .labelStyle(.iconOnly)
-                        }
-                        .sheet(isPresented: $isShowingSettings) {
-                            SettingsView()
-                        }
-                    }
-
                     ToolbarItem(placement: .navigationBarTrailing) {
                         Button(action: {
                             isShowingCreateGuide = true

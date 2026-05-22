@@ -114,8 +114,6 @@
 		D1995CED29536BB800D1BD94 /* ScriptWidgetRuntimeDevice.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1995C8E29536BB800D1BD94 /* ScriptWidgetRuntimeDevice.swift */; };
 		D1995CEE29536BB800D1BD94 /* support.bundle in Resources */ = {isa = PBXBuildFile; fileRef = D1995C9029536BB800D1BD94 /* support.bundle */; };
 		D1995CEF29536BB800D1BD94 /* support.bundle in Resources */ = {isa = PBXBuildFile; fileRef = D1995C9029536BB800D1BD94 /* support.bundle */; };
-		D1995CF029536BB800D1BD94 /* Apple ][.ttf in Resources */ = {isa = PBXBuildFile; fileRef = D1995C9229536BB800D1BD94 /* Apple ][.ttf */; };
-		D1995CF129536BB800D1BD94 /* Apple ][.ttf in Resources */ = {isa = PBXBuildFile; fileRef = D1995C9229536BB800D1BD94 /* Apple ][.ttf */; };
 		D1995CF829536BC700D1BD94 /* ScriptWidgetPackage.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1995CF529536BC700D1BD94 /* ScriptWidgetPackage.swift */; };
 		D1995CF929536BC700D1BD94 /* ScriptWidgetPackage.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1995CF529536BC700D1BD94 /* ScriptWidgetPackage.swift */; };
 		D1995CFB29536BC700D1BD94 /* ScriptModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1995CF629536BC700D1BD94 /* ScriptModel.swift */; };
@@ -132,16 +130,6 @@
 		F05227C82AD1D7100014BE09 /* ButtonActionAppIntent.swift in Sources */ = {isa = PBXBuildFile; fileRef = F05227C62AD1D7100014BE09 /* ButtonActionAppIntent.swift */; };
 		F090DD3E2AD23E9F00E14331 /* ScriptWidgetAppIntent.swift in Sources */ = {isa = PBXBuildFile; fileRef = F090DD3C2AD23E9F00E14331 /* ScriptWidgetAppIntent.swift */; };
 		F090DD3F2AD23E9F00E14331 /* AppConfigFrequency.swift in Sources */ = {isa = PBXBuildFile; fileRef = F090DD3D2AD23E9F00E14331 /* AppConfigFrequency.swift */; };
-		F0C613112AE9587A00877D9F /* Larabiefont Free.ttf in Resources */ = {isa = PBXBuildFile; fileRef = F0C613102AE9587A00877D9F /* Larabiefont Free.ttf */; };
-		F0C613122AE9587A00877D9F /* Larabiefont Free.ttf in Resources */ = {isa = PBXBuildFile; fileRef = F0C613102AE9587A00877D9F /* Larabiefont Free.ttf */; };
-		F0C613142AE9588500877D9F /* Monofonto.ttf in Resources */ = {isa = PBXBuildFile; fileRef = F0C613132AE9588500877D9F /* Monofonto.ttf */; };
-		F0C613152AE9588500877D9F /* Monofonto.ttf in Resources */ = {isa = PBXBuildFile; fileRef = F0C613132AE9588500877D9F /* Monofonto.ttf */; };
-		F0C613172AE9589100877D9F /* OneSlot.ttf in Resources */ = {isa = PBXBuildFile; fileRef = F0C613162AE9589100877D9F /* OneSlot.ttf */; };
-		F0C613182AE9589100877D9F /* OneSlot.ttf in Resources */ = {isa = PBXBuildFile; fileRef = F0C613162AE9589100877D9F /* OneSlot.ttf */; };
-		F0C613292AE958AA00877D9F /* Unispace.ttf in Resources */ = {isa = PBXBuildFile; fileRef = F0C613252AE958AA00877D9F /* Unispace.ttf */; };
-		F0C6132A2AE958AA00877D9F /* Unispace.ttf in Resources */ = {isa = PBXBuildFile; fileRef = F0C613252AE958AA00877D9F /* Unispace.ttf */; };
-		F0C613322AE958B900877D9F /* New.ttf in Resources */ = {isa = PBXBuildFile; fileRef = F0C613312AE958B900877D9F /* New.ttf */; };
-		F0C613332AE958B900877D9F /* New.ttf in Resources */ = {isa = PBXBuildFile; fileRef = F0C613312AE958B900877D9F /* New.ttf */; };
 		F205237D27A4CB7100C6EB45 /* ResourceCodeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F205237C27A4CB7100C6EB45 /* ResourceCodeView.swift */; };
 		10C52B7474F14621A0766FC7 /* DocDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C25E4CD6D42A46219DB2B502 /* DocDetailView.swift */; };
 		F215EF0F27C0949A0085AD8F /* FileListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F215EF0E27C0949A0085AD8F /* FileListView.swift */; };
@@ -267,7 +255,6 @@
 		D1995C8D29536BB800D1BD94 /* ScriptWidgetRuntimeConsole.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ScriptWidgetRuntimeConsole.swift; sourceTree = "<group>"; };
 		D1995C8E29536BB800D1BD94 /* ScriptWidgetRuntimeDevice.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ScriptWidgetRuntimeDevice.swift; sourceTree = "<group>"; };
 		D1995C9029536BB800D1BD94 /* support.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = support.bundle; sourceTree = "<group>"; };
-		D1995C9229536BB800D1BD94 /* Apple ][.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Apple ][.ttf"; sourceTree = "<group>"; };
 		D1995CF529536BC700D1BD94 /* ScriptWidgetPackage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ScriptWidgetPackage.swift; sourceTree = "<group>"; };
 		D1995CF629536BC700D1BD94 /* ScriptModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ScriptModel.swift; sourceTree = "<group>"; };
 		D1995CF729536BC700D1BD94 /* ScriptManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ScriptManager.swift; sourceTree = "<group>"; };
@@ -277,11 +264,6 @@
 		F05227C62AD1D7100014BE09 /* ButtonActionAppIntent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ButtonActionAppIntent.swift; sourceTree = "<group>"; };
 		F090DD3C2AD23E9F00E14331 /* ScriptWidgetAppIntent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ScriptWidgetAppIntent.swift; sourceTree = "<group>"; };
 		F090DD3D2AD23E9F00E14331 /* AppConfigFrequency.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppConfigFrequency.swift; sourceTree = "<group>"; };
-		F0C613102AE9587A00877D9F /* Larabiefont Free.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Larabiefont Free.ttf"; sourceTree = "<group>"; };
-		F0C613132AE9588500877D9F /* Monofonto.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Monofonto.ttf; sourceTree = "<group>"; };
-		F0C613162AE9589100877D9F /* OneSlot.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = OneSlot.ttf; sourceTree = "<group>"; };
-		F0C613252AE958AA00877D9F /* Unispace.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Unispace.ttf; sourceTree = "<group>"; };
-		F0C613312AE958B900877D9F /* New.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = New.ttf; sourceTree = "<group>"; };
 		F205237C27A4CB7100C6EB45 /* ResourceCodeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResourceCodeView.swift; sourceTree = "<group>"; };
 		C25E4CD6D42A46219DB2B502 /* DocDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DocDetailView.swift; sourceTree = "<group>"; };
 		F215EF0E27C0949A0085AD8F /* FileListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileListView.swift; sourceTree = "<group>"; };
@@ -528,22 +510,8 @@
 			isa = PBXGroup;
 			children = (
 				D1995C9029536BB800D1BD94 /* support.bundle */,
-				D1995C9129536BB800D1BD94 /* Fonts */,
 			);
 			path = Resource;
-			sourceTree = "<group>";
-		};
-		D1995C9129536BB800D1BD94 /* Fonts */ = {
-			isa = PBXGroup;
-			children = (
-				F0C613312AE958B900877D9F /* New.ttf */,
-				F0C613252AE958AA00877D9F /* Unispace.ttf */,
-				F0C613162AE9589100877D9F /* OneSlot.ttf */,
-				F0C613132AE9588500877D9F /* Monofonto.ttf */,
-				F0C613102AE9587A00877D9F /* Larabiefont Free.ttf */,
-				D1995C9229536BB800D1BD94 /* Apple ][.ttf */,
-			);
-			path = Fonts;
 			sourceTree = "<group>";
 		};
 		D1995CF429536BC700D1BD94 /* Common */ = {
@@ -878,14 +846,8 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				F0C613292AE958AA00877D9F /* Unispace.ttf in Resources */,
-				F0C613322AE958B900877D9F /* New.ttf in Resources */,
-				F0C613142AE9588500877D9F /* Monofonto.ttf in Resources */,
 				D1995D0629536BF000D1BD94 /* Script.bundle in Resources */,
-				D1995CF029536BB800D1BD94 /* Apple ][.ttf in Resources */,
-				F0C613172AE9589100877D9F /* OneSlot.ttf in Resources */,
 				F29117EC279101DF00B860B0 /* Assets.xcassets in Resources */,
-				F0C613112AE9587A00877D9F /* Larabiefont Free.ttf in Resources */,
 				F29118D22792B0D200B860B0 /* Editor.bundle in Resources */,
 				D1995CEE29536BB800D1BD94 /* support.bundle in Resources */,
 			);
@@ -895,13 +857,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				F0C613182AE9589100877D9F /* OneSlot.ttf in Resources */,
 				F29118042791034A00B860B0 /* Assets.xcassets in Resources */,
-				F0C613152AE9588500877D9F /* Monofonto.ttf in Resources */,
-				F0C6132A2AE958AA00877D9F /* Unispace.ttf in Resources */,
-				F0C613122AE9587A00877D9F /* Larabiefont Free.ttf in Resources */,
-				F0C613332AE958B900877D9F /* New.ttf in Resources */,
-				D1995CF129536BB800D1BD94 /* Apple ][.ttf in Resources */,
 				D1995CEF29536BB800D1BD94 /* support.bundle in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

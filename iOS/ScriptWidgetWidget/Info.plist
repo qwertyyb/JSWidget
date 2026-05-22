@@ -42,13 +42,6 @@
 		<string>Allow JSWidget to request temporary full-accuracy location for widgets.</string>
 	</dict>
 	<key>UIAppFonts</key>
-	<array>
-		<string>New.ttf</string>
-		<string>Unispace.ttf</string>
-		<string>OneSlot.ttf</string>
-		<string>Monofonto.ttf</string>
-		<string>Larabiefont Free.ttf</string>
-		<string>Apple ][.ttf</string>
-	</array>
+	<array/>
 </dict>
 </plist>

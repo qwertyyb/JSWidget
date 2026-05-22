@@ -23,7 +23,8 @@
 "Confirm Delete : %@ ? " = "确认删除 : %@ ?";
 
 /* No comment provided by engineer. */
-"Create from Template" = "选择一个模板开始创建";
+"Create from Template" = "从模板创建";
+"Create from template" = "从模板创建";
 
 /* No comment provided by engineer. */
 "Create your first widget by tapping the plus button upper-right of screen :)" = "点击右上角的加号开始创建第一个组件吧";
@@ -195,3 +196,110 @@
 "Version" = "版本";
 "PLAY" = "运行";
 "Already Purchased" = "已鼓励";
+
+/* Tab & Navigation */
+"Store" = "商店";
+"Explore" = "探索";
+"Docs" = "文档";
+"About" = "关于";
+
+/* Actions */
+"Create" = "创建";
+"Close" = "关闭";
+"Refresh" = "刷新";
+"Export" = "导出";
+"Import" = "导入";
+"Installed" = "已安装";
+
+/* Preview sizes */
+"ExtraLarge" = "超大型";
+"AccessoryInline" = "行内";
+"AccessoryCircular" = "圆形";
+"AccessoryRectangular" = "矩形";
+
+/* File operations */
+"File Name:" = "文件名:";
+"Current File Name:" = "当前文件名:";
+"New File Name:" = "新文件名:";
+"Create File" = "创建文件";
+"Rename File" = "重命名文件";
+"Import Script" = "导入脚本";
+"Code Preview" = "代码预览";
+"Codes" = "代码";
+"main.jsx do not support rename" = "main.jsx 不支持重命名";
+
+/* Settings & Alerts */
+"Notification" = "通知";
+"Open Health" = "打开健康";
+"Open Settings" = "打开设置";
+"Health" = "健康";
+
+/* Store */
+"Tags" = "标签";
+"Documentation" = "文档";
+
+/* iCloud */
+"iCloud is enabled, you could directly open or edit scripts in system Files app." = "iCloud 已启用，您可以在系统文件应用中直接打开或编辑脚本。";
+"iCloud is not enabled. So scripts will store to app's private sandbox and can not eazy export. It is recommended to enable iCloud, since you could directly open or edit scripts in system Files app." = "iCloud 未启用。所有脚本存储在应用沙盒中，不便导出。建议启用 iCloud，这样可以在系统文件应用中直接查看和编辑脚本文件。";
+"iCloud storage is enabled but there are some older files that still needs to be moved to iCloud. Press \"MOVE\" to move those files to iCloud. This problem exists when you not enable iCloud sometimes previously." = "iCloud 已启用，但仍有旧文件需要迁移到 iCloud。点击\"移动\"将这些文件移动到 iCloud。这通常是因为您之前未启用 iCloud 导致的。";
+
+/* About */
+"View On GitHub" = "在 GitHub 上查看";
+
+/* Settings section headers */
+"Widget" = "组件";
+"Data" = "数据";
+"Permissions" = "权限";
+"App" = "应用";
+"Refresh All Widgets" = "刷新所有组件";
+"Enabled" = "已启用";
+"Disabled" = "未启用";
+"Unavailable" = "不可用";
+"When In Use" = "使用时";
+"Always" = "始终";
+"Denied" = "已拒绝";
+"Location" = "位置";
+
+/* iCloud */
+"MOVE" = "移动";
+"UPDATE" = "更新";
+"If you modified scripts directly on iCloud on other devices, you could request iCloud to update all the scripts." = "如果你在其他设备的 iCloud 中直接修改了脚本，可以点击按钮请求更新。";
+
+/* Health & Location states */
+"Checking..." = "检查中...";
+"Health Unavailable" = "健康不可用";
+"Not Authorized" = "未授权";
+"Access Denied" = "访问被拒绝";
+"Partially Authorized" = "部分授权";
+"Authorized" = "已授权";
+"Authorize" = "授权";
+"Authorizing..." = "授权中...";
+"Checking Health permissions." = "正在检查健康权限。";
+"Health data is not available on this device." = "此设备不支持健康数据。";
+"Tap Authorize to request access for steps, active energy, and heart rate." = "点击授权以请求访问步数、活动能量和心率数据。";
+"Access is denied. Enable ScriptWidget in the Health app." = "访问被拒绝。请在健康应用中启用 ScriptWidget。";
+"Some Health data types are not authorized. You can enable more in the Health app." = "部分健康数据类型未授权。您可以在健康应用中启用更多权限。";
+"Health access is ready for widgets and scripts." = "健康数据访问已就绪。";
+
+"Location Disabled" = "位置服务已关闭";
+"Restricted" = "受限";
+"Authorized (When In Use)" = "已授权（使用时）";
+"Authorized (Always)" = "已授权（始终）";
+"Checking Location permissions." = "正在检查位置权限。";
+"Location services are disabled on this device." = "此设备的位置服务已关闭。";
+"Tap Authorize to request access for location." = "点击授权以请求位置访问权限。";
+"Location access is restricted by system policy." = "位置访问受到系统策略限制。";
+"Access is denied. Enable ScriptWidget in Settings." = "访问被拒绝。请在设置中启用 ScriptWidget。";
+"Location access is ready for scripts and widgets." = "位置访问已就绪。";
+
+/* Alerts */
+"Widgets are refreshed :)" = "组件已刷新 :)";
+
+/* Store */
+"Search scripts" = "搜索脚本";
+"Category" = "分类";
+"All" = "全部";
+
+/* Misc */
+"Version %@" = "版本 %@";
+"Build %@" = "构建 %@";

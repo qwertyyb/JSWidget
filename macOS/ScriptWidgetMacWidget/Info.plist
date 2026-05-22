@@ -13,15 +13,6 @@
 		<string>com.apple.widgetkit-extension</string>
 	</dict>
 	<key>UIAppFonts</key>
-	<array>
-		<string>New.ttf</string>
-		<string>Unispace.ttf</string>
-		<string>OneSlot.ttf</string>
-		<string>Monofonto.ttf</string>
-		<string>Larabiefont Free.ttf</string>
-		<string>Apple ][.ttf</string>
-	</array>
-	<key>ATSApplicationFontsPath</key>
-	<string>.</string>
+	<array/>
 </dict>
 </plist>

@@ -313,13 +313,6 @@
 	<string>$(CURRENT_PROJECT_VERSION)</string>
 	<key>ITSAppUsesNonExemptEncryption</key>
 	<false/>
-	<key>LSApplicationQueriesSchemes</key>
-	<array>
-		<string>weixin</string>
-		<string>mqq</string>
-		<string>alipays</string>
-		<string>taobao</string>
-	</array>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
 	<key>NSAppTransportSecurity</key>
@@ -357,14 +350,7 @@
 		</dict>
 	</dict>
 	<key>UIAppFonts</key>
-	<array>
-		<string>New.ttf</string>
-		<string>Unispace.ttf</string>
-		<string>OneSlot.ttf</string>
-		<string>Monofonto.ttf</string>
-		<string>Larabiefont Free.ttf</string>
-		<string>Apple ][.ttf</string>
-	</array>
+	<array/>
 	<key>UIApplicationSceneManifest</key>
 	<dict>
 		<key>UIApplicationSupportsMultipleScenes</key>

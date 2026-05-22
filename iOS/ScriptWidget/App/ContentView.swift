@@ -28,13 +28,13 @@ struct ContentView: View {
             ScriptWidgetHomeView()
                 .tabItem({ TabLabel(imageName: "chevron.left.forwardslash.chevron.right", label: "Scripts")})
             StoreHomeView()
-                .tabItem({ TabLabel(imageName: "square.grid.2x2", label: "Store")})
+                .tabItem({ TabLabel(imageName: "safari", label: "Explore")})
             #if DEBUG
             DebugHomeView()
                 .tabItem({ TabLabel(imageName: "ladybug", label: "Debug")})
             #endif
-            DocsHomeView()
-                .tabItem({ TabLabel(imageName: "book.fill", label: "Docs")})
+            SettingsView()
+                .tabItem({ TabLabel(imageName: "gearshape", label: "Settings")})
         }
     }
 }

@@ -1,19 +1,7 @@
 {
   "version": 1,
-  "updated_at": "2026-05-16T00:00:00Z",
+  "updated_at": "2026-05-23T00:00:00Z",
   "scripts": [
-    {
-      "id": "hello-store",
-      "name": "Hello Store",
-      "description": "Minimal sample widget to verify Store install from GitHub.",
-      "author": "ScriptWidget",
-      "category": "utility",
-      "platforms": ["ios", "macos"],
-      "version": "1.0.0",
-      "min_app_version": null,
-      "has_resources": false,
-      "preview_screenshot": "screenshots/small.png"
-    },
     {
       "id": "v2ex-hot-topics",
       "name": "V2EX 热帖",
@@ -21,7 +9,7 @@
       "author": "ScriptWidget",
       "category": "news",
       "platforms": ["ios", "macos"],
-      "version": "1.0.0",
+      "version": "1.0.1",
       "min_app_version": null,
       "has_resources": false,
       "preview_screenshot": "screenshots/preview.png"

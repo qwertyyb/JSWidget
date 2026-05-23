@@ -10,12 +10,10 @@ struct DocsHomeView: View {
     private var idiom: UIUserInterfaceIdiom { UIDevice.current.userInterfaceIdiom }
 
     var body: some View {
-        NavigationView {
-            DocsCatalogView(
-                onNextAppear: { showTabBar(false) },
-                onNextDisappear: { showTabBar(true) }
-            )
-        }
+        DocsCatalogView(
+            onNextAppear: { showTabBar(false) },
+            onNextDisappear: { showTabBar(true) }
+        )
         .background(TabBarAccessor { tabbar in
             if idiom != .pad {
                 self.tabBar = tabbar

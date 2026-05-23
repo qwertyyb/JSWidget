@@ -29,12 +29,12 @@ const data = await getHot()
 const { list, updateTime } = data
 
 const size = $getenv('widget-size')
-const count = size === 'large' ? 20 : 6
+const count = size === 'large' ? 20 : 5
 
 $render(
   <col padding={{ vertical: 6 }} spacing={0}>
     {/* 头部 */}
-    <row padding={{ leading: 10, trailing: 10 }}>
+    <row padding={{ leading: 24, trailing: 24 }}>
       <link url="https://v2ex.com">
         <text font={{ size: 12, weight: 'bold' }} opacity={0.7}>
           V2EX热帖
@@ -46,19 +46,19 @@ $render(
       </text>
     </row>
 
-    <spacer length={3} />
+    <spacer length={4} />
 
     {/* 分割线 */}
     <divider thickness={1} color="#f1f1f1" />
 
-    <spacer length={3} />
+    <spacer length={4} />
 
     {/* 热帖列表 */}
     <col spacing={6}>
       {list.slice(0, count).map((item, index) => (
-        <row key={item.id} size={{ width: 'fill' }} justify="start" padding={{ horizontal: 10 }}>
+        <row key={item.id} size={{ width: 'fill' }} justify="start" padding={{ vertical:2, horizontal: 16 }}>
           <link url={item.url}>
-            <row size={{ width: 340 }} justify="start">
+            <row size={{ width: 'fill' }} justify="start">
               <text
                 font={12}
                 opacity={0.6}

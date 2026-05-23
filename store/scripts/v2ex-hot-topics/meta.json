@@ -5,7 +5,7 @@
   "author": "ScriptWidget",
   "category": "news",
   "platforms": ["ios", "macos"],
-  "version": "1.0.0",
+  "version": "1.0.1",
   "widget_sizes": ["medium", "large"],
   "tags": ["v2ex", "news", "community"],
   "screenshots": ["screenshots/preview.png"],

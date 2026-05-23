@@ -7,7 +7,6 @@
 
 import SwiftUI
 
-
 struct TabLabel: View {
    let imageName: String
    let label: String
@@ -22,7 +21,6 @@ struct TabLabel: View {
 
 
 struct ContentView: View {
-    
     var body: some View {
         TabView {
             ScriptWidgetHomeView()

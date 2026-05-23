@@ -36,6 +36,9 @@ struct MirrorEditorScriptView: UIViewRepresentable {
                 print("save failed : write file : \(result.1)")
                 return false
             }
+            if self.filePath.standardizedFileURL == model.package.jsxPath.standardizedFileURL {
+                _ = sharedScriptManager.buildScriptPackage(package: model.package)
+            }
             return true
         } onIsReadOnly: {
             

@@ -85,7 +85,7 @@ class ScriptManager {
     
     
     static func getICloudRootDirectoryURL() -> URL? {
-        if let url = FileManager.default.url(forUbiquityContainerIdentifier: "iCloud.JSWidget") {
+        if let url = FileManager.default.url(forUbiquityContainerIdentifier: "iCloud.qwertyyb.JSWidget") {
             return url.appendingPathComponent("Documents")
         }
         return nil
@@ -442,7 +442,8 @@ extension ScriptManager {
         } catch {
             return (false, "Failed to copy files : \(error)")
         }
-        
+
+        ScriptWidgetTimelineRefresher.requestReload(immediate: true)
         return (true, "Succeed")
     }
     
@@ -506,6 +507,51 @@ extension ScriptManager {
 
 
 
+
+#if canImport(WidgetKit)
+import WidgetKit
+#endif
+
+enum ScriptWidgetTimelineRefresher {
+    private static let lock = NSLock()
+    private static var debounceWorkItem: DispatchWorkItem?
+    private static let debounceInterval: TimeInterval = 0.5
+
+    /// Requests WidgetKit to reload home-screen widget timelines after script changes.
+    static func requestReload(immediate: Bool = false) {
+        #if canImport(WidgetKit)
+        guard Bundle.main.bundleURL.pathExtension != "appex" else { return }
+
+        if immediate {
+            lock.lock()
+            debounceWorkItem?.cancel()
+            debounceWorkItem = nil
+            lock.unlock()
+            reloadNow()
+            return
+        }
+
+        lock.lock()
+        debounceWorkItem?.cancel()
+        let work = DispatchWorkItem {
+            reloadNow()
+        }
+        debounceWorkItem = work
+        lock.unlock()
+        DispatchQueue.main.asyncAfter(deadline: .now() + debounceInterval, execute: work)
+        #endif
+    }
+
+    private static func reloadNow() {
+        #if canImport(WidgetKit)
+        #if os(iOS)
+        WidgetCenter.shared.reloadTimelines(ofKind: "JSWidget")
+        #elseif os(macOS)
+        WidgetCenter.shared.reloadTimelines(ofKind: "JSWidgetMac")
+        #endif
+        #endif
+    }
+}
 
 let sharedScriptManager = ScriptManager(isBuild: false)
 let buildScriptManager = ScriptManager(isBuild: true)

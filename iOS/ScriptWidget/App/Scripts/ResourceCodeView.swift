@@ -42,17 +42,6 @@ struct ResourceCodeView: View {
                         Label("Files", systemImage: "doc.plaintext")
                     }
                 }
-                Section(header: Text("Codes")) {
-                    NavigationLink(destination: SettingComponentsView()) {
-                        Label("Components", systemImage: "command")
-                    }
-                    NavigationLink(destination: SettingAPIsView()) {
-                        Label("APIs", systemImage: "book")
-                    }
-                    NavigationLink(destination: SettingTemplatesView()) {
-                        Label("Templates", systemImage: "simcard")
-                    }
-                }
                 Section(header: Text("Docs")) {
                     Button {
                         showDocsOverlay = true

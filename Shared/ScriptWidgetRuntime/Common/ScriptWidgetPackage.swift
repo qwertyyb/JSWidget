@@ -336,7 +336,9 @@ struct ScriptWidgetPackage {
         } catch {
             return (false, "Failed write code to path :\(fullPath) error: \(error)")
         }
+        syncBuildCache(fullPath: fullPath, content: content)
         postFilesDidChangeIfRootFile(at: fullPath.standardizedFileURL)
+        ScriptWidgetTimelineRefresher.requestReload()
         return (true, "")
     }
     

@@ -48,18 +48,17 @@ struct ScriptWidgetHomeView: View {
     private var idiom : UIUserInterfaceIdiom { UIDevice.current.userInterfaceIdiom }
 
     @State private var tabBar: UITabBar? = nil
-    
     @State private var isShowingCreateGuide: Bool = false
-    
+
     @Environment(\.presentationMode) var presentationMode
-    
+
     @ObservedObject var dataObject = ScriptWidgetHomeViewDataObject()
-    
+
     @State var selectedEditItem: ScriptModel?
     @State var selectedShareItem: ScriptModel?
     @State var selectedDeleteItem: ScriptModel?
     @State var isShowingDeleteAlert = false
-    
+
     var body: some View {
         NavigationView {
             content
@@ -69,19 +68,16 @@ struct ScriptWidgetHomeView: View {
                     }
                 })
                 .sheet(item: $selectedShareItem, content: { item in
-                    // share
                     AppActivityView(activityItems: sharedScriptManager.exportScriptItemsInTempPath(model: item))
                 })
                 .alert("Confirm Delete : \(selectedDeleteItem?.name ?? "") ? ", isPresented: $isShowingDeleteAlert, presenting: selectedDeleteItem, actions: { item in
                     Button("Delete", role:.destructive ,action: {
-                        // real delete
                         if sharedScriptManager.deleteScript(packageName: item.name) {
                             NotificationCenter.default.post(name: ScriptWidgetHomeViewDataObject.scriptDeleteNotification, object: nil)
-                            // confirm
                             self.presentationMode.wrappedValue.dismiss()
                         }
                     })
-                    
+
                 })
                 .navigationTitle("JSWidget")
                 .toolbar {
@@ -97,10 +93,10 @@ struct ScriptWidgetHomeView: View {
                         }
                     }
                 }
-            
+
             HomeHelloView()
         }
-        .background(TabBarAccessor { tabbar in   // << here !!
+        .background(TabBarAccessor { tabbar in
             if idiom != .pad {
                 self.tabBar = tabbar
             }
@@ -127,9 +123,9 @@ struct ScriptWidgetHomeView: View {
             List {
                 ForEach(dataObject.models) { item in
                     NavigationLink(destination:
-                                    ScriptCodeEditorView(mode: .editor, scriptModel: item)
-                                    .onAppear { showTabBar(false) }     // !!
-                                    .onDisappear { showTabBar(true) } // !!
+                        ScriptCodeEditorView(mode: .editor, scriptModel: item)
+                            .onAppear { showTabBar(false) }
+                            .onDisappear { showTabBar(true) }
                     ) {
                         WidgetRowView(model: item)
                     }.swipeActions(allowsFullSwipe: false) {

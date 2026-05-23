@@ -81,6 +81,9 @@ struct ScriptCodeEditorView: View {
             }
             .onDisappear {
                 NotificationCenter.default.post(name: MirrorEditorService.saveNotification, object: nil)
+                DispatchQueue.main.asyncAfter(deadline: .now() + 0.35) {
+                    ScriptWidgetTimelineRefresher.requestReload(immediate: true)
+                }
             }
     }
     

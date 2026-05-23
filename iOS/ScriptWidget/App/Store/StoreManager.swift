@@ -6,7 +6,6 @@
 import Foundation
 import SwiftUI
 
-private let installedStoreIdsKey = "JSWidgetStoreInstalledScriptIds"
 private let indexCacheDataKey = "JSWidgetStoreIndexCacheData"
 private let indexCacheDateKey = "JSWidgetStoreIndexCacheDate"
 
@@ -16,14 +15,33 @@ final class StoreManager: ObservableObject {
     @Published private(set) var scripts: [StoreScriptListItem] = []
     @Published var isLoading = false
     @Published var lastError: String?
+    @Published private(set) var installedStoreIds: Set<String> = []
 
-    private var installedIds: Set<String> {
-        get {
-            let arr = UserDefaults.standard.stringArray(forKey: installedStoreIdsKey) ?? []
-            return Set(arr)
+    private var scriptChangeObservers: [NSObjectProtocol] = []
+
+    private static let metaFileName = "meta.json"
+
+    init() {
+        refreshInstalledIds()
+
+        let notifications: [Notification.Name] = [
+            ScriptWidgetHomeViewDataObject.scriptCreateNotification,
+            ScriptWidgetHomeViewDataObject.scriptDeleteNotification,
+            ScriptWidgetHomeViewDataObject.scriptRenameNotification,
+        ]
+        for name in notifications {
+            let observer = NotificationCenter.default.addObserver(forName: name, object: nil, queue: .main) { [weak self] _ in
+                Task { @MainActor in
+                    self?.refreshInstalledIds()
+                }
+            }
+            scriptChangeObservers.append(observer)
         }
-        set {
-            UserDefaults.standard.set(Array(newValue), forKey: installedStoreIdsKey)
+    }
+
+    deinit {
+        for observer in scriptChangeObservers {
+            NotificationCenter.default.removeObserver(observer)
         }
     }
 
@@ -64,13 +82,21 @@ final class StoreManager: ObservableObject {
     }
 
     func isInstalled(scriptId: String) -> Bool {
-        installedIds.contains(scriptId)
+        installedStoreIds.contains(scriptId)
     }
 
-    func markInstalled(scriptId: String) {
-        var s = installedIds
-        s.insert(scriptId)
-        installedIds = s
+    func refreshInstalledIds() {
+        let packages = sharedScriptManager.listScripts()
+        var ids = Set<String>()
+        for model in packages {
+            let metaURL = model.package.path.appendingPathComponent(Self.metaFileName)
+            guard let data = try? Data(contentsOf: metaURL),
+                  let meta = try? JSONDecoder.storeDecoder.decode(StoreScriptMetaPayload.self, from: data) else {
+                continue
+            }
+            ids.insert(meta.id)
+        }
+        installedStoreIds = ids
     }
 
     func refresh() async {
@@ -156,8 +182,15 @@ final class StoreManager: ObservableObject {
             try writeResource(data: data, to: package, relativePath: trimmed)
         }
 
+        let encoder = JSONEncoder()
+        encoder.keyEncodingStrategy = .convertToSnakeCase
+        encoder.outputFormatting = [.prettyPrinted, .sortedKeys]
+        if let metaData = try? encoder.encode(meta) {
+            let metaURL = package.path.appendingPathComponent(Self.metaFileName)
+            try? metaData.write(to: metaURL)
+        }
+
         _ = sharedScriptManager.buildScriptPackage(package: package)
-        markInstalled(scriptId: script.id)
 
         NotificationCenter.default.post(name: ScriptWidgetHomeViewDataObject.scriptCreateNotification, object: nil)
 

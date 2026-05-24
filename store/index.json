@@ -6,13 +6,25 @@
       "id": "v2ex-hot-topics",
       "name": "V2EX 热帖",
       "description": "展示 V2EX 社区当前热门话题，支持缓存和多尺寸适配。",
-      "author": "ScriptWidget",
+      "author": "JSWidget",
       "category": "news",
       "platforms": ["ios", "macos"],
       "version": "1.0.1",
       "min_app_version": null,
       "has_resources": false,
       "preview_screenshot": "screenshots/preview.png"
+    },
+    {
+      "id": "dog-week-status",
+      "name": "打工日历",
+      "description": "牛马人的一周工作状态",
+      "author": "JSWidget",
+      "category": "fun",
+      "platforms": ["ios", "macos"],
+      "version": "1.0.0",
+      "min_app_version": null,
+      "has_resources": true,
+      "preview_screenshot": "screenshots/weekend.png"
     }
   ]
 }

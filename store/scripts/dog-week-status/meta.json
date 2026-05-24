@@ -1,0 +1,16 @@
+{
+    "id": "dog-week-status",
+    "name": "打工日历",
+    "description": "牛马人的一周工作状态",
+    "author": "JSWidget",
+    "category": "fun",
+    "platforms": ["ios", "macos"],
+    "version": "1.0.0",
+    "widget_sizes": ["medium"],
+    "tags": ["dog", "week", "status"],
+    "screenshots": ["screenshots/weekend.png", "screenshots/workday.png"],
+    "resources": ["images/1.png", "images/2.png", "images/3.png", "images/4.png", "images/5.png", "images/6.png", "images/7.png"],
+    "created_at": "2026-05-24",
+    "updated_at": "2026-05-24"
+  }
+  

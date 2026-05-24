@@ -80,30 +80,32 @@ struct StoreDetailView: View {
     private var screenshotsSection: some View {
         let shots = meta?.screenshots ?? []
         if !shots.isEmpty {
-            TabView {
-                ForEach(shots, id: \.self) { rel in
-                    if let url = store.previewImageURL(scriptId: script.id, relativePath: rel) {
-                        AsyncImage(url: url) { phase in
-                            switch phase {
-                            case .success(let image):
-                                image
-                                    .resizable()
-                                    .scaledToFit()
-                            case .failure:
-                                Color.secondary.opacity(0.12)
-                                    .overlay(Image(systemName: "photo").foregroundColor(.secondary))
-                            default:
-                                ProgressView()
+            ScrollView(.horizontal, showsIndicators: false) {
+                LazyHStack(spacing: 8) {
+                    ForEach(shots, id: \.self) { rel in
+                        if let url = store.previewImageURL(scriptId: script.id, relativePath: rel) {
+                            AsyncImage(url: url) { phase in
+                                switch phase {
+                                case .success(let image):
+                                    image
+                                        .resizable()
+                                        .scaledToFit()
+                                case .failure:
+                                    Color.secondary.opacity(0.12)
+                                        .overlay(Image(systemName: "photo").foregroundColor(.secondary))
+                                default:
+                                    ProgressView()
+                                }
                             }
+                            .frame(height: 220)
+                            .containerRelativeFrame(.horizontal)
                         }
-                        .frame(maxWidth: .infinity)
-                        .frame(height: 220)
                     }
                 }
+                .scrollTargetLayout()
             }
-            .frame(height: 240)
-            .tabViewStyle(.page(indexDisplayMode: .automatic))
-            .padding(.horizontal)
+            .scrollTargetBehavior(.viewAligned)
+            .contentMargins(.horizontal, 16)
         }
     }
 

@@ -10,7 +10,7 @@ import SwiftUI
 struct ScriptWidgetAttributeImageModifier: ViewModifier {
     
     let aspectRatio: CGFloat?
-    let contentMode: ContentMode?
+    let contentMode: ContentMode
     
     init(_ element: ScriptWidgetRuntimeElement, _ context: ScriptWidgetElementContext) {
         
@@ -20,11 +20,9 @@ struct ScriptWidgetAttributeImageModifier: ViewModifier {
         }
         self.aspectRatio = aspectRatio
         
-        var contentMode: ContentMode? = nil
+        var contentMode: ContentMode = .fit
         if let value = element.getPropString("mode") {
-            if value == "fit" {
-                contentMode = .fit
-            } else if value == "fill" {
+            if value == "fill" {
                 contentMode = .fill
             }
         }
@@ -33,12 +31,8 @@ struct ScriptWidgetAttributeImageModifier: ViewModifier {
     
     @ViewBuilder
     func body(content: Content) -> some View {
-        if let contentMode = self.contentMode {
-            content
-                .aspectRatio(aspectRatio, contentMode: contentMode)
-        } else {
-            content
-        }
+        content
+            .aspectRatio(aspectRatio, contentMode: contentMode)
     }
     
 }

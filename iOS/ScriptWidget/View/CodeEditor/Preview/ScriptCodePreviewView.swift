@@ -121,18 +121,15 @@ struct ScriptCodePreviewView: View {
             })
             Toggle("Debug Border", isOn: $isDebugMode)
 
-            HStack {
-                TextField("Parameter", text: $scriptParameter)
+            LabeledContent("Parameter") {
+                TextField("", text: $scriptParameter)
+                    .multilineTextAlignment(.trailing)
                     .focused($scriptParameterIsFocused)
-                Button {
-                    scriptParameterIsFocused = false
-
-                    self.scriptParameterApplied = self.scriptParameter
-                    self.state.changeWidgetParameter(self.scriptParameterApplied)
-
-                } label: {
-                    Text("Apply")
-                }
+                    .onSubmit {
+                        self.scriptParameterApplied = self.scriptParameter
+                        self.state.changeWidgetParameter(self.scriptParameterApplied)
+                    }
+                    .submitLabel(.done)
             }
         }
     }

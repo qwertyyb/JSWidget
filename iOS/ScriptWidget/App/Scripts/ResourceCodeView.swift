@@ -14,8 +14,6 @@ struct ResourceCodeView: View {
     @State var showingToast = false
     @State var toastMessage = ""
 
-    @State var showDocsOverlay = false
-
     let model: ScriptModel
     
     
@@ -42,13 +40,6 @@ struct ResourceCodeView: View {
                         Label("Files", systemImage: "doc.plaintext")
                     }
                 }
-                Section(header: Text("Docs")) {
-                    Button {
-                        showDocsOverlay = true
-                    } label: {
-                        Label("Documentation", systemImage: "doc.text")
-                    }
-                }
                 
             }
             .navigationBarTitle(Text("Resources"), displayMode: .inline)
@@ -60,11 +51,6 @@ struct ResourceCodeView: View {
                         .padding()
                 })
             )
-            .sheet(isPresented: $showDocsOverlay) {
-                DocsOverlayView()
-                    .presentationDetents([.large])
-                    .presentationDragIndicator(.visible)
-            }
         }
     }
 }

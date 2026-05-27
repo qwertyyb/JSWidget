@@ -56,6 +56,7 @@ struct ScriptCodeEditorView: View {
     @State var showEditAttributesView = false
     @State var showShareActivity = false
     @State var showResourceCodeView = false
+    @State var showDocsOverlay = false
     
     @State private var showingAlert = false
     @State private var alertMessage = ""
@@ -136,14 +137,28 @@ struct ScriptCodeEditorView: View {
 
     var floatingToolbar: some View {
         HStack {
-            Button {
-                self.showResourceCodeView.toggle()
-            } label: {
-                Image(systemName: "book")
-                    .font(.system(size: 16, weight: .medium))
-            }
-            .sheet(isPresented: $showResourceCodeView) {
-                ResourceCodeView(model: dataObject.scriptModel)
+            HStack(spacing: 20) {
+                Button {
+                    self.showResourceCodeView.toggle()
+                } label: {
+                    Image(systemName: "book")
+                        .font(.system(size: 16, weight: .medium))
+                }
+                .sheet(isPresented: $showResourceCodeView) {
+                    ResourceCodeView(model: dataObject.scriptModel)
+                }
+
+                Button {
+                    self.showDocsOverlay = true
+                } label: {
+                    Image(systemName: "doc.text")
+                        .font(.system(size: 16, weight: .medium))
+                }
+                .sheet(isPresented: $showDocsOverlay) {
+                    DocsOverlayView()
+                        .presentationDetents([.large])
+                        .presentationDragIndicator(.visible)
+                }
             }
 
             Spacer()

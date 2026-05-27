@@ -59,7 +59,7 @@ struct ScriptCodeEditorView: View {
     
     @State private var showingAlert = false
     @State private var alertMessage = ""
-    @State private var keyboardHeight: CGFloat = 0
+    @State private var isSoftwareKeyboard = false
     
     init(mode: ScriptCodeEditorViewMode, scriptModel: ScriptModel) {
         self.mode = mode
@@ -90,7 +90,11 @@ struct ScriptCodeEditorView: View {
             codeeditor
             floatingToolbar
         }
-        .ignoresSafeArea(.all, edges: .bottom)
+        // NOTE: 只忽略 .container 安全区域（硬件刘海/home indicator），保留 .keyboard 安全区域。
+        // 这样软键盘弹出时 SwiftUI 自动将悬浮工具栏推到键盘上方，无需手动计算键盘高度。
+        // 如果用 .all 则需要自行监听键盘通知并计算 padding，但 padding(.bottom) 的参考基准
+        // 在真机和模拟器上表现不一致（真机上存在约 22pt 的偏差），极难对齐。
+        .ignoresSafeArea(.container, edges: .bottom)
         .navigationBarTitle(self.dataObject.scriptModel.name, displayMode: .inline)
         .toolbar {
             if self.mode == .creator {
@@ -111,19 +115,18 @@ struct ScriptCodeEditorView: View {
         .alert(isPresented: $showingAlert) {
             Alert(title: Text("Notification"), message: Text(alertMessage), dismissButton: .default(Text("OK")))
         }
+        // NOTE: 硬件键盘连接时 iOS 仍会弹出 accessory bar（~44pt），触发 keyboardWillShow。
+        // 此时 SwiftUI 的键盘安全区域不足以将工具栏推到 accessory bar 上方，
+        // 所以通过 visibleHeight > 100 区分软键盘（需要缩小 padding 避免叠加过多）
+        // 和硬件键盘 accessory bar（保持 insetBottom + 12 让工具栏在其上方）。
         .onReceive(NotificationCenter.default.publisher(for: UIResponder.keyboardWillShowNotification)) { notification in
             if let frame = notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? CGRect {
-                let screenHeight = UIScreen.main.bounds.height
-                let kbTop = screenHeight - frame.origin.y
-                withAnimation(.easeOut(duration: 0.25)) {
-                    keyboardHeight = kbTop
-                }
+                let visibleHeight = UIScreen.main.bounds.height - frame.origin.y
+                isSoftwareKeyboard = visibleHeight > 100
             }
         }
         .onReceive(NotificationCenter.default.publisher(for: UIResponder.keyboardWillHideNotification)) { _ in
-            withAnimation(.easeOut(duration: 0.25)) {
-                keyboardHeight = 0
-            }
+            isSoftwareKeyboard = false
         }
     }
 
@@ -180,10 +183,13 @@ struct ScriptCodeEditorView: View {
         .shadow(color: .black.opacity(0.2), radius: 10, y: 4)
         .padding(.horizontal, 16)
         .padding(.bottom, {
+            if isSoftwareKeyboard {
+                return CGFloat(12)
+            }
             let insetBottom = UIApplication.shared.connectedScenes
                 .compactMap { $0 as? UIWindowScene }
                 .first?.windows.first?.safeAreaInsets.bottom ?? 0
-            return keyboardHeight > 0 ? keyboardHeight + 12 : insetBottom + 12
+            return insetBottom + 12
         }())
     }
 }

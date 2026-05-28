@@ -634,12 +634,73 @@ SF Symbol 图标。继承 `JSWidgetCommonAttributes`。
 
 ## 颜色格式
 
-支持的颜色格式：
+任何接受颜色的属性（`color`、`backgroundColor`、`foregroundColor`、`borderColor`、`shadow.color`、`backgroundGradient.colors[]` 等）都支持以下几种写法：
 
-- **颜色名称**：`"red"`, `"blue"`, `"green"`, `"secondary"`, `"white"`, `"black"` 等
-- **十六进制**：`"#ff0000"`, `"#f00"`, `"#ff000080"`（RGBA 顺序）
-- **RGB 函数**：`"rgb(255, 0, 0)"`
-- **RGBA 函数**：`"rgba(255, 0, 0, 0.5)"`
+### 1. 静态颜色
+
+- **颜色名称**：`"red"`, `"blue"`, `"green"`, `"orange"`, `"yellow"`, `"pink"`, `"purple"`, `"white"`, `"black"`, `"gray"`, `"clear"` 等。
+- **十六进制**：`"#ff0000"`, `"#f00"`, `"#ff000080"`（CSS 标准 RGBA 顺序）。
+- **RGB / RGBA 函数**：`"rgb(255, 0, 0)"`, `"rgba(255, 0, 0, 0.5)"`。
+- **`{ value, opacity }`**：在已有颜色基础上叠加透明度，例如 `{ value: "red", opacity: 0.5 }`。
+
+### 2. 语义色（推荐，自动跟随系统深浅色）
+
+下列颜色在系统切换深浅色时**自动反色，无需重新执行脚本**：
+
+- **SwiftUI 内置**：`"primary"`, `"secondary"`。
+- **文本/标签**：`"label"`, `"secondaryLabel"`, `"tertiaryLabel"`, `"quaternaryLabel"`, `"placeholderText"`, `"link"`。
+- **背景**：`"systemBackground"`, `"secondarySystemBackground"`, `"tertiarySystemBackground"`, `"systemGroupedBackground"`, `"secondarySystemGroupedBackground"`, `"tertiarySystemGroupedBackground"`。
+- **填充**：`"systemFill"`, `"secondarySystemFill"`, `"tertiarySystemFill"`, `"quaternarySystemFill"`。
+- **分隔线**：`"separator"`, `"opaqueSeparator"`。
+- **强调色**：`"accent"` / `"tint"`，以及 `"systemRed"`, `"systemOrange"`, `"systemYellow"`, `"systemGreen"`, `"systemMint"`, `"systemTeal"`, `"systemCyan"`, `"systemBlue"`, `"systemIndigo"`, `"systemPurple"`, `"systemPink"`, `"systemBrown"`。
+- **灰阶**：`"systemGray"`, `"systemGray2"` ~ `"systemGray6"`（macOS 上 `systemGray2..6` 统一映射到 `systemGray`）。
+
+```jsx
+<col size="max" padding={16} backgroundColor="systemBackground">
+  <text font="headline" color="label">主标题</text>
+  <text font="caption" color="secondaryLabel">说明文字</text>
+  <divider color="separator" />
+</col>
+```
+
+### 3. `{ light, dark }` 动态颜色
+
+需要自定义一对深浅色时，传入 `{ light, dark }` 对象。运行时会构造平台动态色（iOS 用 `UIColor(dynamicProvider:)`，macOS 用 `NSColor(name:dynamicProvider:)`），切换主题时**立即重绘，不需要重跑脚本**。
+
+```jsx
+<col size="max" padding={16}
+  backgroundColor={{ light: "#ffffff", dark: "#0f172a" }}
+>
+  <text color={{ light: "#0f172a", dark: "#f8fafc" }}>Hello</text>
+</col>
+```
+
+`light` 与 `dark` 的值同样支持上文列出的任意写法（字符串、`{ value, opacity }`、嵌套 `{ light, dark }`），也可以用在渐变和阴影里：
+
+```jsx
+<rect
+  size="max"
+  cornerRadius={12}
+  backgroundGradient={{
+    type: "linear",
+    colors: [
+      { light: "#bae6fd", dark: "#0c4a6e" },
+      { light: "#0ea5e9", dark: "#082f49" },
+    ],
+    startPoint: "topLeading",
+    endPoint: "bottomTrailing",
+  }}
+  shadow={{
+    color: { light: "rgba(15,23,42,0.12)", dark: "rgba(0,0,0,0.6)" },
+    radius: 8,
+    y: 4,
+  }}
+/>
+```
+
+::: tip 关于 `$device.isdarkmode()`
+`$device.isdarkmode()` 返回的是 JSX 执行那一刻的快照值。WidgetKit 不会因系统切换深浅色而重新执行脚本，所以通过 `if ($device.isdarkmode())` 选出来的颜色会在切换主题时**保持原样**直到下一次 timeline 触发。需要响应系统主题，请优先使用语义色或 `{ light, dark }` 写法。
+:::
 
 ---
 

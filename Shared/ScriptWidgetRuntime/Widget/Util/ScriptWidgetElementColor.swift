@@ -8,6 +8,12 @@
 import Foundation
 import SwiftUI
 
+#if os(macOS)
+import AppKit
+#else
+import UIKit
+#endif
+
 extension Color {
     static var random: Color {
         return Color(
@@ -38,6 +44,16 @@ struct ScriptWidgetAttributeColor {
         if let str = colorValue as? String {
             self.color = ScriptWidgetAttributeColor.getColorFromColorValue(str)
         } else if let dict = colorValue as? [String: Any] {
+            // Theme dynamic color: { light: <colorValue>, dark: <colorValue> }
+            // Each side accepts any supported color form (string / dict).
+            // The resulting platform dynamic color reacts to appearance changes
+            // without re-running the JSX.
+            if let lightValue = dict["light"], let darkValue = dict["dark"] {
+                let light = ScriptWidgetAttributeColor(lightValue).color
+                let dark = ScriptWidgetAttributeColor(darkValue).color
+                self.color = ScriptWidgetAttributeColor.makeDynamicColor(light: light, dark: dark)
+                return
+            }
             self.color = ScriptWidgetAttributeColor.getColorFromDict(dict)
         } else {
             self.color = nil
@@ -45,11 +61,7 @@ struct ScriptWidgetAttributeColor {
     }
     
     static func getThemeDynamicColor(light: Color, dark: Color) -> Color {
-        if ScriptWidgetRuntimeDevice.isdarkmode() {
-            return dark
-        } else {
-            return light
-        }
+        return makeDynamicColor(light: light, dark: dark) ?? light
     }
     
     // { value: "red", opacity: 0.5 }
@@ -93,9 +105,141 @@ struct ScriptWidgetAttributeColor {
         case "purple": return .purple
         case "primary": return .primary
         case "secondary": return .secondary
+        default:
+            return getPlatformSemanticColor(name)
+        }
+    }
+    
+#if os(macOS)
+    
+    private static func getPlatformSemanticColor(_ name: String) -> Color? {
+        switch name {
+        case "label": return Color(nsColor: .labelColor)
+        case "secondaryLabel": return Color(nsColor: .secondaryLabelColor)
+        case "tertiaryLabel": return Color(nsColor: .tertiaryLabelColor)
+        case "quaternaryLabel": return Color(nsColor: .quaternaryLabelColor)
+        case "placeholderText": return Color(nsColor: .placeholderTextColor)
+        case "link": return Color(nsColor: .linkColor)
+            
+        case "systemBackground": return Color(nsColor: .windowBackgroundColor)
+        case "secondarySystemBackground": return Color(nsColor: .underPageBackgroundColor)
+        case "tertiarySystemBackground": return Color(nsColor: .controlBackgroundColor)
+        case "systemGroupedBackground": return Color(nsColor: .windowBackgroundColor)
+        case "secondarySystemGroupedBackground": return Color(nsColor: .controlBackgroundColor)
+        case "tertiarySystemGroupedBackground": return Color(nsColor: .underPageBackgroundColor)
+            
+        // macOS doesn't expose dedicated fill colors; fall back to label-derived
+        // semi-transparent variants which are also dynamic.
+        case "systemFill": return Color(nsColor: .quaternaryLabelColor)
+        case "secondarySystemFill": return Color(nsColor: .tertiaryLabelColor)
+        case "tertiarySystemFill": return Color(nsColor: .secondaryLabelColor)
+        case "quaternarySystemFill": return Color(nsColor: .quaternaryLabelColor)
+            
+        case "separator": return Color(nsColor: .separatorColor)
+        case "opaqueSeparator": return Color(nsColor: .separatorColor)
+            
+        case "accent", "tint": return Color(nsColor: .controlAccentColor)
+            
+        case "systemRed": return Color(nsColor: .systemRed)
+        case "systemOrange": return Color(nsColor: .systemOrange)
+        case "systemYellow": return Color(nsColor: .systemYellow)
+        case "systemGreen": return Color(nsColor: .systemGreen)
+        case "systemMint":
+            if #available(macOS 12.0, *) { return Color(nsColor: .systemMint) }
+            return Color(nsColor: .systemGreen)
+        case "systemTeal": return Color(nsColor: .systemTeal)
+        case "systemCyan":
+            if #available(macOS 12.0, *) { return Color(nsColor: .systemCyan) }
+            return Color(nsColor: .systemBlue)
+        case "systemBlue": return Color(nsColor: .systemBlue)
+        case "systemIndigo": return Color(nsColor: .systemIndigo)
+        case "systemPurple": return Color(nsColor: .systemPurple)
+        case "systemPink": return Color(nsColor: .systemPink)
+        case "systemBrown": return Color(nsColor: .systemBrown)
+            
+        // macOS only ships a single .systemGray; map all step variants to it
+        // so cross-platform scripts don't break.
+        case "systemGray", "systemGray2", "systemGray3", "systemGray4", "systemGray5", "systemGray6":
+            return Color(nsColor: .systemGray)
+            
         default: return nil
         }
     }
+    
+    static func makeDynamicColor(light: Color?, dark: Color?) -> Color? {
+        guard light != nil || dark != nil else { return nil }
+        let lightNS = light.map { NSColor($0) } ?? NSColor.clear
+        let darkNS = dark.map { NSColor($0) } ?? NSColor.clear
+        let dynamic = NSColor(name: nil) { appearance in
+            let match = appearance.bestMatch(from: [.aqua, .darkAqua])
+            return match == .darkAqua ? darkNS : lightNS
+        }
+        return Color(nsColor: dynamic)
+    }
+    
+#else
+    
+    private static func getPlatformSemanticColor(_ name: String) -> Color? {
+        switch name {
+        case "label": return Color(uiColor: .label)
+        case "secondaryLabel": return Color(uiColor: .secondaryLabel)
+        case "tertiaryLabel": return Color(uiColor: .tertiaryLabel)
+        case "quaternaryLabel": return Color(uiColor: .quaternaryLabel)
+        case "placeholderText": return Color(uiColor: .placeholderText)
+        case "link": return Color(uiColor: .link)
+            
+        case "systemBackground": return Color(uiColor: .systemBackground)
+        case "secondarySystemBackground": return Color(uiColor: .secondarySystemBackground)
+        case "tertiarySystemBackground": return Color(uiColor: .tertiarySystemBackground)
+        case "systemGroupedBackground": return Color(uiColor: .systemGroupedBackground)
+        case "secondarySystemGroupedBackground": return Color(uiColor: .secondarySystemGroupedBackground)
+        case "tertiarySystemGroupedBackground": return Color(uiColor: .tertiarySystemGroupedBackground)
+            
+        case "systemFill": return Color(uiColor: .systemFill)
+        case "secondarySystemFill": return Color(uiColor: .secondarySystemFill)
+        case "tertiarySystemFill": return Color(uiColor: .tertiarySystemFill)
+        case "quaternarySystemFill": return Color(uiColor: .quaternarySystemFill)
+            
+        case "separator": return Color(uiColor: .separator)
+        case "opaqueSeparator": return Color(uiColor: .opaqueSeparator)
+            
+        case "accent", "tint": return Color(uiColor: .tintColor)
+            
+        case "systemRed": return Color(uiColor: .systemRed)
+        case "systemOrange": return Color(uiColor: .systemOrange)
+        case "systemYellow": return Color(uiColor: .systemYellow)
+        case "systemGreen": return Color(uiColor: .systemGreen)
+        case "systemMint": return Color(uiColor: .systemMint)
+        case "systemTeal": return Color(uiColor: .systemTeal)
+        case "systemCyan": return Color(uiColor: .systemCyan)
+        case "systemBlue": return Color(uiColor: .systemBlue)
+        case "systemIndigo": return Color(uiColor: .systemIndigo)
+        case "systemPurple": return Color(uiColor: .systemPurple)
+        case "systemPink": return Color(uiColor: .systemPink)
+        case "systemBrown": return Color(uiColor: .systemBrown)
+            
+        case "systemGray": return Color(uiColor: .systemGray)
+        case "systemGray2": return Color(uiColor: .systemGray2)
+        case "systemGray3": return Color(uiColor: .systemGray3)
+        case "systemGray4": return Color(uiColor: .systemGray4)
+        case "systemGray5": return Color(uiColor: .systemGray5)
+        case "systemGray6": return Color(uiColor: .systemGray6)
+            
+        default: return nil
+        }
+    }
+    
+    static func makeDynamicColor(light: Color?, dark: Color?) -> Color? {
+        guard light != nil || dark != nil else { return nil }
+        let lightUI = light.map { UIColor($0) } ?? UIColor.clear
+        let darkUI = dark.map { UIColor($0) } ?? UIColor.clear
+        let dynamic = UIColor { trait in
+            return trait.userInterfaceStyle == .dark ? darkUI : lightUI
+        }
+        return Color(uiColor: dynamic)
+    }
+    
+#endif
 }
 
 extension Color {

@@ -61,11 +61,15 @@ export const commonAttributes = [
   },
   {
     "name": "backgroundColor",
-    "info": "背景色"
+    "info": "背景色，支持 hex / rgb / 颜色名 / 语义色 / `{ light, dark }` 动态色对象"
+  },
+  {
+    "name": "backgroundGradient",
+    "info": "背景渐变。设置后会优先于 `backgroundColor`。\n`colors` 数组的每一项也可写成 `{ light, dark }` 以跟随系统主题。"
   },
   {
     "name": "foregroundColor",
-    "info": "前景色"
+    "info": "前景色，支持 hex / rgb / 颜色名 / 语义色 / `{ light, dark }` 动态色对象"
   },
   {
     "name": "cornerRadius",
@@ -89,7 +93,7 @@ export const commonAttributes = [
   },
   {
     "name": "shadow",
-    "info": "阴影"
+    "info": "阴影。`color` 字段同样支持 `{ light, dark }`"
   },
   {
     "name": "blur",

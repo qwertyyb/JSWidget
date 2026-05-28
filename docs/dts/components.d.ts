@@ -33,10 +33,15 @@ interface JSWidgetCommonAttributes {
   align?: "start" | "center" | "end";
   /** 内边距（数字或 {horizontal, vertical, top, bottom, leading, trailing, left, right}） */
   padding?: JSWidgetPadding;
-  /** 背景色 */
-  backgroundColor?: string;
-  /** 前景色 */
-  foregroundColor?: string;
+  /** 背景色，支持 hex / rgb / 颜色名 / 语义色 / `{ light, dark }` 动态色对象 */
+  backgroundColor?: JSWidgetColorValue;
+  /**
+   * 背景渐变。设置后会优先于 `backgroundColor`。
+   * `colors` 数组的每一项也可写成 `{ light, dark }` 以跟随系统主题。
+   */
+  backgroundGradient?: JSWidgetGradient;
+  /** 前景色，支持 hex / rgb / 颜色名 / 语义色 / `{ light, dark }` 动态色对象 */
+  foregroundColor?: JSWidgetColorValue;
   /** 圆角 */
   cornerRadius?: number;
   /** 透明度 0-1 */
@@ -47,8 +52,8 @@ interface JSWidgetCommonAttributes {
   scaleEffect?: number;
   /** 偏移 */
   offset?: string;
-  /** 阴影 */
-  shadow?: string;
+  /** 阴影。`color` 字段同样支持 `{ light, dark }` */
+  shadow?: JSWidgetShadow;
   /** 模糊 */
   blur?: number;
   /** 动画名 */
@@ -127,7 +132,7 @@ declare namespace JSWidget {
         /** 字体：语义名 / 数字字号 / {name,weight,design,size} / {custom,size} */
         font?: JSWidgetFont;
         /** 文字颜色 */
-        color?: string;
+        color?: JSWidgetColorValue;
         /**
          * 多行文本内部每一行的水平对齐方式。
          * 仅影响文本框内各行文字的排列，不改变组件盒子本身的位置。
@@ -145,7 +150,7 @@ declare namespace JSWidget {
         /** 字体：语义名 / 数字字号 / {name,weight,design,size} / {custom,size} */
         font?: JSWidgetFont;
         /** 文字颜色 */
-        color?: string;
+        color?: JSWidgetColorValue;
         /**
          * 多行文本内部每一行的水平对齐方式。
          * 仅影响文本框内各行文字的排列，不改变组件盒子本身的位置。
@@ -212,7 +217,7 @@ declare namespace JSWidget {
         /** 是否隐藏 Y 轴 */
         hideYAxis?: boolean;
         /** 前景色 */
-        color?: string;
+        color?: JSWidgetColorValue;
       };
       link: JSWidgetCommonAttributes & {
         /** 链接地址 */
@@ -224,7 +229,7 @@ declare namespace JSWidget {
         /** 方向 */
         axis?: "horizontal" | "vertical";
         /** 颜色 */
-        color?: string;
+        color?: JSWidgetColorValue;
       };
       icon: JSWidgetCommonAttributes & {
         /** SF Symbol 名 */
@@ -232,7 +237,7 @@ declare namespace JSWidget {
         /** 图标大小 */
         size?: number;
         /** 颜色 */
-        color?: string;
+        color?: JSWidgetColorValue;
         /** 字体：语义名 / 数字字号 / {name,weight,design,size} / {custom,size} */
         font?: JSWidgetFont;
       };
@@ -240,7 +245,7 @@ declare namespace JSWidget {
       label: JSWidgetCommonAttributes & {
         title?: string;
         systemName?: string;
-        color?: string;
+        color?: JSWidgetColorValue;
         font?: JSWidgetFont;
       };
       progress: JSWidgetCommonAttributes & {
@@ -253,9 +258,9 @@ declare namespace JSWidget {
         /** linear（默认）| circular */
         style?: "linear" | "circular";
         /** 进度条着色 */
-        color?: string;
+        color?: JSWidgetColorValue;
         /** 轨道/背景色（设置后使用自定义绘制，默认 `#e2e8f0`） */
-        trackColor?: string;
+        trackColor?: JSWidgetColorValue;
         /** label 的字体 */
         font?: JSWidgetFont;
       };
@@ -279,9 +284,9 @@ declare namespace JSWidget {
         /** 圆环粗细（默认 8） */
         thickness?: number;
         /** 进度颜色（默认 `#3b82f6`） */
-        color?: string;
+        color?: JSWidgetColorValue;
         /** 轨道颜色（默认 `#e2e8f0`） */
-        trackColor?: string;
+        trackColor?: JSWidgetColorValue;
       };
       /** 小号圆角标签，适合 PRO、NEW 等标签使用。 */
       badge: JSWidgetCommonAttributes & {
@@ -290,9 +295,9 @@ declare namespace JSWidget {
         /** 圆角半径（默认 6） */
         radius?: number;
         /** 背景色（默认 `#0f172a`） */
-        backgroundColor?: string;
+        backgroundColor?: JSWidgetColorValue;
         /** 文字颜色（默认 `#e2e8f0`） */
-        color?: string;
+        color?: JSWidgetColorValue;
       };
       /** 带边框的胶囊标签，比 badge 更大、有描边。 */
       chip: JSWidgetCommonAttributes & {
@@ -301,11 +306,11 @@ declare namespace JSWidget {
         /** 圆角半径（默认 14） */
         radius?: number;
         /** 背景色（无则使用默认） */
-        backgroundColor?: string;
+        backgroundColor?: JSWidgetColorValue;
         /** 边框颜色（默认 `#cbd5f5`） */
-        borderColor?: string;
+        borderColor?: JSWidgetColorValue;
         /** 文字颜色（默认 `#0f172a`） */
-        color?: string;
+        color?: JSWidgetColorValue;
       };
       /** 标题 + 大数字 + 可选副标题，适合仪表盘。 */
       stat: JSWidgetCommonAttributes & {
@@ -316,16 +321,16 @@ declare namespace JSWidget {
         /** 副标题 */
         subtitle?: string;
         /** 数值颜色（默认 `#0f172a`） */
-        color?: string;
+        color?: JSWidgetColorValue;
         /** 辅助文字颜色（默认 `#64748b`） */
-        mutedColor?: string;
+        mutedColor?: JSWidgetColorValue;
       };
       /** 圆角矩形，可以用于各种形状的背景。 */
       roundedrect: JSWidgetCommonAttributes & {
         /** 圆角半径（默认 6） */
         radius?: number;
         /** 颜色 */
-        color?: string;
+        color?: JSWidgetColorValue;
       };
       line: JSWidgetCommonAttributes & {
         /** 线宽（默认 2） */
@@ -335,7 +340,7 @@ declare namespace JSWidget {
         /** 方向 */
         axis?: "horizontal" | "vertical";
         /** 颜色 */
-        color?: string;
+        color?: JSWidgetColorValue;
       };
       rect: JSWidgetCommonAttributes & {
         cornerRadius?: number;
@@ -350,7 +355,7 @@ declare namespace JSWidget {
             value?: number;
             angle?: number;
             thickness?: number;
-            needleColor?: string;
+            needleColor?: JSWidgetColorValue;
             label?: string;
             title?: string;
             sections?: string;

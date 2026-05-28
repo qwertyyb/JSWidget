@@ -46,11 +46,8 @@ class ScriptWidgetElementGradient {
     
     private static func parseColors(_ colorsValue: Any?) -> [Color] {
         guard let colorArray = colorsValue as? [Any] else { return [] }
-        return colorArray.compactMap { item -> Color? in
-            if let str = item as? String {
-                return ScriptWidgetAttributeColor.getColorFromColorValue(str)
-            }
-            return nil
-        }
+        // Each item may be any supported color form: string ("#fff"/"red"/...),
+        // { value, opacity }, or { light, dark } dynamic color object.
+        return colorArray.compactMap { ScriptWidgetAttributeColor($0).color }
     }
 }

@@ -53,7 +53,11 @@ import UIKit
     
     
     static func isdarkmode() -> Bool {
-        return true
+        // Snapshot value at JSX execution time. Note: widget views won't re-run
+        // JSX on appearance change; use semantic color names or { light, dark }
+        // color objects for live dark-mode adaptation.
+        let appearance = NSAppearance.currentDrawing()
+        return appearance.bestMatch(from: [.aqua, .darkAqua]) == .darkAqua
     }
     
     static func screen() -> [AnyHashable : Any]! {

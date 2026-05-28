@@ -40,13 +40,48 @@ function collectTypeAliases(sourceFile) {
   return map;
 }
 
-function expandTypeNode(typeNode, aliasMap, stack = []) {
+/**
+ * Returns the set of alias names that participate in a reference cycle.
+ * Such aliases must not be inlined anywhere — we keep them as named refs
+ * so the output stays finite (and Monaco can still resolve them via the
+ * preserved `type X = ...` declarations).
+ */
+function findRecursiveAliases(aliasMap) {
+  const recursive = new Set();
+  for (const name of aliasMap.keys()) {
+    if (aliasReferencesAlias(name, name, aliasMap, new Set())) {
+      recursive.add(name);
+    }
+  }
+  return recursive;
+}
+
+function aliasReferencesAlias(currentName, targetName, aliasMap, visited) {
+  if (visited.has(currentName)) return false;
+  visited.add(currentName);
+  const node = aliasMap.get(currentName);
+  if (!node) return false;
+  for (const ref of node.getDescendantsOfKind(SyntaxKind.TypeReference)) {
+    const refName = ref.getTypeName().getText();
+    if (refName === targetName && currentName !== targetName) return true;
+    if (refName === targetName && currentName === targetName) {
+      // self-reference detected on first hop
+      return true;
+    }
+    if (aliasMap.has(refName) && refName !== currentName) {
+      if (aliasReferencesAlias(refName, targetName, aliasMap, visited)) return true;
+    }
+  }
+  return false;
+}
+
+function expandTypeNode(typeNode, aliasMap, stack = [], recursiveAliases = new Set()) {
   if (Node.isTypeReference(typeNode)) {
     const name = typeNode.getTypeName().getText();
     const typeArgs = typeNode.getTypeArguments();
 
     if (typeArgs.length > 0) {
-      const expandedArgs = typeArgs.map((a) => expandTypeNode(a, aliasMap, stack));
+      const expandedArgs = typeArgs.map((a) => expandTypeNode(a, aliasMap, stack, recursiveAliases));
       const argsText = expandedArgs.join(", ");
       if (expandedArgs.some((t, i) => t !== typeArgs[i].getText())) {
         return `${name}<${argsText}>`;
@@ -54,17 +89,17 @@ function expandTypeNode(typeNode, aliasMap, stack = []) {
       return typeNode.getText();
     }
 
-    if (NEVER_INLINE.has(name) || !aliasMap.has(name)) {
+    if (NEVER_INLINE.has(name) || recursiveAliases.has(name) || !aliasMap.has(name)) {
       return typeNode.getText();
     }
     if (stack.includes(name)) return name;
-    return expandTypeNode(aliasMap.get(name), aliasMap, [...stack, name]);
+    return expandTypeNode(aliasMap.get(name), aliasMap, [...stack, name], recursiveAliases);
   }
 
   if (Node.isUnionTypeNode(typeNode)) {
     return typeNode
       .getTypeNodes()
-      .map((n) => expandTypeNode(n, aliasMap, stack))
+      .map((n) => expandTypeNode(n, aliasMap, stack, recursiveAliases))
       .join(" | ");
   }
 
@@ -72,22 +107,24 @@ function expandTypeNode(typeNode, aliasMap, stack = []) {
     return typeNode
       .getTypeNodes()
       .map((n) => {
-        const part = expandTypeNode(n, aliasMap, stack);
+        const part = expandTypeNode(n, aliasMap, stack, recursiveAliases);
         return needsParens(part) ? `(${part})` : part;
       })
       .join(" & ");
   }
 
   if (Node.isArrayTypeNode(typeNode)) {
-    const el = expandTypeNode(typeNode.getElementTypeNode(), aliasMap, stack);
+    const el = expandTypeNode(typeNode.getElementTypeNode(), aliasMap, stack, recursiveAliases);
     return needsParens(el) ? `(${el})[]` : `${el}[]`;
   }
 
   if (Node.isParenthesizedTypeNode(typeNode)) {
-    return `(${expandTypeNode(typeNode.getTypeNode(), aliasMap, stack)})`;
+    return `(${expandTypeNode(typeNode.getTypeNode(), aliasMap, stack, recursiveAliases)})`;
   }
 
   if (Node.isTypeLiteral(typeNode)) {
+    // Thread `stack` and `recursiveAliases` into nested replacements so
+    // recursive type aliases (e.g. JSWidgetColorValue) terminate properly.
     for (const member of typeNode.getMembers()) {
       let tn = null;
       if (
@@ -99,10 +136,10 @@ function expandTypeNode(typeNode, aliasMap, stack = []) {
         tn = member.getReturnTypeNode();
         for (const param of member.getParameters()) {
           const pt = param.getTypeNode();
-          if (pt) replaceTypeNode(pt, aliasMap);
+          if (pt) replaceTypeNode(pt, aliasMap, stack, recursiveAliases);
         }
       }
-      if (tn) replaceTypeNode(tn, aliasMap);
+      if (tn) replaceTypeNode(tn, aliasMap, stack, recursiveAliases);
     }
     return typeNode.getText();
   }
@@ -113,9 +150,9 @@ function expandTypeNode(typeNode, aliasMap, stack = []) {
       .map((el) => {
         if (Node.isNamedTupleMember(el)) {
           const tn = el.getTypeNode();
-          return tn ? expandTypeNode(tn, aliasMap, stack) : el.getText();
+          return tn ? expandTypeNode(tn, aliasMap, stack, recursiveAliases) : el.getText();
         }
-        return expandTypeNode(el, aliasMap, stack);
+        return expandTypeNode(el, aliasMap, stack, recursiveAliases);
       })
       .join(", ");
     return `[${expanded}]`;
@@ -124,8 +161,8 @@ function expandTypeNode(typeNode, aliasMap, stack = []) {
   return typeNode.getText();
 }
 
-function replaceTypeNode(typeNode, aliasMap) {
-  const expanded = expandTypeNode(typeNode, aliasMap);
+function replaceTypeNode(typeNode, aliasMap, stack = [], recursiveAliases = new Set()) {
+  const expanded = expandTypeNode(typeNode, aliasMap, stack, recursiveAliases);
   if (expanded !== typeNode.getText()) {
     typeNode.replaceWithText(expanded);
   }
@@ -135,23 +172,30 @@ function expandNestedTypeAliases(sourceFile) {
   for (let pass = 0; pass < 16; pass++) {
     let changed = false;
     const aliasMap = collectTypeAliases(sourceFile);
+    const recursiveAliases = findRecursiveAliases(aliasMap);
     for (const alias of sourceFile.getTypeAliases()) {
       const typeNode = alias.getTypeNode();
       if (!typeNode) continue;
+      // Recursive aliases are kept as-is; their definition stays in the
+      // output so consumers (Monaco, tsc) can still resolve references.
+      if (recursiveAliases.has(alias.getName())) continue;
       const before = typeNode.getText();
-      replaceTypeNode(typeNode, aliasMap);
+      // Seed the stack with the current alias name so self-references
+      // resolve to the bare name instead of being inlined recursively.
+      replaceTypeNode(typeNode, aliasMap, [alias.getName()], recursiveAliases);
       if (typeNode.getText() !== before) changed = true;
     }
     if (!changed) break;
   }
 
   const aliasMap = collectTypeAliases(sourceFile);
+  const recursiveAliases = findRecursiveAliases(aliasMap);
   const refs = sourceFile
     .getDescendantsOfKind(SyntaxKind.TypeReference)
     .sort((a, b) => b.getStart() - a.getStart());
 
   for (const ref of refs) {
-    replaceTypeNode(ref, aliasMap);
+    replaceTypeNode(ref, aliasMap, [], recursiveAliases);
   }
 }
 

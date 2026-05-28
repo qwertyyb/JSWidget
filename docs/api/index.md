@@ -149,7 +149,7 @@ console.error("Something went wrong!");
 | `systemVersion()` | - | `string` | 系统版本（如 "17.0"） |
 | `screen()` | - | `{ scale: number, width: number, height: number }` | 屏幕信息 |
 | `battery()` | - | `{ level: number, state: string }` | 电池信息 |
-| `isdarkmode()` | - | `boolean` | 是否深色模式 |
+| `isdarkmode()` | - | `boolean` | 是否深色模式（**快照值**，详见下方说明） |
 | `totalDiskSpace()` | - | `number` | 磁盘总空间（字节） |
 | `freeDiskSpace()` | - | `number` | 磁盘可用空间（字节） |
 
@@ -176,6 +176,10 @@ console.log(JSON.stringify($device.battery()));
 // { "level": 0.85, "state": "charging" }
 console.log($device.isdarkmode());      // true
 ```
+
+::: warning `isdarkmode()` 是快照值
+返回的是脚本执行那一刻的系统外观。WidgetKit 在系统切换深浅色时**不会**重新执行脚本，所以以 `if ($device.isdarkmode())` 选出的颜色会保持原样直到 widget 下一次 timeline 触发。要让小组件实时跟随系统主题，请改用语义色（如 `"label"`、`"systemBackground"`）或 `{ light, dark }` 动态色对象，详见 [组件文档 → 颜色格式](../components/#颜色格式)。
+:::
 
 ---
 

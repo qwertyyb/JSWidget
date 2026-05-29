@@ -17,7 +17,7 @@
 - `cd Editor/editorfe && pnpm install`: install editor dependencies.
 - `pnpm start`: run the editor dev server at `http://localhost:3000`.
 - `pnpm test`: run editor tests (react-scripts).
-- `pnpm run build`: produce static editor assets in `Editor/editorfe/build`.
+- `pnpm run build`: 直接把编辑器静态产物写入 `iOS/ScriptWidget/View/CodeEditor/MirrorEditor/MirrorEditor.bundle/build/`（通过 `BUILD_PATH`），Xcode 构建时会随该 bundle 一起打包，无需再手动复制。
 - `pnpm install` (repo root): install workspace dependencies (`Tools/jsx-compiler`, `Tools/completion-gen`, etc.).
 - `pnpm build:jsx-compiler`: bundle JSX compiler and copy to `Shared/ScriptWidgetRuntime/Widget/Resource/support.bundle/jsx-compiler.js`.
 - `pnpm --filter jsx-compiler test`: run JSX compiler tests (`Tools/jsx-compiler/test.mjs`).

@@ -18,7 +18,7 @@ struct DocDetailView: View {
 
     var body: some View {
         DocWebView(markdownFile: markdownFile, anchor: anchor)
-            .navigationBarTitle(title, displayMode: .inline)
+            .navigationBarTitle(Text(LocalizedStringKey(title)), displayMode: .inline)
             .ignoresSafeArea(.all, edges: .bottom)
     }
 }

@@ -300,6 +300,43 @@
 "Category" = "分类";
 "All" = "全部";
 
+/* Docs Catalog - Sections */
+"Getting Started" = "快速上手";
+"AI" = "AI";
+
+/* Docs Catalog - Getting Started */
+"Quick Start" = "快速开始";
+
+/* Docs Catalog - AI */
+"AI Guide" = "AI 指南";
+
+/* Docs Catalog - Components */
+"All Components" = "所有组件";
+"Layout Containers" = "布局容器";
+"Text" = "文本";
+"Image & Media" = "图片与媒体";
+"Interactive" = "交互";
+"Charts" = "图表";
+"Shapes" = "形状与装饰";
+"Icons & Labels" = "图标与标签";
+"Progress & Stats" = "进度与数据展示";
+"Gauge" = "仪表";
+"Spacer" = "布局辅助";
+"Common Attributes" = "通用属性";
+
+/* Docs Catalog - APIs */
+"All APIs" = "所有 API";
+"HTTP Requests" = "HTTP 请求";
+"Console" = "控制台";
+"Device Info" = "设备信息";
+"File Operations" = "文件操作";
+"System Info" = "系统信息";
+"Health Data" = "健康数据";
+"Storage" = "本地存储";
+"Environment" = "环境变量";
+"Render" = "渲染";
+"Dynamic Island" = "灵动岛";
+
 /* Misc */
 "Version %@" = "版本 %@";
 "Build %@" = "构建 %@";

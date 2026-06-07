@@ -151,7 +151,6 @@ struct ScriptWidgetHomeView: View {
                         }
                     }
                 }
-                .listRowBackground(Color.clear)
             }
             .refreshable {
                 dataObject.reload()

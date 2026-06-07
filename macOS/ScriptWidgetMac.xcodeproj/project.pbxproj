@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		00F55E8ADF6744239EDB3E69 /* ReloadWidgetAppIntent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8445DB90E4A34EB19697BAEB /* ReloadWidgetAppIntent.swift */; };
+		10C52B7474F14621A0766FC7 /* DocDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C25E4CD6D42A46219DB2B502 /* DocDetailView.swift */; };
 		1C24B164B4EBE88815490627 /* ScriptWidgetRuntimeHealth.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD9F1F298DF5C4FAED8AAD43 /* ScriptWidgetRuntimeHealth.swift */; };
 		1DA43989AC34C73FB448AB0B /* ScriptWidgetRuntimeStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CAE66D10656192ADC2F9019 /* ScriptWidgetRuntimeStorage.swift */; };
 		2748BECB1506585B128418DC /* ScriptWidgetRuntimeSystem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E3B593386F820DCF99C631E /* ScriptWidgetRuntimeSystem.swift */; };
@@ -76,8 +77,6 @@
 		D1995CC929536BB800D1BD94 /* ScriptWidgetAttributeFontModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1995C7929536BB800D1BD94 /* ScriptWidgetAttributeFontModifier.swift */; };
 		D1995CCA29536BB800D1BD94 /* ScriptWidgetAttributeTextAlignmentModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1995C7A29536BB800D1BD94 /* ScriptWidgetAttributeTextAlignmentModifier.swift */; };
 		D1995CCB29536BB800D1BD94 /* ScriptWidgetAttributeTextAlignmentModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1995C7A29536BB800D1BD94 /* ScriptWidgetAttributeTextAlignmentModifier.swift */; };
-		D1995CE829536BB800D1BD94 /* ScriptWidgetAttributeLineLimitModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1995CE929536BB800D1BD94 /* ScriptWidgetAttributeLineLimitModifier.swift */; };
-		D1995CEA29536BB800D1BD94 /* ScriptWidgetAttributeLineLimitModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1995CE929536BB800D1BD94 /* ScriptWidgetAttributeLineLimitModifier.swift */; };
 		D1995CCC29536BB800D1BD94 /* ScriptWidgetAttributeDebugModeModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1995C7C29536BB800D1BD94 /* ScriptWidgetAttributeDebugModeModifier.swift */; };
 		D1995CCD29536BB800D1BD94 /* ScriptWidgetAttributeDebugModeModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1995C7C29536BB800D1BD94 /* ScriptWidgetAttributeDebugModeModifier.swift */; };
 		D1995CCE29536BB800D1BD94 /* ScriptWidgetElementTagLink.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1995C7E29536BB800D1BD94 /* ScriptWidgetElementTagLink.swift */; };
@@ -114,6 +113,8 @@
 		D1995CED29536BB800D1BD94 /* ScriptWidgetRuntimeDevice.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1995C8E29536BB800D1BD94 /* ScriptWidgetRuntimeDevice.swift */; };
 		D1995CEE29536BB800D1BD94 /* support.bundle in Resources */ = {isa = PBXBuildFile; fileRef = D1995C9029536BB800D1BD94 /* support.bundle */; };
 		D1995CEF29536BB800D1BD94 /* support.bundle in Resources */ = {isa = PBXBuildFile; fileRef = D1995C9029536BB800D1BD94 /* support.bundle */; };
+		D1995CF129536BB800D1BD94 /* ScriptWidgetAttributeLineLimitModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1995CF029536BB800D1BD94 /* ScriptWidgetAttributeLineLimitModifier.swift */; };
+		D1995CF229536BB800D1BD94 /* ScriptWidgetAttributeLineLimitModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1995CF029536BB800D1BD94 /* ScriptWidgetAttributeLineLimitModifier.swift */; };
 		D1995CF829536BC700D1BD94 /* ScriptWidgetPackage.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1995CF529536BC700D1BD94 /* ScriptWidgetPackage.swift */; };
 		D1995CF929536BC700D1BD94 /* ScriptWidgetPackage.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1995CF529536BC700D1BD94 /* ScriptWidgetPackage.swift */; };
 		D1995CFB29536BC700D1BD94 /* ScriptModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1995CF629536BC700D1BD94 /* ScriptModel.swift */; };
@@ -131,7 +132,6 @@
 		F090DD3E2AD23E9F00E14331 /* ScriptWidgetAppIntent.swift in Sources */ = {isa = PBXBuildFile; fileRef = F090DD3C2AD23E9F00E14331 /* ScriptWidgetAppIntent.swift */; };
 		F090DD3F2AD23E9F00E14331 /* AppConfigFrequency.swift in Sources */ = {isa = PBXBuildFile; fileRef = F090DD3D2AD23E9F00E14331 /* AppConfigFrequency.swift */; };
 		F205237D27A4CB7100C6EB45 /* ResourceCodeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F205237C27A4CB7100C6EB45 /* ResourceCodeView.swift */; };
-		10C52B7474F14621A0766FC7 /* DocDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C25E4CD6D42A46219DB2B502 /* DocDetailView.swift */; };
 		F215EF0F27C0949A0085AD8F /* FileListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F215EF0E27C0949A0085AD8F /* FileListView.swift */; };
 		F2461610279E07C200C3D90F /* ScriptWidgetPlaceholderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F246160F279E07C200C3D90F /* ScriptWidgetPlaceholderView.swift */; };
 		F246163E279E18EF00C3D90F /* ButtonOfficalSite.swift in Sources */ = {isa = PBXBuildFile; fileRef = F246163D279E18EF00C3D90F /* ButtonOfficalSite.swift */; };
@@ -208,6 +208,7 @@
 		8445DB90E4A34EB19697BAEB /* ReloadWidgetAppIntent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReloadWidgetAppIntent.swift; sourceTree = "<group>"; };
 		8CAE66D10656192ADC2F9019 /* ScriptWidgetRuntimeStorage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ScriptWidgetRuntimeStorage.swift; sourceTree = "<group>"; };
 		8E3B593386F820DCF99C631E /* ScriptWidgetRuntimeSystem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ScriptWidgetRuntimeSystem.swift; sourceTree = "<group>"; };
+		C25E4CD6D42A46219DB2B502 /* DocDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DocDetailView.swift; sourceTree = "<group>"; };
 		CD9F1F298DF5C4FAED8AAD43 /* ScriptWidgetRuntimeHealth.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ScriptWidgetRuntimeHealth.swift; sourceTree = "<group>"; };
 		D1995C5729536BB800D1BD94 /* MineGaugeView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MineGaugeView.swift; sourceTree = "<group>"; };
 		D1995C5829536BB800D1BD94 /* ScriptWidgetElementColor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ScriptWidgetElementColor.swift; sourceTree = "<group>"; };
@@ -236,7 +237,6 @@
 		D1995C7829536BB800D1BD94 /* ScriptWidgetAttributeForegroundModifier.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ScriptWidgetAttributeForegroundModifier.swift; sourceTree = "<group>"; };
 		D1995C7929536BB800D1BD94 /* ScriptWidgetAttributeFontModifier.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ScriptWidgetAttributeFontModifier.swift; sourceTree = "<group>"; };
 		D1995C7A29536BB800D1BD94 /* ScriptWidgetAttributeTextAlignmentModifier.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ScriptWidgetAttributeTextAlignmentModifier.swift; sourceTree = "<group>"; };
-		D1995CE929536BB800D1BD94 /* ScriptWidgetAttributeLineLimitModifier.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ScriptWidgetAttributeLineLimitModifier.swift; sourceTree = "<group>"; };
 		D1995C7C29536BB800D1BD94 /* ScriptWidgetAttributeDebugModeModifier.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ScriptWidgetAttributeDebugModeModifier.swift; sourceTree = "<group>"; };
 		D1995C7E29536BB800D1BD94 /* ScriptWidgetElementTagLink.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ScriptWidgetElementTagLink.swift; sourceTree = "<group>"; };
 		D1995C7F29536BB800D1BD94 /* ScriptWidgetElementTagStack.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ScriptWidgetElementTagStack.swift; sourceTree = "<group>"; };
@@ -255,6 +255,7 @@
 		D1995C8D29536BB800D1BD94 /* ScriptWidgetRuntimeConsole.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ScriptWidgetRuntimeConsole.swift; sourceTree = "<group>"; };
 		D1995C8E29536BB800D1BD94 /* ScriptWidgetRuntimeDevice.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ScriptWidgetRuntimeDevice.swift; sourceTree = "<group>"; };
 		D1995C9029536BB800D1BD94 /* support.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = support.bundle; sourceTree = "<group>"; };
+		D1995CF029536BB800D1BD94 /* ScriptWidgetAttributeLineLimitModifier.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ScriptWidgetAttributeLineLimitModifier.swift; sourceTree = "<group>"; };
 		D1995CF529536BC700D1BD94 /* ScriptWidgetPackage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ScriptWidgetPackage.swift; sourceTree = "<group>"; };
 		D1995CF629536BC700D1BD94 /* ScriptModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ScriptModel.swift; sourceTree = "<group>"; };
 		D1995CF729536BC700D1BD94 /* ScriptManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ScriptManager.swift; sourceTree = "<group>"; };
@@ -265,7 +266,6 @@
 		F090DD3C2AD23E9F00E14331 /* ScriptWidgetAppIntent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ScriptWidgetAppIntent.swift; sourceTree = "<group>"; };
 		F090DD3D2AD23E9F00E14331 /* AppConfigFrequency.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppConfigFrequency.swift; sourceTree = "<group>"; };
 		F205237C27A4CB7100C6EB45 /* ResourceCodeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResourceCodeView.swift; sourceTree = "<group>"; };
-		C25E4CD6D42A46219DB2B502 /* DocDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DocDetailView.swift; sourceTree = "<group>"; };
 		F215EF0E27C0949A0085AD8F /* FileListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileListView.swift; sourceTree = "<group>"; };
 		F246160D279CFAFF00C3D90F /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		F246160F279E07C200C3D90F /* ScriptWidgetPlaceholderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScriptWidgetPlaceholderView.swift; sourceTree = "<group>"; };
@@ -282,7 +282,7 @@
 		F29117D7279101DE00B860B0 /* ScriptWidgetMacApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScriptWidgetMacApp.swift; sourceTree = "<group>"; };
 		F29117D8279101DE00B860B0 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		F29117D9279101DF00B860B0 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
-		F29117E4279101DF00B860B0 /* ScriptWidget.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ScriptWidget.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		F29117E4279101DF00B860B0 /* JSWidget.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = JSWidget.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F29117E6279101DF00B860B0 /* macOS.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = macOS.entitlements; sourceTree = "<group>"; };
 		F29117F92791034A00B860B0 /* ScriptWidgetMacWidget.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = ScriptWidgetMacWidget.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 		F29117FB2791034A00B860B0 /* WidgetKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WidgetKit.framework; path = System/Library/Frameworks/WidgetKit.framework; sourceTree = SDKROOT; };
@@ -455,7 +455,7 @@
 				D1995C7829536BB800D1BD94 /* ScriptWidgetAttributeForegroundModifier.swift */,
 				D1995C7929536BB800D1BD94 /* ScriptWidgetAttributeFontModifier.swift */,
 				D1995C7A29536BB800D1BD94 /* ScriptWidgetAttributeTextAlignmentModifier.swift */,
-				D1995CE929536BB800D1BD94 /* ScriptWidgetAttributeLineLimitModifier.swift */,
+				D1995CF029536BB800D1BD94 /* ScriptWidgetAttributeLineLimitModifier.swift */,
 			);
 			path = Text;
 			sourceTree = "<group>";
@@ -629,7 +629,7 @@
 		F29117DF279101DF00B860B0 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				F29117E4279101DF00B860B0 /* ScriptWidget.app */,
+				F29117E4279101DF00B860B0 /* JSWidget.app */,
 				F29117F92791034A00B860B0 /* ScriptWidgetMacWidget.appex */,
 			);
 			name = Products;
@@ -774,7 +774,7 @@
 				D1995D0829536CCE00D1BD94 /* Vapor */,
 			);
 			productName = "ScriptWidgetMac (macOS)";
-			productReference = F29117E4279101DF00B860B0 /* ScriptWidget.app */;
+			productReference = F29117E4279101DF00B860B0 /* JSWidget.app */;
 			productType = "com.apple.product-type.application";
 		};
 		F29117F82791034A00B860B0 /* ScriptWidgetMacWidget */ = {
@@ -933,7 +933,7 @@
 				F29118C82791DEC800B860B0 /* EditorWebView.swift in Sources */,
 				F2461642279F1B1600C3D90F /* DeleteConfirmView.swift in Sources */,
 				D1995CCA29536BB800D1BD94 /* ScriptWidgetAttributeTextAlignmentModifier.swift in Sources */,
-				D1995CE829536BB800D1BD94 /* ScriptWidgetAttributeLineLimitModifier.swift in Sources */,
+				D1995CF129536BB800D1BD94 /* ScriptWidgetAttributeLineLimitModifier.swift in Sources */,
 				F205237D27A4CB7100C6EB45 /* ResourceCodeView.swift in Sources */,
 				10C52B7474F14621A0766FC7 /* DocDetailView.swift in Sources */,
 				F29118BC2791D83000B860B0 /* SidebarView.swift in Sources */,
@@ -1050,7 +1050,7 @@
 				D1995C9529536BB800D1BD94 /* MineGaugeView.swift in Sources */,
 				D1995CBB29536BB800D1BD94 /* ScriptWidgetAttributeRotation3DEffectModifier.swift in Sources */,
 				D1995CCB29536BB800D1BD94 /* ScriptWidgetAttributeTextAlignmentModifier.swift in Sources */,
-				D1995CEA29536BB800D1BD94 /* ScriptWidgetAttributeLineLimitModifier.swift in Sources */,
+				D1995CF229536BB800D1BD94 /* ScriptWidgetAttributeLineLimitModifier.swift in Sources */,
 				D1995CA729536BB800D1BD94 /* ScriptWidgetAppState.swift in Sources */,
 				D1995CDF29536BB800D1BD94 /* ScriptWidgetElementTagChart.swift in Sources */,
 			);
@@ -1198,6 +1198,7 @@
 				COMBINE_HIDPI_IMAGES = YES;
 				CURRENT_PROJECT_VERSION = 26500;
 				DEAD_CODE_STRIPPING = YES;
+				DEVELOPMENT_TEAM = T68XK6867P;
 				ENABLE_APP_SANDBOX = YES;
 				ENABLE_FILE_ACCESS_DOWNLOADS_FOLDER = readonly;
 				ENABLE_HARDENED_RUNTIME = YES;
@@ -1235,6 +1236,7 @@
 				COMBINE_HIDPI_IMAGES = YES;
 				CURRENT_PROJECT_VERSION = 26500;
 				DEAD_CODE_STRIPPING = YES;
+				DEVELOPMENT_TEAM = T68XK6867P;
 				ENABLE_APP_SANDBOX = YES;
 				ENABLE_FILE_ACCESS_DOWNLOADS_FOLDER = readonly;
 				ENABLE_HARDENED_RUNTIME = YES;
@@ -1271,6 +1273,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 26500;
 				DEAD_CODE_STRIPPING = YES;
+				DEVELOPMENT_TEAM = T68XK6867P;
 				ENABLE_APP_SANDBOX = YES;
 				ENABLE_FILE_ACCESS_DOWNLOADS_FOLDER = readonly;
 				ENABLE_HARDENED_RUNTIME = YES;
@@ -1305,6 +1308,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 26500;
 				DEAD_CODE_STRIPPING = YES;
+				DEVELOPMENT_TEAM = T68XK6867P;
 				ENABLE_APP_SANDBOX = YES;
 				ENABLE_FILE_ACCESS_DOWNLOADS_FOLDER = readonly;
 				ENABLE_HARDENED_RUNTIME = YES;

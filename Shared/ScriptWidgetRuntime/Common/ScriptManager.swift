@@ -556,6 +556,13 @@ enum ScriptWidgetTimelineRefresher {
 let sharedScriptManager = ScriptManager(isBuild: false)
 let buildScriptManager = ScriptManager(isBuild: true)
 
+extension ScriptManager {
+    /// Widget extensions read from the local ``__Build`` cache instead of iCloud.
+    static func getWidgetScriptPackage(packageName: String) -> ScriptWidgetPackage {
+        buildScriptManager.getScriptPackage(packageName: packageName)
+    }
+}
+
 
 
 extension URL {

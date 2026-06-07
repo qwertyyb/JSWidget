@@ -30,7 +30,7 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "F29117E3279101DF00B860B0"
-               BuildableName = "ScriptWidget.app"
+               BuildableName = "JSWidget.app"
                BlueprintName = "ScriptWidgetMac"
                ReferencedContainer = "container:ScriptWidgetMac.xcodeproj">
             </BuildableReference>
@@ -73,7 +73,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "F29117E3279101DF00B860B0"
-            BuildableName = "ScriptWidget.app"
+            BuildableName = "JSWidget.app"
             BlueprintName = "ScriptWidgetMac"
             ReferencedContainer = "container:ScriptWidgetMac.xcodeproj">
          </BuildableReference>
@@ -109,7 +109,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "F29117E3279101DF00B860B0"
-            BuildableName = "ScriptWidget.app"
+            BuildableName = "JSWidget.app"
             BlueprintName = "ScriptWidgetMac"
             ReferencedContainer = "container:ScriptWidgetMac.xcodeproj">
          </BuildableReference>

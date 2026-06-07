@@ -26,7 +26,7 @@ class ScriptWidgetDataObject : ObservableObject {
         self.scriptParameter = scriptParameter
         self.widgetFamily = widgetFamily
         
-        self.package = sharedScriptManager.getScriptPackage(packageName: self.scriptName)
+        self.package = ScriptManager.getWidgetScriptPackage(packageName: self.scriptName)
         
         self.rootElement = ScriptWidgetRuntimeElement(tagString: "text", props: nil, children: ["."])
     }

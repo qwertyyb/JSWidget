@@ -17,7 +17,6 @@ JSWidget 使用 JavaScriptCore 框架，在 Swift 端通过 `JSExport` 协议将
 - `$device` - 设备信息
 - `$file` - 脚本包内文件读写
 - `$system` - 系统信息
-- `$health` - HealthKit 健康数据
 - `$location` - 位置服务
 - `$storage` - 本地存储
 - `$getenv` - 环境变量
@@ -263,64 +262,7 @@ $render(
 
 ---
 
-## 6. 健康数据 API
-
-### `$health`
-
-读取 HealthKit 健康数据（仅 iOS，仅读操作）。
-
-| 方法 | 参数 | 返回值 | 说明 |
-|------|------|--------|------|
-| `isAvailable()` | - | `boolean` | HealthKit 是否可用 |
-| `requestAuthorization()` | - | `Promise<boolean>` | 请求健康数据授权 |
-| `stepCountToday()` | - | `Promise<HealthSample>` | 今日步数 |
-| `activeEnergyToday()` | - | `Promise<HealthSample>` | 今日活动能量 |
-| `heartRateLatest()` | - | `Promise<HealthSample>` | 最新心率 |
-
-#### HealthSample
-
-| 字段 | 类型 | 说明 |
-|------|------|------|
-| `value` | `number` | 数值 |
-| `unit` | `string` | 单位 |
-| `start` | `string` | 区间开始时间 |
-| `end` | `string` | 区间结束时间 |
-
-```jsx
-if (!$health.isAvailable()) {
-  $render(
-    <col>
-      <text font="title3" color="#f87171">HealthKit Unavailable</text>
-    </col>
-  );
-} else {
-  const granted = await $health.requestAuthorization();
-
-  if (!granted) {
-    $render(
-      <col>
-        <text font="title3" color="#fbbf24">Permission Needed</text>
-      </col>
-    );
-  } else {
-    const steps = await $health.stepCountToday();
-    const energy = await $health.activeEnergyToday();
-    const heart = await $health.heartRateLatest();
-
-    $render(
-      <col>
-        <text font="title3">Steps: {steps.value.toFixed(0)}</text>
-        <text font="caption">Active Energy: {energy.value.toFixed(0)} kcal</text>
-        <text font="caption">Latest HR: {heart.value.toFixed(0)} bpm</text>
-      </col>
-    );
-  }
-}
-```
-
----
-
-## 7. 位置服务 API
+## 6. 位置服务 API
 
 ### `$location`
 
@@ -424,7 +366,7 @@ if (!$location.isAvailable()) {
 
 ---
 
-## 8. 本地存储 API
+## 7. 本地存储 API
 
 ### `$storage`
 
@@ -467,7 +409,7 @@ $render(
 
 ---
 
-## 9. 环境变量 API
+## 8. 环境变量 API
 
 ### `$getenv`
 
@@ -503,7 +445,7 @@ $render(
 
 ---
 
-## 10. 文件导入 API
+## 9. 文件导入 API
 
 ### `$import`
 
@@ -532,7 +474,7 @@ $render(
 
 ---
 
-## 11. 渲染 API
+## 10. 渲染 API
 
 ### `$render`
 
@@ -554,7 +496,7 @@ $render(
 
 ---
 
-## 12. 灵动岛 API
+## 11. 灵动岛 API
 
 ### `$dynamic_island`
 
@@ -598,7 +540,7 @@ $dynamic_island({
 
 ---
 
-## 13. 组件定义 API
+## 12. 组件定义 API
 
 ### `$component`
 
@@ -621,7 +563,7 @@ $component("MyCard", (title, content) => {
 
 ---
 
-## 14. 元素构造函数
+## 13. 元素构造函数
 
 ### `$element`
 
@@ -637,7 +579,7 @@ const textElement = $element.createElement("text", { font: "title" }, ["Hello"])
 
 ---
 
-## 15. 错误处理 API
+## 14. 错误处理 API
 
 ### `$error`
 
@@ -657,7 +599,7 @@ try {
 
 ---
 
-## 16. 全局 Promise 支持
+## 15. 全局 Promise 支持
 
 ### `Promise`
 
@@ -688,7 +630,6 @@ $render(
 | `$device` | 设备信息 | iOS / macOS |
 | `$file` | 脚本包内文件读写 | iOS / macOS |
 | `$system` | 系统信息 | iOS / macOS |
-| `$health` | HealthKit 健康数据 | iOS |
 | `$location` | 位置服务 | iOS |
 | `$storage` | 本地存储 | iOS / macOS |
 | `$getenv` | 环境变量 | iOS / macOS |

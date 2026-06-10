@@ -632,16 +632,6 @@ export const apis = [
     ]
   },
   {
-    "name": "$health",
-    "methods": [
-      "isAvailable",
-      "requestAuthorization",
-      "stepCountToday",
-      "activeEnergyToday",
-      "heartRateLatest"
-    ]
-  },
-  {
     "name": "$location",
     "methods": [
       "isAvailable",

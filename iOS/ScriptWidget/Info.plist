@@ -596,10 +596,6 @@
 		<key>NSAllowsArbitraryLoads</key>
 		<true/>
 	</dict>
-	<key>NSHealthShareUsageDescription</key>
-	<string>Allow JSWidget to read Health data for widget templates.</string>
-	<key>NSHealthUpdateUsageDescription</key>
-	<string>Allow JSWidget to update Health data if you enable it.</string>
 	<key>NSLocationWhenInUseUsageDescription</key>
 	<string>JSWidget uses your location to provide location-based scripts and widgets.</string>
 	<key>NSLocationTemporaryUsageDescriptionDictionary</key>

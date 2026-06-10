@@ -79,20 +79,6 @@ declare const $system: {
   activeProcessorCount(): number;
 };
 
-type HealthSample = {
-  value: number;
-  unit: string;
-  start: string;
-  end: string;
-};
-declare const $health: {
-  isAvailable(): boolean;
-  requestAuthorization(): Promise<boolean>;
-  stepCountToday(): Promise<HealthSample>;
-  activeEnergyToday(): Promise<HealthSample>;
-  heartRateLatest(): Promise<HealthSample>;
-};
-
 type LocationAuthorizationStatus =
   | "notDetermined"
   | "restricted"

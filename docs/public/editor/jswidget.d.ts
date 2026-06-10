@@ -209,35 +209,6 @@ declare const $system: {
   activeProcessorCount(): number;
 };
 
-type HealthSample = {
-  value: number;
-  unit: string;
-  start: string;
-  end: string;
-};
-declare const $health: {
-  isAvailable(): boolean;
-  requestAuthorization(): Promise<boolean>;
-  stepCountToday(): Promise<{
-        value: number;
-        unit: string;
-        start: string;
-        end: string;
-      }>;
-  activeEnergyToday(): Promise<{
-        value: number;
-        unit: string;
-        start: string;
-        end: string;
-      }>;
-  heartRateLatest(): Promise<{
-        value: number;
-        unit: string;
-        start: string;
-        end: string;
-      }>;
-};
-
 type LocationAuthorizationStatus =
   "notDetermined" | "restricted" | "denied" | "authorizedAlways" | "authorizedWhenInUse" | "disabled" | "unknown" | "unavailable";  // 非 iOS stub
 

@@ -199,7 +199,6 @@ vim script.js  # Write your widget code
 | `useCalendar()` | Access calendar events |
 | `useReminders()` | Fetch reminder lists |
 | `useLocation()` | Get device location |
-| `useHealth()` | HealthKit data |
 | `useNetwork()` | Network requests |
 
 ---

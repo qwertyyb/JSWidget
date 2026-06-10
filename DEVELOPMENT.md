@@ -144,7 +144,7 @@ A：只改 `docs/dts/` 三分片；合并后的 `docs/public/editor/jswidget.d.t
 **Q：新增 `$foo` API 后补全没有方法列表？**  
 A：在 `api.d.ts` 中用带方法签名的对象类型声明，例如 `declare const $foo: { bar(): string }`。`Record<string, unknown>` 不会导出方法名。
 
-**Q：`$system` / `$health` 等方法为空？**  
+**Q：`$system` 等方法为空？**  
 A：与 `.d.ts` 中 `Record<string, unknown>` 一致；若运行时实际有固定方法，应在 `api.d.ts` 改为显式接口后再 `pnpm generate`。
 
 ---

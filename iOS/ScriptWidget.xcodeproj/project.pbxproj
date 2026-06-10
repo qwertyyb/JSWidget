@@ -8,7 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		07676AEFBC394DE89F001041 /* ScriptWidgetRuntimeLocation.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC40ED375515427089251479 /* ScriptWidgetRuntimeLocation.swift */; };
-		1E22E34C64E42F5CF2DA6EDD /* HealthKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 95D38A9C0960C28615553017 /* HealthKit.framework */; };
 		219AD8869A85F18C81A30804 /* ScriptWidgetRuntimeSystem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1AE63BF6B17D4C800EFF80E9 /* ScriptWidgetRuntimeSystem.swift */; };
 		373209637CBE4F2B8618D0C5 /* DocsOverlayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C20D47DBAFFB43F899EF963B /* DocsOverlayView.swift */; };
 		45F2DDE62FC06A35001642C2 /* PrivacyInfo.xcprivacy in Resources */ = {isa = PBXBuildFile; fileRef = 45F2DDE42FC06A35001642C2 /* PrivacyInfo.xcprivacy */; };
@@ -397,7 +396,6 @@
 		654916CAF3464C1D5149BB77 /* ScriptWidgetRuntimeHealth.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScriptWidgetRuntimeHealth.swift; sourceTree = "<group>"; };
 		750919EB639B4EB3B07D27FC /* ReloadWidgetAppIntent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReloadWidgetAppIntent.swift; sourceTree = "<group>"; };
 		8696A9E95487441694A46115 /* DocsHomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DocsHomeView.swift; sourceTree = "<group>"; };
-		95D38A9C0960C28615553017 /* HealthKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = HealthKit.framework; path = System/Library/Frameworks/HealthKit.framework; sourceTree = SDKROOT; };
 		9CAE338C670B4A70B52A6CFD /* ScriptWidgetRuntimeStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScriptWidgetRuntimeStorage.swift; sourceTree = "<group>"; };
 		A1B2C3D4E5F6789000AABB01 /* ScriptImportView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScriptImportView.swift; sourceTree = "<group>"; };
 		A1B2C3D4E5F6A7B800000002 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "Localizations/zh-Hans.lproj/Localizable.strings"; sourceTree = "<group>"; };
@@ -672,7 +670,6 @@
 				F2B20D1925D3EAEA00B62DAC /* CloudKit.framework in Frameworks */,
 				5A912FAA2D2135330050F250 /* ClockHandRotationKit in Frameworks */,
 				F296EA1A25E8909700E87A4A /* StoreKit.framework in Frameworks */,
-				1E22E34C64E42F5CF2DA6EDD /* HealthKit.framework in Frameworks */,
 				F245BBED25B9E5DC00F25F68 /* SDWebImageSwiftUI in Frameworks */,
 				F245BBF825B9E62300F25F68 /* SwiftyJSON in Frameworks */,
 				F228DDB627A37776009E8F04 /* ZipArchive in Frameworks */,
@@ -897,7 +894,6 @@
 			isa = PBXGroup;
 			children = (
 				F296EA1925E8909700E87A4A /* StoreKit.framework */,
-				95D38A9C0960C28615553017 /* HealthKit.framework */,
 				F2B20D1825D3EAEA00B62DAC /* CloudKit.framework */,
 				D18AAC6F252A14AE0065386A /* WidgetKit.framework */,
 				D18AAC71252A14AE0065386A /* SwiftUI.framework */,

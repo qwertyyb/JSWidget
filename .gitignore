@@ -11,3 +11,5 @@ node_modules/
 .vitepress/.temp/
 docs/public/jswidget-script-gen.zip
 docs/jswidget-script-gen/references/
+build/
+.private_keys

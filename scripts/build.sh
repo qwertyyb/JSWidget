@@ -60,10 +60,6 @@ xcodebuild \
   -destination 'generic/platform=iOS' \
   clean archive \
   -archivePath "$ARCHIVE_PATH" \
-  -allowProvisioningUpdates \
-  -authenticationKeyPath "$AUTH_KEY_P8_PATH" \
-  -authenticationKeyID "$AUTH_KEY_ID" \
-  -authenticationKeyIssuerID "$AUTH_KEY_ISSUER_ID" \
   MARKETING_VERSION="$MARKETING_VERSION" \
   CURRENT_PROJECT_VERSION="$CURRENT_PROJECT_VERSION" \
   CODE_SIGN_STYLE=Automatic \

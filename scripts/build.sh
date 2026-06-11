@@ -4,6 +4,36 @@ set -euo pipefail
 SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
 PROJECT_ROOT="$(cd "$SCRIPT_DIR/.." && pwd)"
 
+# ---------- 用法说明 ----------
+usage() {
+  cat <<'HELP'
+Usage: build.sh [--export | --testflight | --appstore]
+
+  --export      仅导出 IPA，不上传（默认）
+  --testflight  导出并上传到 TestFlight 内测
+  --appstore    导出并上传到 App Store Connect 提交审核
+
+Environment variables:
+  APP_VERSION          对外版本号（默认 1.2.3）
+  CI_BUILD_NUMBER      构建号（默认用 git commit count）
+  AUTH_KEY_ID          App Store Connect API Key ID
+  AUTH_KEY_ISSUER_ID   App Store Connect API Issuer ID
+HELP
+  exit 0
+}
+
+# ---------- 参数解析 ----------
+MODE="export"
+while [[ $# -gt 0 ]]; do
+  case "$1" in
+    --export)     MODE="export";     shift ;;
+    --testflight) MODE="testflight"; shift ;;
+    --appstore)   MODE="appstore";   shift ;;
+    --help|-h)    usage ;;
+    *) echo "❌ Unknown option: $1" >&2; usage ;;
+  esac
+done
+
 # ---------- 版本配置 ----------
 MARKETING_VERSION="${APP_VERSION:-1.2.3}"
 
@@ -33,9 +63,15 @@ fi
 
 ARCHIVE_PATH="$PROJECT_ROOT/build/ScriptWidget.xcarchive"
 EXPORT_PATH="$PROJECT_ROOT/build/output"
-EXPORT_OPTIONS="$PROJECT_ROOT/scripts/ExportOptions.plist"
 
-echo "📦 Building:"
+# 根据模式选择 ExportOptions
+case "$MODE" in
+  export)     EXPORT_OPTIONS="$SCRIPT_DIR/ExportOptions-export.plist" ;;
+  testflight) EXPORT_OPTIONS="$SCRIPT_DIR/ExportOptions-testflight.plist" ;;
+  appstore)   EXPORT_OPTIONS="$SCRIPT_DIR/ExportOptions-appstore.plist" ;;
+esac
+
+echo "📦 Building ($MODE):"
 echo "   MARKETING_VERSION=$MARKETING_VERSION"
 echo "   CURRENT_PROJECT_VERSION=$CURRENT_PROJECT_VERSION"
 
@@ -78,4 +114,4 @@ xcodebuild \
   -authenticationKeyID "$AUTH_KEY_ID" \
   -authenticationKeyIssuerID "$AUTH_KEY_ISSUER_ID" \
 
-echo "✅ Done! IPA exported to: $EXPORT_PATH"
+echo "✅ Done ($MODE)! IPA exported to: $EXPORT_PATH"

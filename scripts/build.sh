@@ -57,6 +57,7 @@ xcodebuild \
   -project "$PROJECT_ROOT/iOS/ScriptWidget.xcodeproj" \
   -scheme "ScriptWidget" \
   -configuration Release \
+  -destination 'generic/platform=iOS' \
   clean archive \
   -archivePath "$ARCHIVE_PATH" \
   -allowProvisioningUpdates \
@@ -64,7 +65,9 @@ xcodebuild \
   -authenticationKeyID "$AUTH_KEY_ID" \
   -authenticationKeyIssuerID "$AUTH_KEY_ISSUER_ID" \
   MARKETING_VERSION="$MARKETING_VERSION" \
-  CURRENT_PROJECT_VERSION="$CURRENT_PROJECT_VERSION"
+  CURRENT_PROJECT_VERSION="$CURRENT_PROJECT_VERSION" \
+  CODE_SIGN_STYLE=Automatic \
+  DEVELOPMENT_TEAM="T68XK6867P"
 
 # ---------- 导出 IPA ----------
 echo "📦 Exporting IPA..."

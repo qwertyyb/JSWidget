@@ -46,7 +46,6 @@ pnpm install
 pnpm build:tools
 
 cd "$PROJECT_ROOT/Editor/editorfe"
-pnpm install
 pnpm run build
 
 # ---------- 构建输出目录 ----------

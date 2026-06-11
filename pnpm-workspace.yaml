@@ -1,5 +1,6 @@
 packages:
   - 'Tools/*'
+  - 'Editor/editorfe'
 
 allowBuilds:
   esbuild: true

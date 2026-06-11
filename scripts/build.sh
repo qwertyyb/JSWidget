@@ -7,11 +7,10 @@ PROJECT_ROOT="$(cd "$SCRIPT_DIR/.." && pwd)"
 # ---------- 用法说明 ----------
 usage() {
   cat <<'HELP'
-Usage: build.sh [--export | --testflight | --appstore]
+Usage: build.sh [--export | --upload]
 
-  --export      仅导出 IPA，不上传（默认）
-  --testflight  导出并上传到 TestFlight 内测
-  --appstore    导出并上传到 App Store Connect 提交审核
+  --export      仅导出 IPA 到本地，不上传（默认）
+  --upload      导出 IPA 并上传到 App Store Connect
 
 Environment variables:
   APP_VERSION          对外版本号（默认 1.2.3）
@@ -26,9 +25,8 @@ HELP
 MODE="export"
 while [[ $# -gt 0 ]]; do
   case "$1" in
-    --export)     MODE="export";     shift ;;
-    --testflight) MODE="testflight"; shift ;;
-    --appstore)   MODE="appstore";   shift ;;
+    --export)     MODE="export"; shift ;;
+    --upload)     MODE="upload"; shift ;;
     --help|-h)    usage ;;
     *) echo "❌ Unknown option: $1" >&2; usage ;;
   esac
@@ -37,8 +35,12 @@ done
 # ---------- 版本配置 ----------
 MARKETING_VERSION="${APP_VERSION:-1.2.3}"
 
+# CI 构建号偏移量，确保构建号持续递增
+# 如果 CI workflow 重置了 run_number，将此值调大为上次最终构建号即可
+BUILD_NUMBER_OFFSET=103
+
 if [ -n "${CI_BUILD_NUMBER:-}" ]; then
-  CURRENT_PROJECT_VERSION="$CI_BUILD_NUMBER"
+  CURRENT_PROJECT_VERSION=$(( CI_BUILD_NUMBER + BUILD_NUMBER_OFFSET ))
 else
   CURRENT_PROJECT_VERSION="$(git rev-list --count HEAD)"
 fi
@@ -64,12 +66,7 @@ fi
 ARCHIVE_PATH="$PROJECT_ROOT/build/ScriptWidget.xcarchive"
 EXPORT_PATH="$PROJECT_ROOT/build/output"
 
-# 根据模式选择 ExportOptions
-case "$MODE" in
-  export)     EXPORT_OPTIONS="$SCRIPT_DIR/ExportOptions-export.plist" ;;
-  testflight) EXPORT_OPTIONS="$SCRIPT_DIR/ExportOptions-testflight.plist" ;;
-  appstore)   EXPORT_OPTIONS="$SCRIPT_DIR/ExportOptions-appstore.plist" ;;
-esac
+EXPORT_OPTIONS="$SCRIPT_DIR/ExportOptions-export.plist"
 
 echo "📦 Building ($MODE):"
 echo "   MARKETING_VERSION=$MARKETING_VERSION"
@@ -113,5 +110,16 @@ xcodebuild \
   -authenticationKeyPath "$AUTH_KEY_P8_PATH" \
   -authenticationKeyID "$AUTH_KEY_ID" \
   -authenticationKeyIssuerID "$AUTH_KEY_ISSUER_ID" \
+
+# ---------- 上传 ----------
+if [ "$MODE" != "export" ]; then
+  echo "📦 Uploading to App Store Connect ($MODE)..."
+  xcrun altool --upload-app \
+    -f "$EXPORT_PATH/ScriptWidget.ipa" \
+    -t ios \
+    --apiKey "$AUTH_KEY_ID" \
+    --apiIssuer "$AUTH_KEY_ISSUER_ID" \
+    --p8-file-path "$AUTH_KEY_P8_PATH"
+fi
 
 echo "✅ Done ($MODE)! IPA exported to: $EXPORT_PATH"

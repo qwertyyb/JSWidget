@@ -50,7 +50,7 @@ jobs:
           CI_BUILD_NUMBER: ${{ github.run_number }}
         run: |
           export APP_VERSION="${APP_VERSION#v}"
-          bash scripts/build.sh --appstore
+          bash scripts/build.sh --upload
 
       - name: Upload IPA artifact
         uses: actions/upload-artifact@v4

@@ -1,6 +1,6 @@
 const getHot = async () => {
   try {
-    const response = await $http.get('https://www.v2ex.com/api/topics/hot.json', {
+    const response = await $http.get('https://www.v2ex.com/api/topics/hot.json?_='+Date.now(), {
       timeoutInterval: 6
     })
     const json = JSON.parse(response)
@@ -14,9 +14,11 @@ const getHot = async () => {
     const updateTime = `${month}-${day} ${hour}:${minute}`
 
     const data = { list: json, updateTime: updateTime }
+    console.log(data)
     $storage.setJSON('v2ex_hot', data)
     return data
   } catch (err) {
+    console.error(err)
     const cachedData = $storage.getJSON('v2ex_hot')
     if (cachedData) {
       return cachedData
@@ -29,13 +31,14 @@ const data = await getHot()
 const { list, updateTime } = data
 
 const size = $getenv('widget-size')
+const isDark = $device.isdarkmode()
 const count = size === 'large' ? 20 : 5
 
 $render(
-  <col padding={{ vertical: 6 }} spacing={0}>
+  <col padding={{ vertical: 6, horizontal: 16 }} spacing={0} backgroundColor={{light: "#fff", dark: "#000" }} size={{height:'fill'}}>
     {/* 头部 */}
-    <row padding={{ leading: 24, trailing: 24 }}>
-      <link url="https://v2ex.com">
+    <row padding={{ leading: 8, trailing: 8 }}>
+      <link url="https://www.v2ex.com">
         <text font={{ size: 12, weight: 'bold' }} opacity={0.7}>
           V2EX热帖
         </text>
@@ -49,14 +52,14 @@ $render(
     <spacer length={4} />
 
     {/* 分割线 */}
-    <divider thickness={1} color="#f1f1f1" />
+    <divider thickness={1} color={{light:"#fcfcfc", dark:"#444"}} opacity={0.2}/>
 
     <spacer length={4} />
 
     {/* 热帖列表 */}
-    <col spacing={6}>
+    <col spacing={3}>
       {list.slice(0, count).map((item, index) => (
-        <row key={item.id} size={{ width: 'fill' }} justify="start" padding={{ vertical:2, horizontal: 16 }}>
+        <row key={item.id} size={{ width: 'fill' }} justify="start" padding={{ vertical:2, horizontal: 0 }}>
           <link url={item.url}>
             <row size={{ width: 'fill' }} justify="start">
               <text
@@ -66,14 +69,14 @@ $render(
               >
                 {index + 1}
               </text>
-              <text font={14} lineLimit={1} flex={1}>
+              <text font={{weight:'bold',size:14}} lineLimit={1} flex={1}>
                 {item.title}
               </text>
               <spacer />
               <text
                 font={{ name: 'body', weight: 'bold', size: 10 }}
                 opacity={0.6}
-                padding={{ top: 2, trailing: 10 }}
+                padding={{ top: 2, trailing: 0 }}
               >
                 {item.replies}回复
               </text>
